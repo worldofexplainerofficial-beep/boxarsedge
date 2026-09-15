@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOXAR'S EDGE — Career Character Select</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+:root{
+  --bg:#04080d;
+  --white:#f7f8fb;
+  --muted:#aab4c1;
+  --purple:#7626e8;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden}
+body{
+  font-family:"Plus Jakarta Sans",Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--white);
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-3;
+  background:
+    linear-gradient(90deg,rgba(1,5,9,.88) 0%,rgba(1,5,9,.48) 36%,rgba(1,5,9,.18) 65%,rgba(1,5,9,.68) 100%),
+    linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.12) 38%,rgba(0,0,0,.78) 100%),
+    url("../../../assets/images/misc/gym3.png") center/cover no-repeat;
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 44%,transparent 0 32%,rgba(0,0,0,.18) 63%,rgba(0,0,0,.7) 100%),
+    linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.38));
+}
+button{font:inherit}
+
+.app{position:relative;width:100vw;height:100vh}
+
+/* HEADER */
+.topbar{
+  position:absolute;z-index:20;left:3vw;right:3vw;top:5.7vh;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  pointer-events:none;
+}
+h1{
+  margin:0;
+  font-family:"Plus Jakarta Sans",Inter,Arial,sans-serif;
+  font-size:clamp(48px,4.45vw,78px);
+  line-height:.9;
+  font-weight:800;
+  letter-spacing:-.07em;
+  text-shadow:0 8px 28px rgba(0,0,0,.55);
+}
+.subtitle{
+  margin:13px 0 0;
+  font-size:10px;
+  line-height:1.4;
+  font-weight:800;
+  letter-spacing:.15em;
+  color:#d7dce4;
+}
+.selection{text-align:right;padding-top:3px}
+.selection-label{
+  display:block;color:#aeb8c5;
+  font-size:9px;font-weight:800;letter-spacing:.23em;
+}
+.selection-name{
+  display:block;margin-top:7px;
+  font-size:clamp(20px,1.7vw,30px);
+  font-weight:800;letter-spacing:.04em;
+}
+
+/* CAROUSEL */
+.stage{
+  position:absolute;inset:0;
+  z-index:1;
+  overflow:hidden;
+  perspective:2200px;
+}
+.carousel{
+  position:absolute;
+  left:0;right:0;
+  top:14.5vh;
+  height:71vh;
+  transform-style:preserve-3d;
+}
+.fighter-card{
+  --card-w:clamp(178px,13.2vw,230px);
+  position:absolute;
+  left:50%;
+  top:0;
+  width:var(--card-w);
+  height:68vh;
+  min-height:560px;
+  max-height:690px;
+  margin-left:calc(var(--card-w) / -2);
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  transform-origin:center 54%;
+  transition:
+    transform 820ms cubic-bezier(.16,1,.3,1),
+    opacity 440ms ease,
+    filter 560ms cubic-bezier(.16,1,.3,1);
+  will-change:transform,opacity,filter;
+}
+.fighter-card:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+.panel{
+  position:absolute;inset:0;
+  overflow:hidden;
+  background:var(--accent);
+  clip-path:polygon(8% 0,100% 0,92% 100%,0 100%);
+  box-shadow:0 20px 60px rgba(0,0,0,.34);
+}
+.fighter-art{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center center;
+  display:block;
+  transform:scale(1.015);
+  transition:transform 900ms cubic-bezier(.16,1,.3,1);
+}
+.panel::before{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.05),transparent 22%,transparent 62%,rgba(0,0,0,.44)),
+    linear-gradient(90deg,rgba(0,0,0,.18),transparent 22%,transparent 78%,rgba(0,0,0,.15));
+}
+.panel::after{
+  content:"";position:absolute;z-index:3;pointer-events:none;
+  top:-15%;bottom:-15%;width:20%;
+  left:-35%;
+  opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.26),transparent);
+  transform:skewX(-18deg);
+}
+.fighter-card.active .panel::after{
+  animation:sweep 1.15s cubic-bezier(.16,1,.3,1) .1s both;
+}
+@keyframes sweep{
+  0%{left:-35%;opacity:0}
+  12%{opacity:.8}
+  100%{left:125%;opacity:0}
+}
+.card-name{
+  position:absolute;z-index:5;
+  left:0;right:0;bottom:0;
+  padding:90px 16px 23px;
+  text-align:center;
+  font-size:clamp(15px,1.45vw,26px);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.035em;
+  text-transform:uppercase;
+  color:#fff;
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .32s ease .16s,transform .52s cubic-bezier(.16,1,.3,1) .16s;
+  background:linear-gradient(0deg,rgba(0,0,0,.82),transparent 82%);
+  text-shadow:0 4px 16px rgba(0,0,0,.85);
+}
+.fighter-card.active .card-name{opacity:1;transform:translateY(0)}
+.fighter-card.active .fighter-art{transform:scale(1.045)}
+
+/* CONTROLS */
+.controls{
+  position:absolute;z-index:30;
+  left:50%;bottom:2.1vh;
+  transform:translateX(-50%);
+  display:flex;align-items:center;gap:48px;
+}
+.arrow{
+  appearance:none;border:0;background:transparent;
+  color:#fff;
+  padding:0;
+  width:54px;height:54px;
+  font-size:70px;
+  line-height:.58;
+  font-weight:500;
+  cursor:pointer;
+  text-shadow:0 5px 18px rgba(0,0,0,.75);
+  transition:transform .3s cubic-bezier(.16,1,.3,1),color .25s ease,text-shadow .25s ease;
+}
+.arrow:hover{transform:scale(1.2);color:#fff;text-shadow:0 0 18px rgba(118,38,232,.9)}
+.arrow:active{transform:scale(.88)}
+
+/* FOOTER */
+.footer{
+  position:absolute;z-index:25;
+  left:3vw;right:3vw;bottom:2.3vh;
+  display:flex;justify-content:space-between;align-items:center;
+  pointer-events:none;
+}
+.footer-left{
+  display:flex;align-items:flex-end;gap:24px;
+  pointer-events:auto;
+}
+.main-menu{
+  appearance:none;border:0;background:transparent;padding:8px 0;
+  color:rgba(255,255,255,.58);
+  font-size:10px;font-weight:800;letter-spacing:.18em;
+  cursor:pointer;white-space:nowrap;
+  transition:color .25s ease,transform .25s cubic-bezier(.16,1,.3,1),text-shadow .25s ease;
+}
+.main-menu::before{content:'←';margin-right:9px;font-size:15px;vertical-align:-1px}
+.main-menu:hover,.main-menu:focus-visible{
+  color:#fff;transform:translateX(-3px);
+  text-shadow:0 0 18px rgba(118,38,232,.8);outline:0;
+}
+.main-menu:active{transform:translateX(1px)}
+.hint{
+  max-width:620px;
+  color:#aeb7c1;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.13em;
+  line-height:1.5;
+}
+.start{
+  pointer-events:auto;
+  appearance:none;
+  border:0;background:transparent;
+  padding:8px 0;
+  color:rgba(255,255,255,.58);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.17em;
+  cursor:pointer;
+  transition:color .25s ease,transform .25s cubic-bezier(.16,1,.3,1),text-shadow .25s ease;
+}
+.start:hover,.start:focus-visible{
+  color:#fff;
+  transform:translateY(-2px);
+  text-shadow:0 0 20px rgba(118,38,232,.8);
+  outline:0;
+}
+.start:active{transform:translateY(1px)}
+.career-actions{display:flex;align-items:center;gap:28px;pointer-events:auto}
+.load-input{display:none}
+
+
+/* ATMOSPHERIC MOTION */
+.fighter-card{
+  animation: boardFloat 5.8s ease-in-out infinite;
+}
+.fighter-card:nth-child(2n){animation-duration:6.7s;animation-delay:-1.4s}
+.fighter-card:nth-child(3n){animation-duration:7.4s;animation-delay:-3.1s}
+.fighter-card:nth-child(4n){animation-duration:6.2s;animation-delay:-2.2s}
+
+@keyframes boardFloat{
+  0%,100%{translate:0 0}
+  50%{translate:0 -7px}
+}
+
+/* Slight independent drift for the active board. */
+.fighter-card.active{
+  animation-name:boardFloatActive;
+  animation-duration:4.8s;
+}
+@keyframes boardFloatActive{
+  0%,100%{translate:0 0}
+  50%{translate:0 -10px}
+}
+
+/* Cinematic vignette */
+.app::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:18;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 46%, transparent 28%, rgba(0,0,0,.05) 47%, rgba(0,0,0,.26) 78%, rgba(0,0,0,.62) 100%),
+    linear-gradient(90deg, rgba(0,0,0,.22), transparent 18%, transparent 82%, rgba(0,0,0,.22));
+}
+
+/* 1px-class subtle edge lens / optical softness */
+.edge-lens{
+  position:fixed;
+  inset:0;
+  z-index:19;
+  pointer-events:none;
+  opacity:.55;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.025), transparent 2.2%, transparent 97.8%, rgba(90,140,255,.025)),
+    linear-gradient(180deg, rgba(255,255,255,.018), transparent 2.2%, transparent 97.8%, rgba(90,140,255,.018));
+  box-shadow:
+    inset 1px 0 1px rgba(255,255,255,.035),
+    inset -1px 0 1px rgba(55,105,255,.035),
+    inset 0 1px 1px rgba(255,255,255,.025),
+    inset 0 -1px 1px rgba(55,105,255,.025);
+  filter:blur(.15px);
+}
+
+/* Particle field around the carousel */
+#fireflies{
+  position:absolute;
+  inset:0;
+  z-index:16;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  mix-blend-mode:screen;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .fighter-card{animation:none!important}
+  #fireflies{display:none}
+}
+
+@media(max-width:900px){
+  .topbar{top:3.5vh;left:5vw;right:5vw}
+  h1{font-size:clamp(40px,10vw,64px)}
+  .selection{display:none}
+  .carousel{top:17vh;height:68vh}
+  .fighter-card{
+    --card-w:42vw;
+    height:63vh;
+    min-height:0;
+  }
+  .hint{display:none}
+  .footer{left:5vw;right:5vw;bottom:2vh}
+  .footer-left{gap:0}
+  .career-actions{gap:18px}
+  .controls{bottom:8.5vh;gap:34px}
+}
+
+    /* ===== CHARACTER SELECT ATMOSPHERIC MOTION KIT ===== */
+    .cs-motion-kit{
+      position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden;
+      opacity:.78;
+    }
+    .cs-motion-kit .cs-orbit{
+      position:absolute; left:50%; top:46%; width:min(48vw,560px); aspect-ratio:1.55;
+      transform:translate(-50%,-50%) rotate(-8deg);
+      border:1px solid rgba(255,255,255,.075); border-radius:50%;
+      box-shadow:0 0 70px rgba(255,255,255,.025);
+      animation:csKitFloat 9s ease-in-out infinite;
+    }
+    .cs-motion-kit .cs-orbit::before,.cs-motion-kit .cs-orbit::after{
+      content:''; position:absolute; inset:9% 16%; border:1px solid rgba(201,162,39,.10);
+      border-radius:50%; transform:rotate(28deg);
+    }
+    .cs-motion-kit .cs-orbit::after{inset:20% 5%; border-color:rgba(255,255,255,.045); transform:rotate(-18deg);}
+    .cs-motion-kit i{
+      position:absolute; display:block; width:5px; height:5px; border-radius:50%;
+      background:rgba(255,235,185,.55); box-shadow:0 0 14px rgba(255,220,150,.28);
+      animation:csKitDot 5.8s ease-in-out infinite;
+    }
+    .cs-motion-kit i:nth-child(2){left:18%;top:30%;animation-delay:-1.7s;transform:scale(.7)}
+    .cs-motion-kit i:nth-child(3){right:17%;top:22%;animation-delay:-3.2s;transform:scale(.55)}
+    .cs-motion-kit i:nth-child(4){right:26%;bottom:18%;animation-delay:-4.1s;transform:scale(.8)}
+    .cs-motion-kit i:nth-child(5){left:27%;bottom:15%;animation-delay:-2.4s;transform:scale(.5)}
+    @keyframes csKitFloat{0%,100%{transform:translate(-50%,-50%) rotate(-8deg) scale(1)}50%{transform:translate(-50%,-53%) rotate(-5deg) scale(1.018)}}
+    @keyframes csKitDot{0%,100%{opacity:.18;translate:0 0}50%{opacity:.62;translate:4px -7px}}
+    .cs-fireflies-bottom{
+      position:absolute; left:0; right:0; bottom:0; width:100%; height:38%; z-index:4;
+      pointer-events:none; mix-blend-mode:screen;
+      -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 22%,#000 58%,#000 100%);
+      mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.35) 22%,#000 58%,#000 100%);
+    }
+    @media (prefers-reduced-motion:reduce){.cs-motion-kit .cs-orbit,.cs-motion-kit i{animation:none!important}.cs-fireflies-bottom{display:none}}
+</style>
+</head>
+
+<body>
+<main class="app">
+  <header class="topbar">
+    <div class="brand">
+      <h1>CHOOSE YOUR<br>FIGHTER</h1>
+      <p class="subtitle">CAREER MODE · START FROM THE BOTTOM · BUILD YOUR LEGACY</p>
+    </div>
+
+    <div class="selection" aria-live="polite">
+      <span class="selection-label">CURRENT FIGHTER</span>
+      <span class="selection-name" id="selectionName">MX</span>
+    </div>
+  </header>
+
+  <section class="stage" aria-label="Fighter selection carousel">
+    <div class="carousel" id="carousel"></div>
+    <canvas id="fireflies" aria-hidden="true"></canvas>
+    <div class="controls">
+      <button class="arrow" id="prev" aria-label="Previous fighter">‹</button>
+      <button class="arrow" id="next" aria-label="Next fighter">›</button>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <button class="main-menu" id="mainMenu" aria-label="Return to main menu">MAIN MENU</button>
+      <div class="hint">CLICK A FIGHTER OR USE ← → TO ROTATE THE CAROUSEL</div>
+    </div>
+    <div class="career-actions">
+      <button class="start" id="start">START CAREER</button>
+      <button class="start" id="loadCareer" type="button">LOAD CAREER</button>
+      <input class="load-input" id="careerFileInput" type="file" accept=".json,application/json">
+    </div>
+  </footer>
+</main>
+<div class="edge-lens" aria-hidden="true"></div>
+
+<script>
+const roster = [
+  {id:'mx', name:'MX', gender:'male', image:'../../../assets/images/ui/characterselect-mx.png', model:'../../../assets/models/characters/MX.glb', accent:'#e62a2a'},
+  {id:'chidi', name:'CHIDI', gender:'male', image:'../../../assets/images/characters/Chidi.png', model:'../../../assets/models/characters/opponent.glb', accent:'#23638b'},
+  {id:'fighter2', name:'SIKORSKY', gender:'male', image:'../../../assets/images/characters/Sikorsky.png', model:'../../../assets/models/characters/fighter 2.glb', accent:'#7c1cff'},
+  {id:'yassine', name:'YASSINE', gender:'male', image:'../../../assets/images/characters/Yassine-select.png', model:'../../../assets/models/characters/Yassine.glb', accent:'#d9412d'},
+  {id:'spaz', name:'SPAZ', gender:'male', image:'../../../assets/images/characters/Spaz.png', model:'../../../assets/models/characters/Spaz.glb', accent:'#54a7d5'},
+  {id:'bobby', name:'BOBBY', gender:'male', image:'../../../assets/images/characters/bobby1.png', model:'../../../assets/models/characters/Bobby.glb', accent:'#b66b34'},
+  {id:'abas', name:'ABAS', gender:'female', image:'../../../assets/images/characters/Abass.png', model:'../../../assets/models/characters/Abas.glb', accent:'#8eb83c'},
+  {id:'patra', name:'PATRA', gender:'female', image:'../../../assets/images/characters/Patra.png', model:'../../../assets/models/characters/Patra.glb', accent:'#cc274f'},
+  {id:'tomiwa', name:'TOMIWA', gender:'female', image:'../../../assets/images/characters/Tomiwa.png', model:'../../../assets/models/characters/Tomiwa.glb', accent:'#1f9d83'},
+  {id:'feesa', name:'FEESA', gender:'female', image:'../../../assets/images/characters/Feesa.png', model:'../../../assets/models/characters/Feesa.glb', accent:'#8239b6'},
+  {id:'celeste', name:'CELESTE', gender:'female', image:'../../../assets/images/characters/celeste.png', model:'../../../assets/models/characters/Celeste.glb', accent:'#244f9d'},
+  {id:'amara', name:'AMARA', gender:'female', image:'../../../assets/images/characters/Amara.png', model:'../../../assets/models/characters/Amara.glb', accent:'#d2602e'},
+  {id:'fauzia', name:'FAUZIA', gender:'female', image:'../../../assets/images/characters/Fauzia.png', model:'../../../assets/models/characters/Fauzia.glb', accent:'#2c78a8'},
+  {id:'tife', name:'TIFE', gender:'female', image:'../../../assets/images/characters/Tianabolu.png', model:'../../../assets/models/characters/Tife.glb', accent:'#d51f73'},
+  {id:'efe', name:'EFE', gender:'male', image:'../../../assets/images/characters/Efe.png', model:'../../../assets/models/characters/Efe.glb', accent:'#2f8d65'},
+  {id:'akeem', name:'AKEEM', gender:'male', image:'../../../assets/images/characters/Akeem.png', model:'../../../assets/models/characters/Akeem.glb', accent:'#1f6a50'},
+  {id:'lopez', name:'ADETOKUMBO LOPEZ', gender:'male', image:'../../../assets/images/characters/lopez.png', model:'../../../assets/models/characters/adetokumbo.glb', accent:'#c98624'}
+];
+
+const carousel = document.getElementById('carousel');
+const nameOut = document.getElementById('selectionName');
+const start = document.getElementById('start');
+const loadCareer = document.getElementById('loadCareer');
+const careerFileInput = document.getElementById('careerFileInput');
+let selectedIndex = 2;
+let cardEls = [];
+
+roster.forEach((fighter, i) => {
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.className = 'fighter-card';
+  card.style.setProperty('--accent', fighter.accent);
+  card.innerHTML = `
+    <span class="panel">
+      <img class="fighter-art" src="${fighter.image}" alt="${fighter.name}" draggable="false">
+      <span class="card-name">${fighter.name}</span>
+    </span>`;
+  card.addEventListener('click', () => select(i));
+  carousel.appendChild(card);
+  cardEls.push(card);
+});
+
+function shortestDistance(i, active, total){
+  let d = i - active;
+  if(d > total / 2) d -= total;
+  if(d < -total / 2) d += total;
+  return d;
+}
+
+function render(){
+  const total = roster.length;
+  const active = roster[selectedIndex];
+
+  cardEls.forEach((card, i) => {
+    const d = shortestDistance(i, selectedIndex, total);
+    const ad = Math.abs(d);
+    const visible = ad <= 5;
+
+    // Tight overlapping fan, matching the reference composition.
+    const x = d * 12.2;
+    const z = ad === 0 ? 220 : 100 - ad * 70;
+    const rotY = d * -4.8;
+    const rotZ = d * 1.6;
+    const scale = ad === 0 ? 1.36 : Math.max(.82, 1.06 - ad * .045);
+    const y = ad === 0 ? 1.5 : 38 + ad * 4;
+
+    card.style.transform =
+      `translateX(-50%) translateX(${x}vw) translateY(${y}px) translateZ(${z}px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${scale})`;
+
+    card.style.opacity = visible ? String(Math.max(.20, 1 - ad * .13)) : '0';
+    card.style.filter = ad === 0
+      ? 'brightness(1.04) saturate(1.04)'
+      : `brightness(${Math.max(.34, .86 - ad*.10)}) saturate(${Math.max(.45, .92-ad*.08)})`;
+
+    card.style.zIndex = String(200 - ad * 10);
+    card.classList.toggle('active', i === selectedIndex);
+    card.setAttribute('aria-hidden', visible ? 'false' : 'true');
+    card.tabIndex = i === selectedIndex ? 0 : -1;
+  });
+
+  nameOut.textContent = active.name;
+}
+
+function select(index){
+  selectedIndex = (index + roster.length) % roster.length;
+  render();
+}
+
+document.getElementById('prev').addEventListener('click', () => select(selectedIndex - 1));
+document.getElementById('next').addEventListener('click', () => select(selectedIndex + 1));
+
+// Return to the BOXAR'S EDGE main menu without creating or overwriting a career save.
+document.getElementById('mainMenu').addEventListener('click', () => {
+  location.href = 'Boxars_edge_UI.html';
+});
+
+window.addEventListener('keydown', e => {
+  if(e.key === 'ArrowLeft'){ e.preventDefault(); select(selectedIndex - 1); }
+  if(e.key === 'ArrowRight'){ e.preventDefault(); select(selectedIndex + 1); }
+  if(e.key === 'Escape'){ e.preventDefault(); document.getElementById('mainMenu').click(); }
+  if(e.key === 'Enter' && document.activeElement === document.body) start.click();
+});
+
+start.addEventListener('click', () => {
+  const selected = roster[selectedIndex];
+  const opponents = roster.filter(x => x.gender === selected.gender && x.id !== selected.id);
+
+  const state = {
+    mode:'career',
+    version:2,
+    player:{
+      id:selected.id,
+      name:selected.name,
+      gender:selected.gender,
+      image:selected.image,
+      ...(selected.model ? {model:selected.model, baseModel:selected.model} : {})
+    },
+    opponents,
+    rank:0,
+    currentOpponent:opponents[0] || null,
+    wins:0,
+    losses:0,
+    stats:{power:25,speed:25,stamina:25,defense:25,footwork:25},
+    createdAt:new Date().toISOString()
+  };
+
+  // Authoritative downstream model selection. Career fight and bridge pages
+  // can now resolve the exact same GLB selected here.
+  if(selected.id === 'amara') {
+    state.player.model = '../../../assets/models/characters/Amara.glb';
+    state.player.baseModel = '../../../assets/models/characters/Amara.glb';
+  }
+  // MX is strictly bound to assets/models/characters/MX.glb. No skin, fallback or legacy roster model may override it.
+  if(selected.id === 'mx') {
+    state.player.model = '../../../assets/models/characters/MX.glb';
+    state.player.baseModel = '../../../assets/models/characters/MX.glb';
+  }
+  if(selected.id === 'celeste') {
+    state.player.model = '../../../assets/models/characters/Celeste.glb';
+    state.player.baseModel = '../../../assets/models/characters/Celeste.glb';
+  }
+  localStorage.setItem('boxar_career_state', JSON.stringify(state));
+  localStorage.setItem('boxar_career_mode','1');
+  localStorage.setItem('boxar_player_model', state.player.model || selected.model || '');
+  if(selected.id === 'amara') localStorage.setItem('boxar_amara_model','../../../assets/models/characters/Amara.glb');
+  if(selected.id === 'mx') localStorage.setItem('boxar_mx_model','../../../assets/models/characters/MX.glb');
+  if(selected.id === 'celeste') localStorage.setItem('boxar_celeste_model','../../../assets/models/characters/Celeste.glb');
+  location.href='Career_Mode_Bridge.html';
+});
+
+
+// LOAD CAREER — restore a previously exported Career Mode JSON save.
+function unwrapCareerSave(data){
+  if(!data || typeof data !== 'object') return null;
+  const candidates = [
+    data,
+    data.careerState,
+    data.boxar_career_state,
+    data.state,
+    data.career,
+    data.save && data.save.careerState,
+    data.save && data.save.boxar_career_state,
+    data.save && data.save.state,
+    data.data && data.data.careerState,
+    data.data && data.data.boxar_career_state,
+    data.data && data.data.state
+  ];
+  return candidates.find(x => x && typeof x === 'object' && (x.player || x.mode === 'career')) || null;
+}
+
+function validateCareerState(state){
+  return !!(
+    state && typeof state === 'object' &&
+    state.player && typeof state.player === 'object' &&
+    (state.player.id || state.player.name) &&
+    Array.isArray(state.opponents)
+  );
+}
+
+function restoreCareerState(state){
+  const restored = typeof structuredClone === 'function' ? structuredClone(state) : JSON.parse(JSON.stringify(state));
+  restored.mode = 'career';
+  restored.version = restored.version || 2;
+
+  // Preserve strict authoritative model assignments for known fighters.
+  if(restored.player){
+    const id = String(restored.player.id || '').toLowerCase();
+    if(id === 'amara') {
+      restored.player.model = '../../../assets/models/characters/Amara.glb';
+      restored.player.baseModel = '../../../assets/models/characters/Amara.glb';
+    }
+    if(id === 'mx') {
+      restored.player.model = '../../../assets/models/characters/MX.glb';
+      restored.player.baseModel = '../../../assets/models/characters/MX.glb';
+    }
+    if(id === 'celeste') {
+      restored.player.model = '../../../assets/models/characters/Celeste.glb';
+      restored.player.baseModel = '../../../assets/models/characters/Celeste.glb';
+    }
+  }
+
+  localStorage.setItem('boxar_career_state', JSON.stringify(restored));
+  localStorage.setItem('boxar_career_mode','1');
+  if(restored.player && restored.player.model) {
+    localStorage.setItem('boxar_player_model', restored.player.model);
+  }
+  if(restored.player && String(restored.player.id || '').toLowerCase() === 'amara') {
+    localStorage.setItem('boxar_amara_model','../../../assets/models/characters/Amara.glb');
+  }
+  if(restored.player && String(restored.player.id || '').toLowerCase() === 'mx') {
+    localStorage.setItem('boxar_mx_model','../../../assets/models/characters/MX.glb');
+  }
+  if(restored.player && String(restored.player.id || '').toLowerCase() === 'celeste') {
+    localStorage.setItem('boxar_celeste_model','../../../assets/models/characters/Celeste.glb');
+  }
+}
+
+loadCareer.addEventListener('click', () => careerFileInput.click());
+careerFileInput.addEventListener('change', async () => {
+  const file = careerFileInput.files && careerFileInput.files[0];
+  if(!file) return;
+  try {
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+    const state = unwrapCareerSave(parsed);
+    if(!validateCareerState(state)) {
+      throw new Error('This JSON file does not contain a valid Career Mode save.');
+    }
+    restoreCareerState(state);
+    location.href = 'Career_Mode_Bridge.html';
+  } catch(err) {
+    alert(err && err.message ? err.message : 'Unable to load this Career save file.');
+    careerFileInput.value = '';
+  }
+});
+
+
+// SUBTLE FIREFLIES — 1px to 2px particles drifting around the carousel
+const fireflyCanvas = document.getElementById('fireflies');
+const fctx = fireflyCanvas.getContext('2d');
+let fireflies = [];
+let fireflyW = 0, fireflyH = 0, fireflyDpr = 1;
+
+function resizeFireflies(){
+  fireflyDpr = Math.min(window.devicePixelRatio || 1, 2);
+  const rect = fireflyCanvas.getBoundingClientRect();
+  fireflyW = rect.width;
+  fireflyH = rect.height;
+  fireflyCanvas.width = Math.round(fireflyW * fireflyDpr);
+  fireflyCanvas.height = Math.round(fireflyH * fireflyDpr);
+  fctx.setTransform(fireflyDpr,0,0,fireflyDpr,0,0);
+
+  const count = Math.max(42, Math.min(78, Math.round(fireflyW / 22)));
+  fireflies = Array.from({length:count}, () => ({
+    x: fireflyW * (.08 + Math.random() * .84),
+    y: fireflyH * (.16 + Math.random() * .62),
+    r: 1 + Math.random(),
+    vx: (Math.random() - .5) * .08,
+    vy: -.025 - Math.random() * .06,
+    phase: Math.random() * Math.PI * 2,
+    speed: .45 + Math.random() * .7,
+    alpha: .16 + Math.random() * .38
+  }));
+}
+
+function animateFireflies(t=0){
+  fctx.clearRect(0,0,fireflyW,fireflyH);
+  for(const p of fireflies){
+    p.phase += .012 * p.speed;
+    p.x += p.vx + Math.sin(p.phase) * .045;
+    p.y += p.vy + Math.cos(p.phase * .7) * .018;
+
+    if(p.y < fireflyH * .10){ p.y = fireflyH * .78; p.x = fireflyW * (.08 + Math.random() * .84); }
+    if(p.x < fireflyW*.04) p.x = fireflyW*.96;
+    if(p.x > fireflyW*.96) p.x = fireflyW*.04;
+
+    const pulse = .58 + .42 * Math.sin(p.phase * 1.8);
+    const a = p.alpha * pulse;
+
+    fctx.beginPath();
+    fctx.fillStyle = `rgba(255,225,160,${a})`;
+    fctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    fctx.fill();
+
+    if(pulse > .82){
+      fctx.beginPath();
+      fctx.fillStyle = `rgba(255,240,200,${a*.22})`;
+      fctx.arc(p.x,p.y,p.r*2.8,0,Math.PI*2);
+      fctx.fill();
+    }
+  }
+  requestAnimationFrame(animateFireflies);
+}
+resizeFireflies();
+window.addEventListener('resize', resizeFireflies);
+requestAnimationFrame(animateFireflies);
+
+render();
+</script>
+</body>
+</html>

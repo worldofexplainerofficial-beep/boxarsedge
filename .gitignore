@@ -1,0 +1,11 @@
+# Archives / recoverable duplicates (not part of the live game)
+archive/
+
+# Zipped distribution builds (created locally, never committed)
+*.zip
+
+# Local environment
+node_modules/
+dist/
+.DS_Store
+Thumbs.db

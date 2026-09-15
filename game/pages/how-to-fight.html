@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOXAR'S EDGE — How to Fight</title>
+<meta name="description" content="Learn the controls, systems and strategies that win rounds in BOXAR'S EDGE.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root{
+  --bg:#050505; --panel:#0b0b0b; --panel2:#101010; --ink:#f2f1ed;
+  --muted:#8d8d88; --line:#242424; --blue:#245dff; --blue2:#7e9eff;
+  --white:#f2f1ed; --red:#e5322d;
+  --s1:clamp(.5rem,.5vw,.7rem);
+  --s2:clamp(.75rem,.8vw,1rem);
+  --s3:clamp(1rem,1vw,1.25rem);
+  --s4:clamp(1.5rem,1.7vw,2rem);
+  --s5:clamp(2.25rem,3vw,3.5rem);
+  --s6:clamp(3.5rem,6vw,7rem);
+  --ease:cubic-bezier(.2,.75,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",Arial,sans-serif;font-size:16px;line-height:1.5;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:screen}
+a{color:inherit;text-decoration:none}
+img,svg{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+::selection{background:#fff;color:#000}
+
+/* MOTIONKIT-STYLE REVEALS */
+.mk-reveal{opacity:0;transform:translate3d(0,28px,0);clip-path:inset(12% 0 0 0);transition:opacity .7s var(--ease),transform .8s var(--ease),clip-path .8s var(--ease)}
+.mk-reveal.in{opacity:1;transform:none;clip-path:inset(0)}
+.mk-stagger>*{opacity:0;transform:translate3d(0,24px,0);clip-path:inset(8% 0 0 0);transition:opacity .65s var(--ease),transform .75s var(--ease),clip-path .75s var(--ease)}
+.mk-stagger.in>*{opacity:1;transform:none;clip-path:inset(0)}
+.mk-stagger.in>*:nth-child(1){transition-delay:.04s}.mk-stagger.in>*:nth-child(2){transition-delay:.12s}
+.mk-stagger.in>*:nth-child(3){transition-delay:.20s}.mk-stagger.in>*:nth-child(4){transition-delay:.28s}
+.mk-stagger.in>*:nth-child(5){transition-delay:.36s}.mk-stagger.in>*:nth-child(6){transition-delay:.44s}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes sweep{to{transform:rotate(360deg)}}
+@keyframes keyPop{40%{transform:scale(1.07)}100%{transform:scale(1)}}
+
+/* NAV */
+.nav{position:fixed;z-index:50;top:0;left:0;right:0;height:74px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 28px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(5,5,5,.76);backdrop-filter:blur(18px)}
+.brand-logo{width:112px;height:44px;object-fit:contain;object-position:left center}
+.nav-links{display:flex;gap:34px;font:700 11px Rajdhani;letter-spacing:.16em}
+.nav-links a{opacity:.68;transition:.2s}.nav-links a:hover,.nav-links a.active{opacity:1}
+.nav-cta{justify-self:end;border:1px solid #fff;padding:11px 16px;font:700 11px Rajdhani;letter-spacing:.14em;transition:.25s}
+.nav-cta:hover{background:#fff;color:#050505}
+
+/* HERO */
+.hero{min-height:92svh;position:relative;overflow:hidden;border-bottom:1px solid var(--line);padding:140px 7vw 72px;display:flex;align-items:center;background:radial-gradient(circle at 80% 35%,rgba(36,93,255,.28),transparent 27%),radial-gradient(circle at 10% 90%,rgba(229,50,45,.08),transparent 24%),#050505}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.9) 34%,rgba(5,5,5,.3) 67%,rgba(5,5,5,.72) 100%),linear-gradient(0deg,#050505 0%,transparent 28%,rgba(5,5,5,.45) 100%)}
+.hero-art{position:absolute;z-index:0;right:0;top:0;width:min(56vw,860px);height:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,#000 28%,#000 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 28%,#000 100%)}
+.hero-art img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.86) contrast(1.08) brightness(.78);animation:floatY 7s ease-in-out infinite}
+.hero-inner{position:relative;z-index:2;width:min(760px)}
+.eyebrow,.kicker{font:700 11px Rajdhani;letter-spacing:.22em;color:#a8a8a4}
+.hero h1{font:700 clamp(4.6rem,9vw,8.6rem)/.78 Rajdhani,Impact,sans-serif;letter-spacing:-.055em;text-transform:uppercase;margin:18px 0 26px}
+.hero h1 em,.section h2 em,.cta h2 em{font-style:normal;color:var(--blue2)}
+.hero-sub{max-width:620px;color:#b4b4b0;font-size:clamp(1rem,1.15vw,1.18rem);line-height:1.5;margin:0 0 30px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-width:210px;padding:15px 17px;border:1px solid rgba(255,255,255,.38);font:700 12px Rajdhani;letter-spacing:.13em;transition:.25s}
+.btn.primary{background:#fff;color:#050505;border-color:#fff}.btn.primary:hover{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-3px)}
+.btn.secondary:hover{border-color:#fff;transform:translateY(-3px)}
+.hero-meta{position:absolute;z-index:3;bottom:24px;left:7vw;right:7vw;display:flex;justify-content:space-between;color:#676763;font:700 9px Rajdhani;letter-spacing:.16em}
+
+/* SECTIONS */
+.section{padding:var(--s6) 7vw;border-bottom:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:1.15fr .85fr;gap:6vw;align-items:end;margin-bottom:var(--s5)}
+.section h2{font:700 clamp(3.6rem,7vw,7rem)/.78 Rajdhani,Impact,sans-serif;letter-spacing:-.055em;text-transform:uppercase;margin:15px 0 0}
+.section-head p{color:#8f8f8b;max-width:460px;justify-self:end;line-height:1.5;margin:0}
+
+/* INPUT TABS */
+.tabs{display:flex;gap:8px;margin-bottom:22px}
+.tab{padding:12px 17px;border:1px solid #292929;background:#0a0a0a;color:#92928e;font:700 11px Rajdhani;letter-spacing:.15em;transition:.2s}
+.tab:hover{border-color:#555;color:#fff}.tab.active{background:#fff;border-color:#fff;color:#050505}
+.panel{display:none}.panel.active{display:block}
+.control-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.92fr);gap:18px;align-items:stretch}
+.control-layout-single{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.92fr);gap:18px;align-items:stretch;width:100%;min-width:0}.control-visual-card{padding:22px;height:100%}.control-visual-card h3{margin-bottom:16px}.control-visual-card .layout-frame{width:100%;background:#080808}.control-visual-card .layout-frame img{width:100%;height:auto;object-fit:contain}.keyboard-layout{padding:8px}.gamepad-layout{padding:10px}
+.fight-side{margin:0;border:1px solid #202020;background:#090909;overflow:hidden;min-height:100%;position:relative}
+.fight-side:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.42));pointer-events:none}
+.fight-side img{width:100%;height:100%;min-height:430px;object-fit:cover;object-position:center;filter:saturate(.9) contrast(1.05);transition:transform .7s var(--ease),filter .5s}
+.fight-side:hover img{transform:scale(1.025);filter:saturate(1) contrast(1.06)}
+.webcam-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.92fr);gap:18px;align-items:stretch}.webcam-copy{min-width:0}
+.card{border:1px solid #202020;background:linear-gradient(145deg,#0b0b0b,#090909);padding:22px}
+.card h3{font:700 25px Rajdhani;text-transform:uppercase;margin:0 0 16px}
+.bind-list{display:grid;gap:8px}
+.bind{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;border:1px solid #1b1b1b;background:#0d0d0d;padding:11px 14px;transition:.22s}
+.bind:hover{border-color:#373737;background:#111}
+.keys{grid-column:2;grid-row:1;display:flex;gap:7px;flex-wrap:wrap;align-items:center;justify-content:flex-end;min-width:86px}
+.kbd{min-width:auto;height:auto;padding:0;display:inline-flex;align-items:center;justify-content:center;border:0;background:none;border-radius:0;box-shadow:none;font:700 11px Rajdhani;letter-spacing:.06em;color:#f2f1ed}
+.bind>div:last-child{grid-column:1;grid-row:1;text-align:right;min-width:0}
+.bind b{display:block;font:700 14px Rajdhani;letter-spacing:.04em}.bind span{display:block;color:#777;font-size:11px;line-height:1.5;margin-top:2px}
+.layout-frame{border:1px solid #222;background:#080808;padding:10px;overflow:hidden}.layout-frame img{width:100%;height:auto}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.legend div{border:1px solid #1b1b1b;padding:10px;background:#0c0c0c}.legend strong{display:block;font:700 11px Rajdhani;letter-spacing:.12em}.legend span{color:#777;font-size:11px;line-height:1.45}
+.webcam-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.step{border:1px solid #202020;background:#0a0a0a;padding:18px;min-height:170px;transition:.25s}.step:hover{transform:translateY(-4px);border-color:#3a3a3a}.step .n{font:700 34px Rajdhani;color:var(--blue2);line-height:1}.step h4{font:700 17px Rajdhani;text-transform:uppercase;margin:12px 0 7px}.step p{color:#858581;font-size:12px;line-height:1.5;margin:0}
+.tips{margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border:1px solid #202020;background:#090909;padding:18px}.tips h4{font:700 11px Rajdhani;letter-spacing:.12em;margin:0 0 6px}.tips p{margin:0;color:#777;font-size:12px;line-height:1.5}
+
+/* SYSTEMS */
+.sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.sys{border:1px solid #202020;background:linear-gradient(180deg,#0d0d0d,#090909);padding:22px;min-height:210px;position:relative;overflow:hidden;transition:.25s}.sys:before{content:"";position:absolute;left:0;top:0;width:2px;height:0;background:var(--blue);transition:.35s var(--ease)}.sys:hover{transform:translateY(-4px);border-color:#353535}.sys:hover:before{height:100%}.sys .tag{font:700 10px Rajdhani;letter-spacing:.16em;color:var(--blue2)}.sys h3{font:700 28px Rajdhani;text-transform:uppercase;margin:9px 0 8px}.sys p{color:#888;font-size:13px;line-height:1.5;margin:0}
+
+/* STRATEGY */
+.strategy{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.strat{display:grid;grid-template-columns:50px 1fr;gap:15px;border:1px solid #202020;background:#0a0a0a;padding:20px}.num{width:50px;height:50px;display:grid;place-items:center;border:1px solid #2c2c2c;font:700 17px Rajdhani}.strat h3{font:700 20px Rajdhani;text-transform:uppercase;margin:0 0 6px}.strat p{margin:0;color:#888;font-size:13px;line-height:1.5}
+.strategy-tips{margin-top:10px}
+
+/* CINEMATIC BASE */
+.gallery-section{padding:var(--s6) 7vw var(--s6);border-bottom:1px solid var(--line);background:linear-gradient(180deg,#050505,#080808)}
+.gallery-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:28px}.gallery-head h2{font:700 clamp(3rem,6vw,6rem)/.8 Rajdhani;text-transform:uppercase;letter-spacing:-.05em;margin:12px 0 0}.gallery-head p{max-width:380px;color:#777;line-height:1.5;margin:0}
+.gallery{display:grid;grid-template-columns:1fr;grid-template-rows:auto;gap:10px}
+.gallery-card{position:relative;overflow:hidden;border:1px solid #242424;background:#0a0a0a;min-height:0}
+.gallery-card.tall{grid-row:span 2}.gallery-card.wide{grid-column:span 2}
+.gallery-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease),filter .5s}.gallery-card:hover img{transform:scale(1.045);filter:saturate(1.05) contrast(1.05)}
+.gallery-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,rgba(0,0,0,.88));pointer-events:none}
+.gallery-label{position:absolute;z-index:2;left:16px;right:16px;bottom:15px;display:flex;justify-content:space-between;align-items:end;font:700 11px Rajdhani;letter-spacing:.14em}.gallery-label span:last-child{color:#999;font-size:9px}
+.gallery-card:nth-child(1){transition-delay:.04s}.gallery-card:nth-child(2){transition-delay:.12s}.gallery-card:nth-child(3){transition-delay:.20s}.gallery-card:nth-child(4){transition-delay:.28s}.gallery-card:nth-child(5){transition-delay:.36s}
+.roster-link{display:block;color:inherit;text-decoration:none}
+.roster-link:focus-visible{outline:2px solid var(--blue2);outline-offset:3px}
+.roster-link .gallery-label span:last-child{transition:transform .25s var(--ease),color .25s}
+.roster-link:hover .gallery-label span:last-child{color:#fff;transform:translateX(4px)}
+.gallery .gym-first{grid-column:1 / -1;min-height:360px;border-color:#333;box-shadow:inset 0 0 0 1px rgba(126,158,255,.05);margin-bottom:18px}
+.gallery .gym-first img{object-position:center 45%;filter:saturate(.82) contrast(1.08) brightness(.62)}
+.gallery .gym-first .gallery-label span:first-child{font-size:clamp(18px,2.2vw,32px);letter-spacing:.02em}
+.gallery .gym-first .gallery-label span:last-child{color:#9db4ff}
+.gallery .gym-first:hover{border-color:#647fda;transform:translateY(-7px) scale(1.003)}
+.gallery .gym-first:before{content:"01";position:absolute;z-index:4;top:18px;left:18px;font:700 12px Rajdhani;letter-spacing:.18em;color:#bbb}
+
+
+/* CTA */
+.cta{padding:var(--s6) 7vw;display:grid;grid-template-columns:1.15fr .85fr;gap:5vw;align-items:center;background:radial-gradient(circle at 75% 50%,rgba(36,93,255,.13),transparent 35%),#080808}
+.cta h2{font:700 clamp(3.5rem,7vw,7rem)/.78 Rajdhani;text-transform:uppercase;letter-spacing:-.055em;margin:14px 0 18px}.cta p{max-width:520px;color:#8d8d88;line-height:1.5;margin:0 0 24px}
+.memory{border:1px solid #232323;background:#0c0c0c;padding:22px;position:relative;overflow:hidden}.memory:before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,rgba(36,93,255,.12),transparent 38%);animation:sweep 16s linear infinite}.memory>*{position:relative}.memory h3{font:700 25px Rajdhani;margin:0 0 8px}.memory p{font-size:13px;color:#858581;margin:0}
+
+/* FOOTER */
+.footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 7vw;color:#666;font:700 9px Rajdhani;letter-spacing:.13em}.footer img{width:140px;height:48px;object-fit:contain}
+
+/* RESPONSIVE */
+@media(max-width:1050px){
+  .nav{grid-template-columns:1fr auto}.nav-links{display:none}
+  .hero{min-height:82svh}.hero-art{width:67vw;opacity:.72}
+  .section-head,.cta{grid-template-columns:1fr}.section-head p{justify-self:start}.control-grid{grid-template-columns:1fr}.control-layout-single{grid-template-columns:minmax(0,1fr) minmax(360px,.92fr)}.webcam-layout{grid-template-columns:1fr 1fr}.fight-side img{min-height:360px}
+  .sys-grid{grid-template-columns:1fr 1fr}.webcam-grid{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:1fr 1fr;grid-template-rows:260px 260px 260px}.gallery-card.tall{grid-row:span 2}.gallery-card.wide{grid-column:span 2}
+}
+@media(max-width:650px){
+  .bind{grid-template-columns:1fr auto;gap:14px;padding:10px 11px}
+  .bind>div:last-child{text-align:right}
+  .keys{min-width:60px;gap:5px}
+  .nav{height:62px;padding:0 16px}.brand-logo{width:94px}.nav-cta{padding:9px 11px;font-size:9px}
+  .hero{padding:105px 6vw 60px;align-items:end}.hero-art{width:100%;opacity:.4}.hero:after{background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.8) 50%,rgba(5,5,5,.45) 100%),linear-gradient(0deg,#050505 0%,transparent 55%,rgba(5,5,5,.4))}
+  .hero-meta{left:6vw;right:6vw;font-size:8px}.hero-meta span:nth-child(2){display:none}
+  .section,.gallery-section,.cta{padding-left:6vw;padding-right:6vw}.section h2,.gallery-head h2,.cta h2{font-size:clamp(3.4rem,17vw,5.4rem)}
+  .tabs{overflow:auto;padding-bottom:3px}.tab{white-space:nowrap}.webcam-grid,.sys-grid,.strategy,.tips,.legend{grid-template-columns:1fr}.control-grid,.control-layout-single,.webcam-layout{grid-template-columns:1fr}.fight-side{order:2}.fight-side img{min-height:280px}
+  .gallery{display:grid;grid-template-columns:1fr;grid-template-rows:auto}.gallery-card.tall,.gallery-card.wide{grid-row:auto;grid-column:auto}
+  .gallery-head{display:block}.gallery-head p{margin-top:14px}.footer{flex-direction:column;align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}.mk-reveal,.mk-stagger>*{transition:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
+  .hero-art img,.memory:before{animation:none!important}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a href="../../index.html" aria-label="BOXAR'S EDGE home"><img class="brand-logo" src="../../assets/boxars-edge-logo.png" alt="BOXAR'S EDGE"></a>
+  <nav class="nav-links">
+    <a href="#controls" class="active">HOW TO FIGHT</a>
+    <a href="../../game/pages/fighters.html#roster">FIGHTERS</a>
+    <a href="../../index.html">GYM</a>
+  </nav>
+  <a class="nav-cta" href="../../index.html">ENTER GYM</a>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-art"><img src="../../assets/images/ui/characterselect-mx.png" alt="BOXAR'S EDGE fighter"></div>
+  <div class="hero-inner mk-reveal">
+    <div class="eyebrow">TRAINING MANUAL · BOXAR'S EDGE</div>
+    <h1>HOW TO<br><em>FIGHT.</em></h1>
+    <p class="hero-sub">Master keyboard, controller and webcam input. Learn the meters that decide rounds. Train in the gym, climb the ladder, and finish fights with Boxer's Edge.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#controls"><span>VIEW CONTROLS</span><b>↓</b></a>
+      <a class="btn secondary" href="../../index.html"><span>BACK TO EXPERIENCE</span><b>↗</b></a>
+    </div>
+  </div>
+  <div class="hero-meta"><span>HOW TO FIGHT</span><span>INPUT // SYSTEMS // STRATEGY</span><span>SCROLL TO TRAIN</span></div>
+</section>
+
+<section id="controls" class="section">
+  <div class="section-head mk-reveal"><div><div class="kicker">01 — INPUT</div><h2>PICK YOUR<br><em>WEAPON.</em></h2></div><p>Every input mode feeds the same combat pipeline. Keyboard is precise. Gamepad is physical. Webcam turns real punches into ring strikes.</p></div>
+  <div class="tabs mk-reveal" role="tablist">
+    <button class="tab active" data-tab="keyboard">KEYBOARD</button>
+    <button class="tab" data-tab="gamepad">GAMEPAD</button>
+    <button class="tab" data-tab="webcam">WEBCAM</button>
+  </div>
+
+  <div class="panel active" id="panel-keyboard">
+    <div class="control-layout-single">
+      <div class="card mk-reveal control-visual-card">
+        <h3>Keyboard Map</h3>
+        <div class="layout-frame keyboard-layout"><img src="../../assets/ui/icons/controls.svg" alt="BOXAR'S EDGE keyboard control layout"></div>
+        <div class="legend"><div><strong>GET-UP</strong><span>Mash punches during a knockdown count</span></div><div><strong>2P KEYS</strong><span>U/I/O/P punches · WASD move · J block</span></div></div>
+      </div>
+      <figure class="fight-side mk-reveal"><img src="../../assets/howto/fight1.png" alt="BOXAR'S EDGE gameplay fight"></figure>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-gamepad">
+    <div class="control-layout-single">
+      <div class="card mk-reveal control-visual-card">
+        <h3>Official Layout</h3>
+        <div class="layout-frame gamepad-layout"><img src="../../assets/ui/icons/gamepad_controls.svg" alt="BOXAR'S EDGE gamepad control layout"></div>
+        <div class="legend"><div><strong>D-PAD</strong><span>Up = Inside Fighting on · Down = off</span></div><div><strong>A + X</strong><span>Combo chord · Boxer's Edge when meter is full</span></div></div>
+      </div>
+      <figure class="fight-side mk-reveal"><img src="../../assets/howto/fight1.png" alt="BOXAR'S EDGE gameplay fight"></figure>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-webcam">
+    <div class="webcam-layout">
+      <div class="webcam-copy">
+        <div class="webcam-grid mk-stagger">
+          <article class="step"><div class="n">01</div><h4>Calibrate</h4><p>Hold a neutral boxing guard. The system samples your baseline so small jitters are ignored.</p></article>
+          <article class="step"><div class="n">02</div><h4>Right extend</h4><p>Drive the right hand forward past baseline → <b>JAB</b>. Speed and extension must clear the threshold.</p></article>
+          <article class="step"><div class="n">03</div><h4>Left extend</h4><p>Drive the left hand forward → <b>HOOK</b>. Same intent pipeline as keyboard / pad.</p></article>
+          <article class="step"><div class="n">04</div><h4>Guard &amp; upper</h4><p>Both hands high → <b>GUARD</b>. Fast upward motion → <b>UPPERCUT</b>.</p></article>
+        </div>
+        <div class="tips mk-reveal"><div><h4>STABILITY</h4><p>Stand framed in camera. Filtering and a punch lockout stop double triggers from jitter.</p></div><div><h4>SENSITIVITY</h4><p>Raise sensitivity if punches feel late. Lower it if ambient motion fires false hits.</p></div><div><h4>SAME PIPELINE</h4><p>Webcam intents call the same punch / bag / fight systems as keyboard and controller.</p></div></div>
+      </div>
+      <figure class="fight-side mk-reveal"><img src="../../assets/howto/fight1.png" alt="BOXAR'S EDGE gameplay fight"></figure>
+    </div>
+  </div>
+
+    <div class="tips mk-reveal"><div><h4>STABILITY</h4><p>Stand framed in camera. Filtering and a punch lockout stop double triggers from jitter.</p></div><div><h4>SENSITIVITY</h4><p>Raise sensitivity if punches feel late. Lower it if ambient motion fires false hits.</p></div><div><h4>SAME PIPELINE</h4><p>Webcam intents call the same punch / bag / fight systems as keyboard and controller.</p></div></div>
+  </div>
+</section>
+
+<section id="systems" class="section">
+  <div class="section-head mk-reveal"><div><div class="kicker">02 — THE METERS</div><h2>READ THE<br><em>FIGHT.</em></h2></div><p>Winning is not only landing punches. Manage stamina, guard, combo charge and Boxer's Edge while the clock runs.</p></div>
+  <div class="sys-grid mk-stagger">
+    <article class="sys"><div class="tag">HEALTH</div><h3>Survive</h3><p>Head and body share a health pool. Body hooks build liver damage. Enough body work forces knockdowns that need rapid get-up taps.</p></article>
+    <article class="sys"><div class="tag">STAMINA</div><h3>Pace</h3><p>Every punch and held guard drains stamina. Empty tanks slow attacks and open you to counters. Idle and distance recover it.</p></article>
+    <article class="sys"><div class="tag">GUARD</div><h3>Shell</h3><p>Blocking chips the guard meter. When it breaks you are exposed. Parry with timed Z against an enemy Edge finisher.</p></article>
+    <article class="sys"><div class="tag">COMBO</div><h3>Chain</h3><p>Land hits inside the window to charge combo. X+S spends charge for a heavier multi-hit string. Overuse puts combo on cooldown.</p></article>
+    <article class="sys"><div class="tag">BOXER'S EDGE</div><h3>Finish</h3><p>Fill the Edge meter with landed punches. In close range, X+S (or A+X on pad) starts a dramatic finisher sequence with slow-mo and high damage.</p></article>
+    <article class="sys"><div class="tag">KNOCKDOWN</div><h3>Rise</h3><p>On the canvas, mash punches before the count reaches ten. Later knockdowns demand more taps. Three knockdowns can end the night.</p></article>
+  </div>
+</section>
+
+<section id="strategy" class="section">
+  <div class="section-head mk-reveal"><div><div class="kicker">03 — GAMEPLAN</div><h2>HOW TO<br><em>WIN.</em></h2></div><p>Protagonist Mode starts weak on purpose. Train, earn, upgrade, then climb. The ladder does not forgive early ego.</p></div>
+  <div class="strategy mk-stagger">
+    <article class="strat"><div class="num">01</div><div><h3>Train before you climb</h3><p>Gym sessions award XP and points. Raise strength, speed, endurance, accuracy, footwork, defence and head movement until your OVR can handle the first rung.</p></div></article>
+    <article class="strat"><div class="num">02</div><div><h3>Jab to measure</h3><p>Use jabs to find range and build Edge charge safely. Commit power shots when the opponent is open or retreating to the ropes.</p></div></article>
+    <article class="strat"><div class="num">03</div><div><h3>Attack the body</h3><p>Hooks to the liver and solar plexus stack body damage. After enough clean body hooks, knockdowns become much more likely.</p></div></article>
+    <article class="strat"><div class="num">04</div><div><h3>Break the guard</h3><p>Chip a turtling opponent with pressure, then punish the guard break with uppercuts and crosses before they recover.</p></div></article>
+    <article class="strat"><div class="num">05</div><div><h3>Spend Edge wisely</h3><p>Boxer's Edge needs close range and a full meter. Save it for moments when the opponent is hurt or trapped — not on the first exchange.</p></div></article>
+    <article class="strat"><div class="num">06</div><div><h3>Bank wins into upgrades</h3><p>Defeating ladder fighters pays money for permanent upgrades. Return to the gym between tough matchups. Progression is saved across sessions.</p></div></article>
+  </div>
+  <div class="tips strategy-tips mk-reveal"><div><h4>PROTAGONIST EDGE</h4><p>Basic finisher string: five jabs, one cross, then an overhand to close the cinematic sequence.</p></div><div><h4>DIFFICULTY</h4><p>Accessibility sliders can ease detection thresholds, stamina drain and body damage for limited mobility play.</p></div><div><h4>REMATCH MINDSET</h4><p>Lost a round? Reset posture, re-establish the jab, and force body work before hunting another Edge activation.</p></div></div>
+</section>
+
+<section id="gallery" class="gallery-section">
+  <div class="gallery-head mk-reveal">
+    <div><div class="kicker">04 — THE ROSTER</div><h2>MEET THE<br><em>FIGHTERS.</em></h2></div>
+    <p>You've learned the system. Now meet the fighters waiting on the other side of the bell.</p>
+  </div>
+  <div class="gallery mk-stagger">
+    <a class="gallery-card roster-link gym-first" href="../../game/pages/fighters.html" aria-label="Meet the BOXAR'S EDGE fighters">
+      <img src="../../assets/howto/menu.png" alt="BOXAR'S EDGE gym environment">
+      <figcaption class="gallery-label">
+        <span>BOXAR'S EDGE — MEET THE FIGHTERS.</span>
+        <span>ENTER THE ROSTER ↗</span>
+      </figcaption>
+    </a>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="mk-reveal"><div class="kicker">05 — ENTER THE RING</div><h2>PUT IT<br><em>TO WORK.</em></h2><p>Open the gym, warm up on the bag, then take the ladder one opponent at a time. Controls stay consistent from training to title night.</p><div class="hero-actions"><a class="btn primary" href="../../index.html"><span>OPEN PROTAGONIST GYM</span><b>↗</b></a><a class="btn secondary" href="../../index.html"><span>BACK TO HOME</span><b>↗</b></a></div></div>
+  <aside class="memory mk-reveal"><h3>REMEMBER</h3><p>X jab · S hook · X+S combo/edge · V cross · C uppercut · Z block · Q/E step. On pad, face buttons mirror that map. On webcam, extend, lift, and guard.</p></aside>
+</section>
+</main>
+
+<footer class="footer"><img src="../../assets/boxars-edge-logo.png" alt="BOXAR'S EDGE"><div>© 2026 BOXAR'S EDGE · HOW TO FIGHT</div><a href="#top">BACK TO TOP ↑</a></footer>
+
+<script>
+(() => {
+  const tabs = document.querySelectorAll('.tab');
+  const panels = {
+    keyboard: document.getElementById('panel-keyboard'),
+    gamepad: document.getElementById('panel-gamepad'),
+    webcam: document.getElementById('panel-webcam')
+  };
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    Object.values(panels).forEach(p => p.classList.remove('active'));
+    const panel = panels[tab.dataset.tab];
+    if(panel) {
+      panel.classList.add('active');
+      panel.querySelectorAll('.mk-reveal,.mk-stagger').forEach(el => {
+        el.classList.remove('in');
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('in')));
+      });
+    }
+  }));
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.12, rootMargin:'0px 0px -7% 0px'});
+
+  document.querySelectorAll('.mk-reveal,.mk-stagger').forEach(el => io.observe(el));
+  document.querySelectorAll('.hero .mk-reveal').forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>

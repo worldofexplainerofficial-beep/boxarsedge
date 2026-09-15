@@ -1,0 +1,61 @@
+{
+  "version": 3,
+  "savedAt": "2026-08-28T17:44:28.424Z",
+  "state": {
+    "name": "PROTAGONIST",
+    "stats": {
+      "strength": 48,
+      "speed": 42,
+      "endurance": 81,
+      "accuracy": 34,
+      "footwork": 57,
+      "defense": 37,
+      "headMovement": 46
+    },
+    "points": 7400,
+    "xp": 14695,
+    "sessions": 109,
+    "wins": 8,
+    "losses": 8,
+    "ladderStage": 0,
+    "faceMap": null,
+    "outfitMap": null,
+    "outfitTint": "#2a1014",
+    "camera": "Locked",
+    "faceMapData": null,
+    "faceMapName": null,
+    "outfitMapData": null,
+    "outfitMapName": null,
+    "inputMode": "Keyboard",
+    "outfitCycleIndex": 0,
+    "cash": 7500,
+    "arcadeWins": [
+      "mx",
+      "chidi",
+      "fighter2",
+      "efe",
+      "spaz",
+      "bobby",
+      "yassine"
+    ],
+    "arcadeLosses": 8,
+    "champion": true,
+    "defenseWins": 0,
+    "defenseLosses": 0,
+    "defenseCount": 0,
+    "defenseOptions": [],
+    "trainingDrills": {
+      "cross": 17,
+      "guard": 6,
+      "jab": 26,
+      "footwork": 7,
+      "movement": 1
+    },
+    "sparringChallenge": null,
+    "sparringSessions": 7,
+    "upgradePoints": 0,
+    "xpMilestonesClaimed": 5,
+    "_saveVersion": 3,
+    "_savedAt": 1787939054233
+  }
+}

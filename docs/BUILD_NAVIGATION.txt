@@ -1,0 +1,19 @@
+{
+  "build": "Boxar's Edge reverted base build",
+  "files": [
+    "Boxars_edge_UI.html",
+    "Boxars_edge_level.html",
+    "boxars-edge-level-tomiwa.html",
+    "boxars-edge-ui-preview-controller.html"
+  ],
+  "navigation": {
+    "main_menu": "Boxars_edge_UI.html",
+    "normal_play": "Boxars_edge_UI.html -> #character-select -> Boxars_edge_level.html",
+    "arcade": "Boxars_edge_UI.html -> #arcade -> #arcade-ladder -> Boxars_edge_level.html",
+    "arcade_next": "Boxars_edge_level.html -> Boxars_edge_UI.html#arcade-next -> next Boxars_edge_level.html",
+    "match_end_main_menu": "Boxars_edge_level.html -> Boxars_edge_UI.html",
+    "match_end_character_select": "Boxars_edge_level.html -> Boxars_edge_UI.html#character-select",
+    "tomiwa_return": "boxars-edge-level-tomiwa.html -> Boxars_edge_UI.html",
+    "controller_fight": "boxars-edge-ui-preview-controller.html -> Boxars_edge_level.html"
+  }
+}

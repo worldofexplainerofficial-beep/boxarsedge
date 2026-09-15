@@ -1,0 +1,842 @@
+[
+  {
+    "Name": "20260807025035_7ff82f2d.glb",
+    "Path": "assets/models/characters/20260807025035_7ff82f2d.glb"
+  },
+  {
+    "Name": "20260826212728_235b4cbd.glb",
+    "Path": "assets/models/characters/20260826212728_235b4cbd.glb"
+  },
+  {
+    "Name": "20260827172449_e76e4415.glb",
+    "Path": "assets/models/characters/20260827172449_e76e4415.glb"
+  },
+  {
+    "Name": "20260827182847_892ef5a8.glb",
+    "Path": "assets/models/characters/20260827182847_892ef5a8.glb"
+  },
+  {
+    "Name": "20260829112040_db3319f0.glb",
+    "Path": "assets/models/characters/20260829112040_db3319f0.glb"
+  },
+  {
+    "Name": "20260829144148_b1581678.glb",
+    "Path": "assets/models/characters/20260829144148_b1581678.glb"
+  },
+  {
+    "Name": "Abas.glb",
+    "Path": "assets/models/characters/Abas.glb"
+  },
+  {
+    "Name": "adetokumbo.glb",
+    "Path": "assets/models/characters/adetokumbo.glb"
+  },
+  {
+    "Name": "Amara_blue.glb",
+    "Path": "assets/models/characters/Amara_blue.glb"
+  },
+  {
+    "Name": "Amara_goldskin.glb",
+    "Path": "assets/models/characters/Amara_goldskin.glb"
+  },
+  {
+    "Name": "Amara_jeanskin.glb",
+    "Path": "assets/models/characters/Amara_jeanskin.glb"
+  },
+  {
+    "Name": "Amara_paid1.glb",
+    "Path": "assets/models/characters/Amara_paid1.glb"
+  },
+  {
+    "Name": "Amara_purple.glb",
+    "Path": "assets/models/characters/Amara_purple.glb"
+  },
+  {
+    "Name": "Amara.glb",
+    "Path": "assets/models/characters/Amara.glb"
+  },
+  {
+    "Name": "Amara2.glb",
+    "Path": "assets/models/characters/Amara2.glb"
+  },
+  {
+    "Name": "Amara3.glb",
+    "Path": "assets/models/characters/Amara3.glb"
+  },
+  {
+    "Name": "Amaraold.glb",
+    "Path": "assets/models/characters/Amaraold.glb"
+  },
+  {
+    "Name": "Ani.glb",
+    "Path": "assets/models/characters/Ani.glb"
+  },
+  {
+    "Name": "bda0b7c7e8f647cc2f1e5de13fcabb79.glb",
+    "Path": "assets/models/imports/bda0b7c7e8f647cc2f1e5de13fcabb79.glb"
+  },
+  {
+    "Name": "Bobby.glb",
+    "Path": "assets/models/characters/Bobby.glb"
+  },
+  {
+    "Name": "Celeste_blue.glb",
+    "Path": "assets/models/characters/Celeste_blue.glb"
+  },
+  {
+    "Name": "Celeste.glb",
+    "Path": "assets/models/characters/Celeste.glb"
+  },
+  {
+    "Name": "chairs.glb",
+    "Path": "assets/models/environments/chairs.glb"
+  },
+  {
+    "Name": "championbelt.glb",
+    "Path": "assets/models/props/championbelt.glb"
+  },
+  {
+    "Name": "Coach.glb",
+    "Path": "assets/models/characters/Coach.glb"
+  },
+  {
+    "Name": "CoachEzeTraitor.glb",
+    "Path": "assets/models/characters/CoachEzeTraitor.glb"
+  },
+  {
+    "Name": "dcf7627f59af26bbdbaff9114566c814.glb",
+    "Path": "assets/models/imports/dcf7627f59af26bbdbaff9114566c814.glb"
+  },
+  {
+    "Name": "Efe.glb",
+    "Path": "assets/models/characters/Efe.glb"
+  },
+  {
+    "Name": "f44a21093c26c98b1eb6faca2a7cc7b4.glb",
+    "Path": "assets/models/imports/f44a21093c26c98b1eb6faca2a7cc7b4.glb"
+  },
+  {
+    "Name": "Fauzia_red.glb",
+    "Path": "assets/models/characters/Fauzia_red.glb"
+  },
+  {
+    "Name": "Fauzia.glb",
+    "Path": "assets/models/characters/Fauzia.glb"
+  },
+  {
+    "Name": "Feesa.glb",
+    "Path": "assets/models/characters/Feesa.glb"
+  },
+  {
+    "Name": "fighter 2.glb",
+    "Path": "assets/models/characters/fighter 2.glb"
+  },
+  {
+    "Name": "Gym_props.glb",
+    "Path": "assets/models/environments/Gym_props.glb"
+  },
+  {
+    "Name": "Gym.glb",
+    "Path": "assets/models/environments/Gym.glb"
+  },
+  {
+    "Name": "MX.glb",
+    "Path": "assets/models/characters/MX.glb"
+  },
+  {
+    "Name": "Nalah.glb",
+    "Path": "assets/models/characters/Nalah.glb"
+  },
+  {
+    "Name": "opponent.glb",
+    "Path": "assets/models/characters/opponent.glb"
+  },
+  {
+    "Name": "Patra_nigeria.glb",
+    "Path": "assets/models/characters/Patra_nigeria.glb"
+  },
+  {
+    "Name": "Patra_white.glb",
+    "Path": "assets/models/characters/Patra_white.glb"
+  },
+  {
+    "Name": "Patra.glb",
+    "Path": "assets/models/characters/Patra.glb"
+  },
+  {
+    "Name": "pink boxer.glb",
+    "Path": "assets/models/characters/pink boxer.glb"
+  },
+  {
+    "Name": "protagglb.glb",
+    "Path": "assets/models/characters/protagglb.glb"
+  },
+  {
+    "Name": "protagglb2.glb",
+    "Path": "assets/models/characters/protagglb2.glb"
+  },
+  {
+    "Name": "protagglb3.glb",
+    "Path": "assets/models/characters/protagglb3.glb"
+  },
+  {
+    "Name": "Protagproboxer1.glb",
+    "Path": "assets/models/characters/Protagproboxer1.glb"
+  },
+  {
+    "Name": "punching bag.glb",
+    "Path": "assets/models/environments/punching bag.glb"
+  },
+  {
+    "Name": "Referee_observe.glb",
+    "Path": "assets/models/characters/Referee_observe.glb"
+  },
+  {
+    "Name": "ring-environment.glb",
+    "Path": "assets/models/environments/ring-environment.glb"
+  },
+  {
+    "Name": "ring-environment2.glb",
+    "Path": "assets/models/environments/ring-environment2.glb"
+  },
+  {
+    "Name": "Skorsgard_green.glb",
+    "Path": "assets/models/characters/Skorsgard_green.glb"
+  },
+  {
+    "Name": "Spaz_black.glb",
+    "Path": "assets/models/characters/Spaz_black.glb"
+  },
+  {
+    "Name": "Spaz.glb",
+    "Path": "assets/models/characters/Spaz.glb"
+  },
+  {
+    "Name": "tiana.glb",
+    "Path": "assets/models/characters/tiana.glb"
+  },
+  {
+    "Name": "Tife.glb",
+    "Path": "assets/models/characters/Tife.glb"
+  },
+  {
+    "Name": "Tomiwa_pink .glb",
+    "Path": "assets/models/characters/Tomiwa_pink .glb"
+  },
+  {
+    "Name": "Tomiwa_pink.glb",
+    "Path": "assets/models/characters/Tomiwa_pink.glb"
+  },
+  {
+    "Name": "Tomiwa.glb",
+    "Path": "assets/models/characters/Tomiwa.glb"
+  },
+  {
+    "Name": "trainer mesh.glb",
+    "Path": "assets/models/characters/trainer mesh.glb"
+  },
+  {
+    "Name": "weight rack.glb",
+    "Path": "assets/models/environments/weight rack.glb"
+  },
+  {
+    "Name": "Yassine.glb",
+    "Path": "assets/models/characters/Yassine.glb"
+  },
+  {
+    "Name": "yoga_ball.glb",
+    "Path": "assets/models/environments/yoga_ball.glb"
+  },
+  {
+    "Name": "246f0614-4e23-4172-ab50-a1d77ed8e298.png",
+    "Path": "assets/images/misc/246f0614-4e23-4172-ab50-a1d77ed8e298.png"
+  },
+  {
+    "Name": "Abas_thmb.png",
+    "Path": "assets/images/characters/Abas_thmb.png"
+  },
+  {
+    "Name": "Abas.png",
+    "Path": "assets/images/characters/Abas.png"
+  },
+  {
+    "Name": "Abass.png",
+    "Path": "assets/images/characters/Abass.png"
+  },
+  {
+    "Name": "Afro skin no beard.png",
+    "Path": "assets/images/textures/Afro skin no beard.png"
+  },
+  {
+    "Name": "Afro skin.png",
+    "Path": "assets/images/textures/Afro skin.png"
+  },
+  {
+    "Name": "Ama.png",
+    "Path": "assets/images/characters/Ama.png"
+  },
+  {
+    "Name": "Amara_blue.png",
+    "Path": "assets/images/characters/Amara_blue.png"
+  },
+  {
+    "Name": "Amara_gold.png",
+    "Path": "assets/images/characters/Amara_gold.png"
+  },
+  {
+    "Name": "Amara_purple.png",
+    "Path": "assets/images/characters/Amara_purple.png"
+  },
+  {
+    "Name": "Amara_whiteblue.png",
+    "Path": "assets/images/characters/Amara_whiteblue.png"
+  },
+  {
+    "Name": "Amara.png",
+    "Path": "assets/images/characters/Amara.png"
+  },
+  {
+    "Name": "Amara3.png",
+    "Path": "assets/images/characters/Amara3.png"
+  },
+  {
+    "Name": "Amara4.png",
+    "Path": "assets/images/characters/Amara4.png"
+  },
+  {
+    "Name": "ba78cabe-4125-45a7-a1f0-ffe7317a0def.png",
+    "Path": "assets/images/misc/ba78cabe-4125-45a7-a1f0-ffe7317a0def.png"
+  },
+  {
+    "Name": "background.png",
+    "Path": "assets/images/ui/background.png"
+  },
+  {
+    "Name": "bobby_thmb.png",
+    "Path": "assets/images/characters/bobby_thmb.png"
+  },
+  {
+    "Name": "bobby.png",
+    "Path": "assets/images/characters/bobby.png"
+  },
+  {
+    "Name": "bobby1.png",
+    "Path": "assets/images/characters/bobby1.png"
+  },
+  {
+    "Name": "celeste_thumb.png",
+    "Path": "assets/images/characters/celeste_thumb.png"
+  },
+  {
+    "Name": "celeste.png",
+    "Path": "assets/images/characters/celeste.png"
+  },
+  {
+    "Name": "champion belt.png",
+    "Path": "assets/images/misc/champion belt.png"
+  },
+  {
+    "Name": "champion-belt.png",
+    "Path": "assets/images/misc/champion-belt.png"
+  },
+  {
+    "Name": "characterselect mode.png",
+    "Path": "assets/images/ui/characterselect mode.png"
+  },
+  {
+    "Name": "characterselect-mx.png",
+    "Path": "assets/images/ui/characterselect-mx.png"
+  },
+  {
+    "Name": "Chi.png",
+    "Path": "assets/images/misc/Chi.png"
+  },
+  {
+    "Name": "Chidi.png",
+    "Path": "assets/images/characters/Chidi.png"
+  },
+  {
+    "Name": "Coach Eze.png",
+    "Path": "assets/images/characters/Coach Eze.png"
+  },
+  {
+    "Name": "Efe_thumbnail.png",
+    "Path": "assets/images/characters/Efe_thumbnail.png"
+  },
+  {
+    "Name": "Efe.png",
+    "Path": "assets/images/characters/Efe.png"
+  },
+  {
+    "Name": "Fauzia_red.png",
+    "Path": "assets/images/characters/Fauzia_red.png"
+  },
+  {
+    "Name": "fauzia_thmb.png",
+    "Path": "assets/images/characters/fauzia_thmb.png"
+  },
+  {
+    "Name": "Fauzia.png",
+    "Path": "assets/images/characters/Fauzia.png"
+  },
+  {
+    "Name": "feesa_small.png",
+    "Path": "assets/images/characters/feesa_small.png"
+  },
+  {
+    "Name": "Feesa.png",
+    "Path": "assets/images/characters/Feesa.png"
+  },
+  {
+    "Name": "gamepad.png",
+    "Path": "assets/images/ui/gamepad.png"
+  },
+  {
+    "Name": "gym2.png",
+    "Path": "assets/images/misc/gym2.png"
+  },
+  {
+    "Name": "gym3.png",
+    "Path": "assets/images/misc/gym3.png"
+  },
+  {
+    "Name": "head_uv_layout.png",
+    "Path": "assets/images/textures/head_uv_layout.png"
+  },
+  {
+    "Name": "hit.png",
+    "Path": "assets/images/ui/hit.png"
+  },
+  {
+    "Name": "in Fight game mode.png",
+    "Path": "assets/images/ui/in Fight game mode.png"
+  },
+  {
+    "Name": "In FIght mode.png",
+    "Path": "assets/images/ui/In FIght mode.png"
+  },
+  {
+    "Name": "keyboard.png",
+    "Path": "assets/images/ui/keyboard.png"
+  },
+  {
+    "Name": "loading-logo.png",
+    "Path": "assets/images/ui/loading-logo.png"
+  },
+  {
+    "Name": "logo.png",
+    "Path": "assets/images/ui/logo.png"
+  },
+  {
+    "Name": "lopez_thmb.png",
+    "Path": "assets/images/characters/lopez_thmb.png"
+  },
+  {
+    "Name": "lopez.png",
+    "Path": "assets/images/characters/lopez.png"
+  },
+  {
+    "Name": "MX.png",
+    "Path": "assets/images/characters/MX.png"
+  },
+  {
+    "Name": "outfit_blue.png",
+    "Path": "assets/images/textures/outfit_blue.png"
+  },
+  {
+    "Name": "outfit_gold.png",
+    "Path": "assets/images/textures/outfit_gold.png"
+  },
+  {
+    "Name": "Patra_green.png",
+    "Path": "assets/images/characters/Patra_green.png"
+  },
+  {
+    "Name": "Patra_red.png",
+    "Path": "assets/images/characters/Patra_red.png"
+  },
+  {
+    "Name": "patra_thmb.png",
+    "Path": "assets/images/characters/patra_thmb.png"
+  },
+  {
+    "Name": "Patra.png",
+    "Path": "assets/images/characters/Patra.png"
+  },
+  {
+    "Name": "protag_full_blue.png",
+    "Path": "assets/images/characters/protag_full_blue.png"
+  },
+  {
+    "Name": "protag_full_yellow.png",
+    "Path": "assets/images/characters/protag_full_yellow.png"
+  },
+  {
+    "Name": "protag_full1.png",
+    "Path": "assets/images/characters/protag_full1.png"
+  },
+  {
+    "Name": "protag_grey.png",
+    "Path": "assets/images/characters/protag_grey.png"
+  },
+  {
+    "Name": "protag.png",
+    "Path": "assets/images/characters/protag.png"
+  },
+  {
+    "Name": "Protagonist Mode.png",
+    "Path": "assets/images/ui/Protagonist Mode.png"
+  },
+  {
+    "Name": "Sikor.png",
+    "Path": "assets/images/characters/Sikor.png"
+  },
+  {
+    "Name": "Sikorsky_green.png",
+    "Path": "assets/images/characters/Sikorsky_green.png"
+  },
+  {
+    "Name": "Sikorsky.png",
+    "Path": "assets/images/characters/Sikorsky.png"
+  },
+  {
+    "Name": "Spaz_black.png",
+    "Path": "assets/images/characters/Spaz_black.png"
+  },
+  {
+    "Name": "Spaz_thmb.png",
+    "Path": "assets/images/characters/Spaz_thmb.png"
+  },
+  {
+    "Name": "Spaz.png",
+    "Path": "assets/images/characters/Spaz.png"
+  },
+  {
+    "Name": "texture_pbr_20250901.001.png",
+    "Path": "assets/images/textures/texture_pbr_20250901.001.png"
+  },
+  {
+    "Name": "texture_pbr_blue_ring_mat_full_blue.png",
+    "Path": "assets/images/textures/texture_pbr_blue_ring_mat_full_blue.png"
+  },
+  {
+    "Name": "texture_pbr_blue_ring_mat.png",
+    "Path": "assets/images/textures/texture_pbr_blue_ring_mat.png"
+  },
+  {
+    "Name": "theProtagonist_background.png",
+    "Path": "assets/images/characters/theProtagonist_background.png"
+  },
+  {
+    "Name": "Tianabolu_thmb.png",
+    "Path": "assets/images/characters/Tianabolu_thmb.png"
+  },
+  {
+    "Name": "Tianabolu.png",
+    "Path": "assets/images/characters/Tianabolu.png"
+  },
+  {
+    "Name": "Tomi_pink.png",
+    "Path": "assets/images/characters/Tomi_pink.png"
+  },
+  {
+    "Name": "Tomi.png",
+    "Path": "assets/images/characters/Tomi.png"
+  },
+  {
+    "Name": "Tomiwa.png",
+    "Path": "assets/images/characters/Tomiwa.png"
+  },
+  {
+    "Name": "TraitorE.png",
+    "Path": "assets/images/characters/TraitorE.png"
+  },
+  {
+    "Name": "TraitorEthmb.png",
+    "Path": "assets/images/characters/TraitorEthmb.png"
+  },
+  {
+    "Name": "UV layout referencepng.png",
+    "Path": "assets/images/textures/UV layout referencepng.png"
+  },
+  {
+    "Name": "Yassine-select.png",
+    "Path": "assets/images/characters/Yassine-select.png"
+  },
+  {
+    "Name": "Yassine-thumbnail.png",
+    "Path": "assets/images/characters/Yassine-thumbnail.png"
+  },
+  {
+    "Name": "ambience_crowd.mp3",
+    "Path": "assets/audio/music/ambience_crowd.mp3"
+  },
+  {
+    "Name": "bgm_1.mp3",
+    "Path": "assets/audio/music/bgm_1.mp3"
+  },
+  {
+    "Name": "BGM.mp3",
+    "Path": "assets/audio/music/BGM.mp3"
+  },
+  {
+    "Name": "boxar_crowd.mp3",
+    "Path": "assets/audio/music/boxar_crowd.mp3"
+  },
+  {
+    "Name": "boxar_fight.mp3",
+    "Path": "assets/audio/effects/boxar_fight.mp3"
+  },
+  {
+    "Name": "boxar_opening_bell.mp3",
+    "Path": "assets/audio/effects/boxar_opening_bell.mp3"
+  },
+  {
+    "Name": "boxar_punch_01.mp3",
+    "Path": "assets/audio/effects/boxar_punch_01.mp3"
+  },
+  {
+    "Name": "boxar_punch_02.mp3",
+    "Path": "assets/audio/effects/boxar_punch_02.mp3"
+  },
+  {
+    "Name": "boxar_punch_03.mp3",
+    "Path": "assets/audio/effects/boxar_punch_03.mp3"
+  },
+  {
+    "Name": "boxar_punch_04.mp3",
+    "Path": "assets/audio/effects/boxar_punch_04.mp3"
+  },
+  {
+    "Name": "boxar_punch_05.mp3",
+    "Path": "assets/audio/effects/boxar_punch_05.mp3"
+  },
+  {
+    "Name": "boxar_punch_06.mp3",
+    "Path": "assets/audio/effects/boxar_punch_06.mp3"
+  },
+  {
+    "Name": "boxar_round_end.mp3",
+    "Path": "assets/audio/effects/boxar_round_end.mp3"
+  },
+  {
+    "Name": "boxar_winner.mp3",
+    "Path": "assets/audio/effects/boxar_winner.mp3"
+  },
+  {
+    "Name": "Boxers_Edge.mp3",
+    "Path": "assets/audio/effects/Boxers_Edge.mp3"
+  },
+  {
+    "Name": "fight.mp3",
+    "Path": "assets/audio/effects/fight.mp3"
+  },
+  {
+    "Name": "man_grunts1.mp3",
+    "Path": "assets/audio/voices/man_grunts1.mp3"
+  },
+  {
+    "Name": "menu-music1.mp3",
+    "Path": "assets/audio/music/menu-music1.mp3"
+  },
+  {
+    "Name": "menu-music2.mp3",
+    "Path": "assets/audio/music/menu-music2.mp3"
+  },
+  {
+    "Name": "menu-music3.mp3",
+    "Path": "assets/audio/music/menu-music3.mp3"
+  },
+  {
+    "Name": "opening bell.mp3",
+    "Path": "assets/audio/effects/opening bell.mp3"
+  },
+  {
+    "Name": "punch 2.mp3",
+    "Path": "assets/audio/effects/punch 2.mp3"
+  },
+  {
+    "Name": "punch_2_fixed.mp3",
+    "Path": "assets/audio/effects/punch_2_fixed.mp3"
+  },
+  {
+    "Name": "punch_3_fixed.mp3",
+    "Path": "assets/audio/effects/punch_3_fixed.mp3"
+  },
+  {
+    "Name": "punch_5_fixed.mp3",
+    "Path": "assets/audio/effects/punch_5_fixed.mp3"
+  },
+  {
+    "Name": "punch_fixed.mp3",
+    "Path": "assets/audio/effects/punch_fixed.mp3"
+  },
+  {
+    "Name": "punch.mp3",
+    "Path": "assets/audio/effects/punch.mp3"
+  },
+  {
+    "Name": "round end.mp3",
+    "Path": "assets/audio/effects/round end.mp3"
+  },
+  {
+    "Name": "winner.mp3",
+    "Path": "assets/audio/effects/winner.mp3"
+  },
+  {
+    "Name": "woman_grunts.mp3",
+    "Path": "assets/audio/voices/woman_grunts.mp3"
+  },
+  {
+    "Name": "boxer-bg-3.mp4",
+    "Path": "assets/video/boxer-bg-3.mp4"
+  },
+  {
+    "Name": "boxer-bg-4.mp4",
+    "Path": "assets/video/boxer-bg-4.mp4"
+  },
+  {
+    "Name": "boxer-bg-alt.mp4",
+    "Path": "assets/video/boxer-bg-alt.mp4"
+  },
+  {
+    "Name": "boxer-bg.mp4",
+    "Path": "assets/video/boxer-bg.mp4"
+  },
+  {
+    "Name": "back.svg",
+    "Path": "assets/ui/icons/back.svg"
+  },
+  {
+    "Name": "controls (1).svg",
+    "Path": "assets/ui/icons/controls (1).svg"
+  },
+  {
+    "Name": "controls.svg",
+    "Path": "assets/ui/icons/controls.svg"
+  },
+  {
+    "Name": "gamepad_controls copy.svg",
+    "Path": "assets/ui/icons/gamepad_controls copy.svg"
+  },
+  {
+    "Name": "gamepad_controls.svg",
+    "Path": "assets/ui/icons/gamepad_controls.svg"
+  },
+  {
+    "Name": "gamepad.svg",
+    "Path": "assets/ui/icons/gamepad.svg"
+  },
+  {
+    "Name": "gear.svg",
+    "Path": "assets/ui/icons/gear.svg"
+  },
+  {
+    "Name": "next.svg",
+    "Path": "assets/ui/icons/next.svg"
+  },
+  {
+    "Name": "pause.svg",
+    "Path": "assets/ui/icons/pause.svg"
+  },
+  {
+    "Name": "play.svg",
+    "Path": "assets/ui/icons/play.svg"
+  },
+  {
+    "Name": "shield.gif",
+    "Path": "assets/ui/effects/shield.gif"
+  },
+  {
+    "Name": "stars.gif",
+    "Path": "assets/ui/effects/stars.gif"
+  },
+  {
+    "Name": "stars(1).gif",
+    "Path": "assets/ui/effects/stars(1).gif"
+  },
+  {
+    "Name": "Std_Eye_R_Diffuse.jpg",
+    "Path": "assets/images/textures/Std_Eye_R_Diffuse.jpg"
+  },
+  {
+    "Name": "Std_Skin_Head_Diffuse.jpg",
+    "Path": "assets/images/textures/Std_Skin_Head_Diffuse.jpg"
+  },
+  {
+    "Name": "punch_variety.wav",
+    "Path": "assets/audio/effects/punch_variety.wav"
+  },
+  {
+    "Name": "20260826014627_deff2537.fbx",
+    "Path": "source/models/20260826014627_deff2537.fbx"
+  },
+  {
+    "Name": "20260829053641_5b7ed184.fbx",
+    "Path": "source/models/20260829053641_5b7ed184.fbx"
+  },
+  {
+    "Name": "export-blender-nbastmycie.fbx",
+    "Path": "source/models/export-blender-nbastmycie.fbx"
+  },
+  {
+    "Name": "mocap_1 (2).fbx",
+    "Path": "source/models/mocap_1 (2).fbx"
+  },
+  {
+    "Name": "gamepad_controlswhite.ai",
+    "Path": "source/design/gamepad_controlswhite.ai"
+  },
+  {
+    "Name": "UI design.ai",
+    "Path": "source/design/UI design.ai"
+  },
+  {
+    "Name": "referee.aep",
+    "Path": "source/design/referee.aep"
+  },
+  {
+    "Name": "bed989744195.json",
+    "Path": "data/progress-templates/bed989744195.json"
+  },
+  {
+    "Name": "protagonist_progress (1).json",
+    "Path": "data/progress-templates/protagonist_progress (1).json"
+  },
+  {
+    "Name": "protagonist_progress (2).json",
+    "Path": "data/progress-templates/protagonist_progress (2).json"
+  },
+  {
+    "Name": "protagonist_progress.json",
+    "Path": "data/progress-templates/protagonist_progress.json"
+  },
+  {
+    "Name": "download.php",
+    "Path": "server/download.php"
+  },
+  {
+    "Name": "verify-purchase.php",
+    "Path": "server/verify-purchase.php"
+  },
+  {
+    "Name": "Boxars_Edge_Tomiwa_Pink_Final_v5_Fixed_Camera_Facing_Validation.txt",
+    "Path": "docs/Boxars_Edge_Tomiwa_Pink_Final_v5_Fixed_Camera_Facing_Validation.txt"
+  },
+  {
+    "Name": "BUILD_NAVIGATION.txt",
+    "Path": "docs/BUILD_NAVIGATION.txt"
+  },
+  {
+    "Name": "README_LINKED_BUILD.txt",
+    "Path": "docs/README_LINKED_BUILD.txt"
+  },
+  {
+    "Name": "README-STRIPE-SETUP.txt",
+    "Path": "docs/README-STRIPE-SETUP.txt"
+  },
+  {
+    "Name": "README.txt",
+    "Path": "docs/README.txt"
+  }
+]

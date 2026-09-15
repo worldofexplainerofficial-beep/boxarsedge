@@ -1,0 +1,1 @@
+Replace this marker with the actual BOXARS EDGE PC installation package and name it BOXARS_EDGE_PC.zip.

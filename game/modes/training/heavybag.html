@@ -1,0 +1,2517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOXAR'S EDGE — Heavy Bag</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root{
+  --bg:#050505; --panel:#0b0b0b; --ink:#f2f1ed;
+  --muted:#8d8d88; --line:#242424; --blue:#245dff; --blue2:#7e9eff;
+  --red:#e5322d; --green:#58d36b;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505;color:var(--ink);font-family:"Plus Jakarta Sans",Arial,sans-serif}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:screen;
+}
+
+#game{position:fixed;inset:0;z-index:0}
+canvas{display:block}
+
+.game-nav{
+  position:fixed;z-index:12;top:0;left:0;right:0;height:74px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:0 28px;border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(5,5,5,.76);backdrop-filter:blur(18px)
+}
+.brand{display:flex;align-items:center;height:44px}
+.brand img{width:118px;height:44px;object-fit:contain;object-position:left center;display:block}
+.brand-fallback{font:700 18px Rajdhani,sans-serif;letter-spacing:.08em;color:#fff;display:none;align-items:center;height:44px}
+.nav-links{display:flex;gap:34px;font:700 11px Rajdhani,sans-serif;letter-spacing:.16em;color:#8d8d88}
+.nav-links .active{color:#fff}
+.nav-meta{
+  justify-self:end;display:flex;align-items:center;gap:12px;
+  font:700 10px Rajdhani,sans-serif;letter-spacing:.14em;color:#777
+}
+.nav-meta strong{color:#d9d9d5}
+.buy-full-game{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 14px;border:1px solid rgba(255,255,255,.55);
+  background:transparent;color:#fff;text-decoration:none;
+  font:700 10px Rajdhani,sans-serif;letter-spacing:.14em;
+  transition:background .2s,border-color .2s,color .2s,transform .2s
+}
+.buy-full-game:hover{
+  background:#fff;color:#050505;border-color:#fff;
+  transform:translateY(-2px);box-shadow:0 10px 24px rgba(255,255,255,.12)
+}
+.buy-full-game:active{transform:translateY(0)}
+
+.demo-gameplay{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 14px;border:1px solid rgba(255,255,255,.28);
+  background:rgba(255,255,255,.04);color:#fff;text-decoration:none;
+  font:700 10px Rajdhani,sans-serif;letter-spacing:.12em;cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s,transform .2s,box-shadow .2s
+}
+.demo-gameplay:hover{
+  border-color:#fff;background:rgba(36,93,255,.25);
+  transform:translateY(-2px);box-shadow:0 10px 24px rgba(36,93,255,.2)
+}
+.demo-gameplay:active{transform:translateY(0)}
+@media(max-width:720px){
+  .demo-gameplay .demo-label-full{display:none}
+}
+
+#demoModal{
+  position:fixed;inset:0;z-index:40;display:none;place-items:center;
+  padding:24px;background:rgba(0,0,0,.88);backdrop-filter:blur(16px)
+}
+#demoModal.show{display:grid;animation:demoFade .28s var(--ease) both}
+@keyframes demoFade{from{opacity:0}to{opacity:1}}
+.demo-shell{
+  width:min(960px,96vw);max-height:92vh;overflow:auto;
+  background:#050505;border:1px solid #222;
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+  animation:demoIn .32s var(--ease) both
+}
+@keyframes demoIn{
+  from{opacity:0;transform:translateY(14px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.demo-top{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 16px;border-bottom:1px solid #1c1c1c
+}
+.demo-top h3{
+  margin:0;font:700 14px Rajdhani,sans-serif;letter-spacing:.16em;color:#fff
+}
+.demo-top p{margin:4px 0 0;font-size:11px;color:#7a7a76;letter-spacing:.04em}
+.demo-close{
+  width:40px;height:40px;border:1px solid #333;background:#0c0c0c;color:#fff;
+  font:700 18px Rajdhani,sans-serif;cursor:pointer;line-height:1;
+  transition:background .2s,border-color .2s,transform .2s
+}
+.demo-close:hover{background:#fff;color:#050505;border-color:#fff;transform:scale(1.04)}
+.demo-frame-wrap{
+  position:relative;width:100%;aspect-ratio:16/9;background:#000
+}
+.demo-frame-wrap iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:0
+}
+.demo-list{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  padding:14px 16px 18px;background:#080808;border-top:1px solid #1a1a1a
+}
+@media(max-width:800px){.demo-list{grid-template-columns:repeat(2,1fr)}}
+.demo-item{
+  border:1px solid #222;background:#0c0c0c;padding:0;cursor:pointer;text-align:left;
+  color:#ccc;transition:border-color .2s,transform .2s,box-shadow .2s,background .2s
+}
+.demo-item:hover{border-color:#fff;transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.4)}
+.demo-item.active{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+.demo-item img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#111}
+.demo-item span{
+  display:block;padding:8px 9px;font:700 10px Rajdhani,sans-serif;letter-spacing:.1em;color:#ddd
+}
+
+.buy-full-game .price{opacity:.85;font-weight:700}
+@media(max-width:560px){
+  .buy-full-game .buy-label-full{display:none}
+  .buy-full-game{padding:8px 10px;letter-spacing:.1em}
+}
+
+#ready{
+  position:fixed;z-index:11;right:28px;top:92px;
+  padding:8px 11px;border:1px solid #252525;background:rgba(8,8,8,.82);
+  color:#999;font:700 9px Rajdhani;letter-spacing:.14em;backdrop-filter:blur(12px)
+}
+#ready.live{color:var(--green);border-color:#1f3d28}
+
+#pauseBtn{
+  position:fixed;z-index:15;top:92px;left:50%;transform:translateX(-50%);
+  display:none;align-items:center;gap:10px;
+  padding:10px 16px;border:1px solid #333;background:rgba(8,8,8,.88);
+  color:#fff;font:700 11px Rajdhani;letter-spacing:.14em;cursor:pointer;
+  backdrop-filter:blur(12px)
+}
+#pauseBtn.show{display:inline-flex}
+#pauseBtn:hover{
+  border-color:#fff;background:rgba(20,20,20,.92);
+  box-shadow:0 8px 24px rgba(0,0,0,.4);transform:translateX(-50%) translateY(-2px)
+}
+#pauseMenu .btn{transition:transform .22s var(--ease), background .22s, border-color .22s, box-shadow .22s, color .22s}
+#pauseMenu .btn.primary:hover{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+  transform:translateY(-2px);box-shadow:0 12px 28px rgba(36,93,255,.3)
+}
+#pauseMenu .btn.secondary:hover{
+  border-color:#fff;background:rgba(255,255,255,.07);
+  transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.35)
+}
+#pauseMenu .pause-card{
+  animation:pauseIn .28s var(--ease) both
+}
+@keyframes pauseIn{
+  from{opacity:0;transform:translateY(10px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+#pauseMenu{
+  position:fixed;inset:0;z-index:16;display:none;place-items:center;
+  background:rgba(5,5,5,.72);backdrop-filter:blur(10px)
+}
+#pauseMenu.show{display:grid}
+#pauseMenu .pause-card{
+  width:min(420px,90vw);padding:28px 26px;border:1px solid #2a2a2a;
+  background:rgba(10,10,10,.96);text-align:center
+}
+#pauseMenu .pause-card h2{
+  font:700 42px Rajdhani,sans-serif;letter-spacing:.04em;margin:0 0 8px;text-transform:uppercase
+}
+#pauseMenu .pause-card p{color:#8d8d88;font-size:13px;margin:0 0 22px;line-height:1.5}
+#pauseMenu .pause-actions{display:flex;flex-direction:column;gap:10px}
+#pauseMenu .pause-actions .btn{justify-content:center;min-width:0;width:100%}
+
+#cameraVideo{
+  position:fixed;right:28px;top:132px;width:220px;display:none;
+  transform:scaleX(-1);z-index:14;border:1px solid #333;background:#000;
+  box-shadow:0 12px 35px rgba(0,0,0,.35)
+}
+#cameraVideo.active{display:block}
+.wc-tag{
+  position:fixed;right:28px;top:132px;z-index:15;display:none;
+  margin:6px;padding:3px 7px;background:rgba(0,0,0,.65);
+  font:700 9px Rajdhani;letter-spacing:.14em;color:#fff;pointer-events:none
+}
+.wc-tag.show{display:block}
+.wc-tag .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#666;margin-right:5px;vertical-align:middle}
+.wc-tag.tracking .dot{background:var(--green);box-shadow:0 0 8px var(--green)}
+
+#controls{
+  position:fixed;z-index:11;left:28px;right:28px;bottom:22px;
+  display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
+  padding:13px 16px;border:1px solid #242424;background:rgba(5,5,5,.84);
+  backdrop-filter:blur(16px);box-shadow:0 15px 45px rgba(0,0,0,.24);
+  pointer-events:none
+}
+#controls .control-copy{font:700 9px Rajdhani;letter-spacing:.09em;color:#797974;line-height:1.8}
+#controls .control-copy b{color:#efeee9;margin-right:7px}
+#controls .control-status{text-align:right;font:700 9px Rajdhani;letter-spacing:.15em;color:#777}
+#controls .control-status strong{display:block;color:#fff;font-size:12px;margin-top:2px}
+
+#crosshair{
+  position:fixed;z-index:8;left:50%;top:50%;width:24px;height:24px;
+  transform:translate(-50%,-50%);opacity:.65;pointer-events:none
+}
+#crosshair:before,#crosshair:after{content:"";position:absolute;background:#fff}
+#crosshair:before{width:24px;height:1px;left:0;top:11px}
+#crosshair:after{width:1px;height:24px;left:11px;top:0}
+
+#bagPrompt{
+  position:fixed;z-index:14;left:50%;top:42%;
+  transform:translate(-50%,-50%);
+  padding:14px 22px;border:1px solid rgba(255,255,255,.2);
+  background:rgba(8,8,8,.82);backdrop-filter:blur(12px);
+  color:#f2f1ed;font:700 13px Rajdhani,sans-serif;letter-spacing:.18em;
+  text-transform:uppercase;pointer-events:none;
+  opacity:0;visibility:hidden;
+  transition:opacity .7s ease, visibility .7s ease, transform .7s ease
+}
+#bagPrompt.show{
+  opacity:1;visibility:visible;
+  transform:translate(-50%,-50%)
+}
+#bagPrompt.fade{
+  opacity:0;visibility:hidden;
+  transform:translate(-50%,-46%)
+}
+#detectFlash{
+  position:fixed;z-index:13;left:50%;top:58%;
+  transform:translate(-50%,-50%);
+  font:700 18px Rajdhani,sans-serif;letter-spacing:.2em;
+  color:#fff;text-shadow:0 0 18px rgba(36,93,255,.65);
+  opacity:0;pointer-events:none;
+  transition:opacity .12s ease
+}
+#detectFlash.show{opacity:1}
+
+
+#hudStats{
+  position:fixed;z-index:11;left:28px;top:96px;
+  display:flex;gap:10px;pointer-events:none
+}
+.statChip{
+  min-width:78px;padding:8px 10px;border:1px solid #252525;background:rgba(8,8,8,.82);
+  backdrop-filter:blur(12px)
+}
+.statChip b{display:block;font:700 18px Rajdhani;letter-spacing:.04em;color:#fff}
+.statChip span{font:700 9px Rajdhani;letter-spacing:.14em;color:#777}
+
+#progressPanel{
+  position:fixed;z-index:11;right:28px;bottom:96px;width:min(280px,42vw);
+  padding:12px 14px;border:1px solid #252525;background:rgba(8,8,8,.88);
+  backdrop-filter:blur(14px);pointer-events:none
+}
+#progressPanel .pp-title{font:700 10px Rajdhani;letter-spacing:.16em;color:#8d8d88;margin-bottom:8px}
+#progressPanel .pp-row{display:flex;justify-content:space-between;align-items:baseline;margin:5px 0;font:700 11px Rajdhani;letter-spacing:.06em;color:#c8c8c4}
+#progressPanel .pp-row b{color:#fff;font-size:13px}
+#progressPanel .pp-row .delta{font-size:10px;letter-spacing:.08em}
+#progressPanel .pp-row .delta.up{color:var(--green)}
+#progressPanel .pp-row .delta.down{color:#e2a33a}
+#progressPanel .pp-bar{height:4px;background:#1a1a1a;margin:6px 0 10px;border:1px solid #222}
+#progressPanel .pp-bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--blue2));transition:width .25s}
+#progressPanel .pp-reward{font:700 9px Rajdhani;letter-spacing:.12em;color:var(--blue2);min-height:1.2em}
+
+#scene-badge{
+  position:fixed;z-index:7;left:28px;top:168px;
+  padding:6px 9px;border-left:2px solid var(--blue);
+  color:#bbb;font:700 10px Rajdhani;letter-spacing:.16em;
+  background:linear-gradient(90deg,rgba(8,8,8,.8),transparent)
+}
+
+#hitFlash{
+  position:fixed;inset:0;z-index:9;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.14),transparent 40%);
+  transition:opacity .07s
+}
+#hitFlash.on{opacity:1}
+
+#toast{
+  position:fixed;z-index:16;left:50%;bottom:110px;transform:translateX(-50%) translateY(12px);
+  opacity:0;padding:10px 16px;border:1px solid #333;background:rgba(8,8,8,.9);
+  font:700 12px Rajdhani;letter-spacing:.14em;transition:.2s;pointer-events:none
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+#start{
+  position:fixed;inset:0;z-index:10;
+  display:grid;align-items:center;
+  padding:120px 7vw 110px;
+  background:
+    radial-gradient(circle at 84% 38%,rgba(36,93,255,.27),transparent 27%),
+    radial-gradient(circle at 14% 85%,rgba(229,50,45,.07),transparent 25%),
+    linear-gradient(90deg,rgba(5,5,5,.98) 0%,rgba(5,5,5,.92) 38%,rgba(5,5,5,.35) 72%,rgba(5,5,5,.72) 100%)
+}
+#start:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(0deg,#050505 0%,transparent 24%,rgba(5,5,5,.35) 100%)
+}
+#start.hidden{display:none}
+#start-card{position:relative;z-index:2;max-width:760px}
+.start-logo{width:180px;height:62px;object-fit:contain;object-position:left center;margin:0 0 22px}
+.eyebrow{font:700 11px Rajdhani;letter-spacing:.22em;color:#a8a8a4}
+#start-card h1{
+  font:700 clamp(4.8rem,9vw,8.5rem)/.78 Rajdhani,Impact,sans-serif;
+  letter-spacing:-.055em;text-transform:uppercase;margin:18px 0 24px
+}
+#start-card h1 em{font-style:normal;color:var(--blue2)}
+#start-card p{max-width:620px;color:#aaa9a5;font-size:14px;line-height:1.55;margin:0 0 18px}
+.cal-note{
+  max-width:620px;margin:0 0 22px;padding:12px 14px;border:1px solid #242424;background:rgba(10,10,10,.7);
+  font-size:12px;line-height:1.55;color:#9a9a96
+}
+.cal-note b{color:#fff}
+.start-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:space-between;gap:28px;
+  min-width:190px;padding:15px 17px;border:1px solid rgba(255,255,255,.35);
+  background:transparent;color:#fff;font:700 11px Rajdhani;letter-spacing:.13em;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .22s var(--ease), border-color .22s, background .22s, color .22s, box-shadow .22s
+}
+.btn::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);
+  transform:translateX(-120%);transition:transform .45s var(--ease);pointer-events:none
+}
+.btn:hover::after{transform:translateX(120%)}
+.btn.primary{background:#fff;color:#050505;border-color:#fff}
+.btn.primary:hover{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+  transform:translateY(-3px);box-shadow:0 12px 28px rgba(36,93,255,.35)
+}
+.btn.secondary:hover{
+  border-color:#fff;background:rgba(255,255,255,.06);
+  transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.35)
+}
+.btn:active{transform:translateY(-1px) scale(.98)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn:disabled:hover::after{transform:translateX(-120%)}
+#file{display:none}
+.start-meta{
+  position:absolute;z-index:2;left:7vw;right:7vw;bottom:24px;
+  display:flex;justify-content:space-between;gap:20px;
+  color:#676763;font:700 9px Rajdhani;letter-spacing:.16em
+}
+#loadStatus{margin-top:14px;font:700 10px Rajdhani;letter-spacing:.14em;color:#777}
+#loadStatus.ok{color:var(--green)}
+#loadStatus.warn{color:#e2a33a}
+
+@media(max-width:900px){
+  .game-nav{grid-template-columns:1fr auto}
+  .nav-links{display:none}
+  #start{padding:105px 6vw 100px}
+  #start-card h1{font-size:clamp(4rem,15vw,6rem)}
+  #controls{left:12px;right:12px;bottom:10px;grid-template-columns:1fr}
+  #controls .control-status{text-align:left}
+  .start-meta{left:6vw;right:6vw}
+  #ready,#scene-badge,#hudStats{display:none}
+}
+@media(max-width:560px){
+  .game-nav{height:62px;padding:0 16px}
+  .nav-meta{font-size:8px}
+  .nav-physics{display:none}
+  #start-card p{font-size:12px}
+  .btn{min-width:160px}
+  #controls .control-copy{font-size:8px}
+  #cameraVideo{right:12px;top:76px;width:150px}
+}
+
+#game canvas{display:block;width:100%;height:100%;touch-action:none}
+@keyframes mkIn{
+  from{opacity:0;transform:translateY(18px) scale(.96);filter:blur(4px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+@keyframes mkNavIn{
+  from{opacity:0;transform:translateY(-12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes mkPanelIn{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.mk-ready .btn,
+.mk-ready .demo-gameplay,
+.mk-ready .buy-full-game{
+  animation:mkIn .55s cubic-bezier(.16,1,.3,1) both;
+}
+.mk-ready .start-actions .btn:nth-child(1){animation-delay:.08s}
+.mk-ready .start-actions .btn:nth-child(2){animation-delay:.16s}
+.mk-ready .start-actions .btn:nth-child(3){animation-delay:.24s}
+.mk-ready .start-actions .btn:nth-child(4){animation-delay:.32s}
+.mk-ready .nav-meta > *{animation:mkNavIn .5s cubic-bezier(.16,1,.3,1) both}
+.mk-ready .nav-meta > *:nth-child(1){animation-delay:.05s}
+.mk-ready .nav-meta > *:nth-child(2){animation-delay:.14s}
+.mk-ready .brand{animation:mkNavIn .55s cubic-bezier(.16,1,.3,1) .02s both}
+.mk-ready #start-card h1{animation:mkIn .7s cubic-bezier(.16,1,.3,1) .04s both}
+.mk-ready #start-card p,
+.mk-ready #start-card .cal-note,
+.mk-ready #start-card .eyebrow{animation:mkPanelIn .55s cubic-bezier(.16,1,.3,1) .12s both}
+.mk-ready #hudStats .statChip{animation:mkIn .5s cubic-bezier(.16,1,.3,1) both}
+.mk-ready #hudStats .statChip:nth-child(1){animation-delay:.1s}
+.mk-ready #hudStats .statChip:nth-child(2){animation-delay:.16s}
+.mk-ready #hudStats .statChip:nth-child(3){animation-delay:.22s}
+.mk-ready #hudStats .statChip:nth-child(4){animation-delay:.28s}
+.mk-ready #progressPanel{animation:mkPanelIn .55s cubic-bezier(.16,1,.3,1) .2s both}
+.mk-ready #controls{animation:mkPanelIn .5s cubic-bezier(.16,1,.3,1) .25s both}
+@media (prefers-reduced-motion:reduce){
+  .mk-ready .btn,.mk-ready .demo-gameplay,.mk-ready .buy-full-game,
+  .mk-ready .brand,.mk-ready #start-card h1,.mk-ready #start-card p,
+  .mk-ready #start-card .cal-note,.mk-ready #start-card .eyebrow,
+  .mk-ready #hudStats .statChip,.mk-ready #progressPanel,
+  .mk-ready #controls,.mk-ready .nav-meta > *{animation:none!important}
+}
+
+</style>
+</head>
+<body>
+<div id="game"></div>
+
+<header class="game-nav">
+  <div class="brand">
+    <img src="../../../assets/boxars-edge-logo.png" alt="BOXAR'S EDGE" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="brand-fallback">BOXAR'S EDGE</div>
+  </div>
+  <div class="nav-meta">
+    <button type="button" class="demo-gameplay" id="demoBtn" title="Watch Boxar's Edge gameplay demos">
+      <span class="demo-label-full">WATCH OUR GAMEPLAY DEMO</span>
+      <span aria-hidden="true">▶</span>
+    </button>
+    <a class="buy-full-game" href="https://boxarsedge.com" target="_blank" rel="noopener noreferrer" title="Buy the full game on boxarsedge.com">
+      <span class="buy-label-full">BUY THE FULL GAME</span>
+      <span class="buy-label-full price">$15</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</header>
+
+<div id="hudStats">
+  <div class="statChip"><b id="statPunches">0</b><span>LANDED</span></div>
+  <div class="statChip"><b id="statCombo">0</b><span>COMBO</span></div>
+  <div class="statChip"><b id="statXp">0</b><span>XP</span></div>
+  <div class="statChip"><b id="statRom">—</b><span>ROM</span></div>
+</div>
+
+<div id="progressPanel">
+  <div class="pp-title">SESSION PROGRESS</div>
+  <div class="pp-row"><span>PUNCHES</span><span><b id="ppPunches">0</b> <span class="delta" id="ppPunchesDelta"></span></span></div>
+  <div class="pp-bar"><i id="ppPunchBar"></i></div>
+  <div class="pp-row"><span>RANGE OF MOTION</span><span><b id="ppRom">—</b> <span class="delta" id="ppRomDelta"></span></span></div>
+  <div class="pp-bar"><i id="ppRomBar"></i></div>
+  <div class="pp-row"><span>LAST SESSION</span><span><b id="ppLast">—</b></span></div>
+  <div class="pp-row"><span>XP / REWARDS</span><span><b id="ppXp">0</b></span></div>
+  <div class="pp-reward" id="ppReward"></div>
+</div>
+
+<div id="scene-badge">01 — HEAVY BAG / SPLIT LIGHT</div>
+<div id="ready">READY</div>
+<div id="crosshair"></div>
+<div id="bagPrompt">WALK UP TO THE HEAVY BAG</div>
+<div id="detectFlash"></div>
+<button type="button" id="pauseBtn" aria-label="Pause">PAUSE · MENU</button>
+<div id="pauseMenu" aria-hidden="true">
+  <div class="pause-card">
+    <h2>Paused</h2>
+    <p>Return to the heavy bag menu or keep training.</p>
+    <div class="pause-actions">
+      <button type="button" id="resumeBtn" class="btn primary"><span>RESUME TRAINING</span><b>→</b></button>
+      <button type="button" id="toBagMenuBtn" class="btn secondary"><span>HEAVY BAG MENU</span><b>◎</b></button>
+      <button type="button" id="toMainSiteBtn" class="btn secondary"><span>MAIN MENU · BOXARSEDGE.COM</span><b>↗</b></button>
+    </div>
+  </div>
+</div>
+
+<div id="demoModal" aria-hidden="true">
+  <div class="demo-shell" role="dialog" aria-modal="true" aria-label="Gameplay demos">
+    <div class="demo-top">
+      <div>
+        <h3>BOXAR'S EDGE · GAMEPLAY</h3>
+        <p id="demoNowPlaying">Gameplay demo</p>
+      </div>
+      <button type="button" class="demo-close" id="demoClose" aria-label="Close">×</button>
+    </div>
+    <div class="demo-frame-wrap">
+      <iframe id="demoFrame" title="Boxar's Edge gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <div class="demo-list" id="demoList"></div>
+  </div>
+</div>
+
+<div id="hitFlash"></div>
+<div id="toast"></div>
+
+<div id="controls">
+  <div class="control-copy">
+    <b>KEYBOARD</b>X JAB · S HOOK · V CROSS · C UPPERCUT · Z GUARD · Q/E DODGE · WASD MOVE
+    <br>
+    <b>MOUSE</b>LMB JAB · RMB GUARD · MOVE TO LOOK
+    <b>GAMEPAD</b>A/B/X/Y ATTACK · LB/RB DODGE · LT/RT GUARD
+    <b>WEBCAM</b>CALIBRATE · UP = UPPERCUT · SIDE ARC = HOOK · LEFT EXTEND = JAB · RIGHT EXTEND = CROSS · HIGH GUARD
+  </div>
+  <div class="control-status">MODE<strong id="modeLabel">FIRST PERSON TRAINING</strong></div>
+</div>
+
+<video id="cameraVideo" autoplay playsinline muted></video>
+<div class="wc-tag" id="wcTag"><span class="dot"></span>WEBCAM</div>
+
+<div id="start">
+  <div id="start-card">
+    <div class="eyebrow">TRAINING MANUAL · BOXAR'S EDGE</div>
+    <h1>HEAVY BAG<br><em>TRAINING.</em></h1>
+    <p>
+      First-person heavy bag under a split-light room. Punches drive a low-poly physical proxy;
+      the detailed bag mesh follows the rigid body. Keyboard, controller, or calibrated webcam.
+    </p>
+    <div class="cal-note">
+      <b>CALIBRATE BEFORE YOU BOX.</b>
+      Enable the webcam, hold a neutral guard, then enter training.
+      Keyboard and gamepad work without calibration.
+    </div>
+    <div class="start-actions">
+      <button id="startBtn" class="btn primary"><span>ENTER TRAINING</span><b>→</b></button>
+      <button id="cameraBtn" class="btn secondary"><span>ENABLE WEBCAM</span><b>↗</b></button>
+      <button id="calBtn" class="btn secondary" disabled><span>CALIBRATE GUARD</span><b>◎</b></button>
+      <button id="menuBtn" class="btn secondary"><span>MAIN MENU</span><b>↗</b></button>
+    </div>
+    <div id="loadStatus" class="ok">SPLIT-LIGHT ROOM · BAG ONLINE</div>
+  </div>
+  <div class="start-meta">
+    <span>PROCEDURAL BAG · RAPIER BODY</span>
+    <span>INPUT // PHYSICS // FIRST PERSON</span>
+    <span>CLICK TO TRAIN</span>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import RAPIER from 'https://cdn.jsdelivr.net/npm/@dimforge/rapier3d-compat@0.14.0/+esm';
+
+const $ = id => document.getElementById(id);
+
+const WORLD = {
+  bagY: 1.35,
+  bagZ: -1.15,
+  anchorY: 2.48,
+  playerZ: 2.75
+};
+
+await RAPIER.init();
+
+// ---------- Punch SFX ----------
+const PUNCH_SFX_URLS = [
+  '../../../assets/audio/effects/punch.mp3',
+  '../../../assets/audio/effects/punch_2.mp3',
+  '../../../assets/audio/effects/boxar_punch_01.mp3'
+];
+const punchSfxPool = PUNCH_SFX_URLS.map(src => {
+  const a = new Audio(src);
+  a.preload = 'auto';
+  a.volume = 0.85;
+  return a;
+});
+let sfxUnlocked = false;
+function unlockSfx() {
+  if (sfxUnlocked) return;
+  sfxUnlocked = true;
+  // Warm decode under a user gesture
+  punchSfxPool.forEach(a => {
+    try {
+      a.load();
+      const p = a.play();
+      if (p && p.then) p.then(() => { a.pause(); a.currentTime = 0; }).catch(() => {});
+    } catch (_) {}
+  });
+}
+function playPunchSfx(type) {
+  if (!punchSfxPool.length) return;
+  // Prefer different clips: jab uses 0, hook/cross 1, uppercut 2, with slight random
+  let idx = 0;
+  if (type === 'hook' || type === 'cross') idx = 1;
+  else if (type === 'uppercut') idx = 2;
+  if (Math.random() < 0.35) idx = Math.floor(Math.random() * punchSfxPool.length);
+  const base = punchSfxPool[idx];
+  // Clone so overlapping hits can layer
+  const a = base.cloneNode();
+  a.volume = type === 'jab' ? 0.7 : 0.9;
+  a.playbackRate = 0.92 + Math.random() * 0.16;
+  a.play().catch(() => {
+    // Fallback: replay shared element
+    try {
+      base.currentTime = 0;
+      base.playbackRate = 0.92 + Math.random() * 0.16;
+      base.play();
+    } catch (_) {}
+  });
+}
+
+
+
+// ---------- Scene ----------
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x07070b);
+scene.fog = new THREE.Fog(0x07070b, 10, 26);
+
+const camera = new THREE.PerspectiveCamera(68, innerWidth / innerHeight, 0.03, 80);
+camera.position.set(0, 1.62, WORLD.playerZ);
+camera.rotation.order = 'YXZ';
+
+const renderer = new THREE.WebGLRenderer({
+  antialias: false,
+  powerPreference: 'high-performance',
+  stencil: false,
+  depth: true
+});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+renderer.setSize(innerWidth, innerHeight, false);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.BasicShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+$('game').appendChild(renderer.domElement);
+renderer.domElement.style.display = 'block';
+
+// ---------- Split-light aesthetic ----------
+// Cool left / warm right, soft ambient, hard key from each side.
+scene.add(new THREE.AmbientLight(0x1a1c24, 0.12));
+
+const coolKey = new THREE.DirectionalLight(0x6ea8ff, 0.35);
+coolKey.position.set(-5.5, 5.5, 3.5);
+coolKey.castShadow = true;
+coolKey.shadow.mapSize.set(2048, 2048);
+coolKey.shadow.camera.near = 0.5;
+coolKey.shadow.camera.far = 28;
+coolKey.shadow.camera.left = coolKey.shadow.camera.bottom = -8;
+coolKey.shadow.camera.right = coolKey.shadow.camera.top = 8;
+scene.add(coolKey);
+
+const warmKey = new THREE.DirectionalLight(0xffb070, 0.30);
+warmKey.position.set(5.5, 4.8, 2.8);
+warmKey.castShadow = true;
+warmKey.shadow.mapSize.set(1024, 1024);
+scene.add(warmKey);
+
+const coolRim = new THREE.PointLight(0x3d7bff, 2.2, 14, 2);
+coolRim.position.set(-2.8, 2.2, -0.4);
+coolRim.intensity = 0.55;
+scene.add(coolRim);
+
+const warmRim = new THREE.PointLight(0xff8a4a, 2.0, 14, 2);
+warmRim.position.set(2.8, 2.0, -0.2);
+warmRim.intensity = 0.5;
+scene.add(warmRim);
+
+// Key spot on the heavy bag — readable silhouette in the split-light room
+const overhead = new THREE.SpotLight(0xfff2e0, 1.2, 16, Math.PI / 6.5, 0.38, 1.15);
+overhead.position.set(0.15, 4.6, 1.35);
+overhead.target.position.set(0, WORLD.bagY, WORLD.bagZ);
+overhead.castShadow = true;
+overhead.shadow.mapSize.set(512, 512);
+overhead.shadow.bias = -0.00015;
+scene.add(overhead);
+scene.add(overhead.target);
+
+// Fill spot from the opposite quarter so the bag isn't a flat silhouette
+const bagFillSpot = new THREE.SpotLight(0xb8d4ff, 0.45, 12, Math.PI / 5.5, 0.5, 1.2);
+bagFillSpot.position.set(-1.6, 3.2, 1.8);
+bagFillSpot.target.position.set(0, WORLD.bagY, WORLD.bagZ);
+scene.add(bagFillSpot);
+scene.add(bagFillSpot.target);
+
+// ---------- Procedural gym floor + wall textures ----------
+function makeCanvas(size) {
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  return { canvas: c, ctx: c.getContext('2d') };
+}
+function canvasTex(canvas, repeatX = 4, repeatY = 4) {
+  const t = new THREE.CanvasTexture(canvas);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(repeatX, repeatY);
+  t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy?.() || 4);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.needsUpdate = true;
+  return t;
+}
+
+// Rubber gym mat floor — dark interlocking tiles + micro grain
+function createGymFloorMaps(warmBias = false) {
+  const size = 512;
+  const { canvas, ctx } = makeCanvas(size);
+  const base = warmBias ? '#1c1612' : '#14181f';
+  const tileA = warmBias ? '#241c16' : '#1a1f28';
+  const tileB = warmBias ? '#1a1410' : '#10141a';
+  const line = warmBias ? '#2e241c' : '#252b36';
+  const accent = warmBias ? '#3a2a18' : '#1e3a55';
+
+  ctx.fillStyle = base;
+  ctx.fillRect(0, 0, size, size);
+
+  const tile = 64;
+  for (let y = 0; y < size; y += tile) {
+    for (let x = 0; x < size; x += tile) {
+      const odd = ((x / tile) + (y / tile)) % 2 === 0;
+      ctx.fillStyle = odd ? tileA : tileB;
+      ctx.fillRect(x + 1, y + 1, tile - 2, tile - 2);
+      // bevel
+      ctx.strokeStyle = line;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x + 1.5, y + 1.5, tile - 3, tile - 3);
+    }
+  }
+
+  // Court-style lane mark through center of pattern
+  ctx.fillStyle = accent;
+  ctx.globalAlpha = 0.35;
+  ctx.fillRect(size * 0.47, 0, size * 0.06, size);
+  ctx.globalAlpha = 1;
+
+  // Rubber grain noise
+  const img = ctx.getImageData(0, 0, size, size);
+  const d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const n = (Math.random() - 0.5) * 18;
+    d[i] = Math.max(0, Math.min(255, d[i] + n));
+    d[i + 1] = Math.max(0, Math.min(255, d[i + 1] + n));
+    d[i + 2] = Math.max(0, Math.min(255, d[i + 2] + n));
+  }
+  ctx.putImageData(img, 0, 0);
+
+  // Roughness map: seams shinier slightly
+  const { canvas: rCanvas, ctx: rctx } = makeCanvas(size);
+  rctx.fillStyle = '#c8c8c8';
+  rctx.fillRect(0, 0, size, size);
+  rctx.strokeStyle = '#9a9a9a';
+  rctx.lineWidth = 3;
+  for (let y = 0; y <= size; y += tile) {
+    rctx.beginPath(); rctx.moveTo(0, y); rctx.lineTo(size, y); rctx.stroke();
+  }
+  for (let x = 0; x <= size; x += tile) {
+    rctx.beginPath(); rctx.moveTo(x, 0); rctx.lineTo(x, size); rctx.stroke();
+  }
+  const rImg = rctx.getImageData(0, 0, size, size);
+  for (let i = 0; i < rImg.data.length; i += 4) {
+    const n = (Math.random() - 0.5) * 30;
+    const v = Math.max(0, Math.min(255, rImg.data[i] + n));
+    rImg.data[i] = rImg.data[i + 1] = rImg.data[i + 2] = v;
+  }
+  rctx.putImageData(rImg, 0, 0);
+
+  // Normal-ish height grain via bump (encoded as grayscale for bumpMap)
+  const { canvas: bCanvas, ctx: bctx } = makeCanvas(size);
+  bctx.fillStyle = '#808080';
+  bctx.fillRect(0, 0, size, size);
+  for (let i = 0; i < 12000; i++) {
+    const x = Math.random() * size;
+    const y = Math.random() * size;
+    const g = 100 + Math.random() * 60;
+    bctx.fillStyle = `rgb(${g},${g},${g})`;
+    bctx.fillRect(x, y, 1.2, 1.2);
+  }
+  bctx.strokeStyle = '#6a6a6a';
+  bctx.lineWidth = 2;
+  for (let y = 0; y <= size; y += tile) {
+    bctx.beginPath(); bctx.moveTo(0, y); bctx.lineTo(size, y); bctx.stroke();
+  }
+  for (let x = 0; x <= size; x += tile) {
+    bctx.beginPath(); bctx.moveTo(x, 0); bctx.lineTo(x, size); bctx.stroke();
+  }
+
+  return {
+    map: canvasTex(canvas, 6, 12),
+    roughnessMap: canvasTex(rCanvas, 6, 12),
+    bumpMap: canvasTex(bCanvas, 6, 12)
+  };
+}
+
+// Gym wall — painted panels + concrete fleck + kickboard
+function createGymWallMaps(warmBias = false) {
+  const size = 512;
+  const { canvas, ctx } = makeCanvas(size);
+  const base = warmBias ? '#1a1512' : '#12161c';
+  const panel = warmBias ? '#221c18' : '#181d26';
+  const joint = warmBias ? '#0e0c0a' : '#0a0c10';
+  const kick = warmBias ? '#2a2018' : '#1a222c';
+  const fleck = warmBias ? '#2c241c' : '#2a3140';
+
+  ctx.fillStyle = base;
+  ctx.fillRect(0, 0, size, size);
+
+  // Vertical panels
+  const panelW = 96;
+  for (let x = 0; x < size; x += panelW) {
+    ctx.fillStyle = panel;
+    ctx.fillRect(x + 3, 0, panelW - 6, size);
+    ctx.fillStyle = joint;
+    ctx.fillRect(x, 0, 3, size);
+  }
+
+  // Kickboard / wainscot lower band
+  ctx.fillStyle = kick;
+  ctx.fillRect(0, size * 0.72, size, size * 0.28);
+  ctx.fillStyle = joint;
+  ctx.fillRect(0, size * 0.72, size, 4);
+
+  // Horizontal rail
+  ctx.fillStyle = warmBias ? '#3a2e22' : '#2a3545';
+  ctx.fillRect(0, size * 0.2, size, 6);
+  ctx.fillRect(0, size * 0.55, size, 3);
+
+  // Paint flecks
+  for (let i = 0; i < 900; i++) {
+    ctx.globalAlpha = 0.15 + Math.random() * 0.25;
+    ctx.fillStyle = fleck;
+    ctx.fillRect(Math.random() * size, Math.random() * size, 1 + Math.random() * 2, 1 + Math.random() * 2);
+  }
+  ctx.globalAlpha = 1;
+
+  // Soft noise
+  const img = ctx.getImageData(0, 0, size, size);
+  for (let i = 0; i < img.data.length; i += 4) {
+    const n = (Math.random() - 0.5) * 14;
+    img.data[i] = Math.max(0, Math.min(255, img.data[i] + n));
+    img.data[i + 1] = Math.max(0, Math.min(255, img.data[i + 1] + n));
+    img.data[i + 2] = Math.max(0, Math.min(255, img.data[i + 2] + n));
+  }
+  ctx.putImageData(img, 0, 0);
+
+  const { canvas: rCanvas, ctx: rctx } = makeCanvas(size);
+  rctx.fillStyle = '#d0d0d0';
+  rctx.fillRect(0, 0, size, size);
+  rctx.fillStyle = '#b0b0b0';
+  rctx.fillRect(0, size * 0.72, size, size * 0.28);
+  for (let x = 0; x < size; x += panelW) {
+    rctx.fillStyle = '#989898';
+    rctx.fillRect(x, 0, 3, size);
+  }
+
+  return {
+    map: canvasTex(canvas, 4, 2),
+    roughnessMap: canvasTex(rCanvas, 4, 2)
+  };
+}
+
+const floorMapsCool = createGymFloorMaps(false);
+const floorMapsWarm = createGymFloorMaps(true);
+const wallMapsCool = createGymWallMaps(false);
+const wallMapsWarm = createGymWallMaps(true);
+
+const floorMatCool = new THREE.MeshStandardMaterial({
+  map: floorMapsCool.map,
+  roughnessMap: floorMapsCool.roughnessMap,
+  bumpMap: floorMapsCool.bumpMap,
+  bumpScale: 0.04,
+  roughness: 0.92,
+  metalness: 0.04,
+  color: 0xffffff
+});
+const floorMatWarm = new THREE.MeshStandardMaterial({
+  map: floorMapsWarm.map,
+  roughnessMap: floorMapsWarm.roughnessMap,
+  bumpMap: floorMapsWarm.bumpMap,
+  bumpScale: 0.04,
+  roughness: 0.92,
+  metalness: 0.04,
+  color: 0xffffff
+});
+
+const floorCool = new THREE.Mesh(new THREE.PlaneGeometry(12, 24), floorMatCool);
+floorCool.rotation.x = -Math.PI / 2;
+floorCool.position.set(-6, 0, -2);
+floorCool.receiveShadow = true;
+scene.add(floorCool);
+
+const floorWarm = new THREE.Mesh(new THREE.PlaneGeometry(12, 24), floorMatWarm);
+floorWarm.rotation.x = -Math.PI / 2;
+floorWarm.position.set(6, 0, -2);
+floorWarm.receiveShadow = true;
+scene.add(floorWarm);
+
+// Center court seam
+const seam = new THREE.Mesh(
+  new THREE.BoxGeometry(0.05, 0.012, 20),
+  new THREE.MeshStandardMaterial({ color: 0xe8e4dc, roughness: 0.55, metalness: 0.1 })
+);
+seam.position.set(0, 0.006, -1);
+scene.add(seam);
+
+const wallMatCool = new THREE.MeshStandardMaterial({
+  map: wallMapsCool.map,
+  roughnessMap: wallMapsCool.roughnessMap,
+  roughness: 0.9,
+  metalness: 0.02,
+  color: 0xffffff
+});
+const wallMatWarm = new THREE.MeshStandardMaterial({
+  map: wallMapsWarm.map,
+  roughnessMap: wallMapsWarm.roughnessMap,
+  roughness: 0.9,
+  metalness: 0.02,
+  color: 0xffffff
+});
+
+const backCool = new THREE.Mesh(new THREE.PlaneGeometry(12, 8), wallMatCool);
+backCool.position.set(-6, 4, -6);
+backCool.receiveShadow = true;
+scene.add(backCool);
+const backWarm = new THREE.Mesh(new THREE.PlaneGeometry(12, 8), wallMatWarm);
+backWarm.position.set(6, 4, -6);
+backWarm.receiveShadow = true;
+scene.add(backWarm);
+
+const sideL = new THREE.Mesh(new THREE.PlaneGeometry(14, 8), wallMatCool);
+sideL.position.set(-8, 4, -1);
+sideL.rotation.y = Math.PI / 2;
+sideL.receiveShadow = true;
+scene.add(sideL);
+const sideR = new THREE.Mesh(new THREE.PlaneGeometry(14, 8), wallMatWarm);
+sideR.position.set(8, 4, -1);
+sideR.rotation.y = -Math.PI / 2;
+sideR.receiveShadow = true;
+scene.add(sideR);
+
+// Close the room behind the player
+const rearWall = new THREE.Mesh(new THREE.PlaneGeometry(16, 8), wallMatCool.clone());
+rearWall.material.map = wallMapsCool.map;
+rearWall.material.roughnessMap = wallMapsCool.roughnessMap;
+rearWall.position.set(0, 4, 5.2);
+rearWall.rotation.y = Math.PI;
+rearWall.receiveShadow = true;
+scene.add(rearWall);
+
+const rearCool = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), wallMatCool);
+rearCool.position.set(-4, 4, 5.15);
+rearCool.rotation.y = Math.PI;
+rearCool.receiveShadow = true;
+scene.add(rearCool);
+const rearWarm = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), wallMatWarm);
+rearWarm.position.set(4, 4, 5.15);
+rearWarm.rotation.y = Math.PI;
+rearWarm.receiveShadow = true;
+scene.add(rearWarm);
+
+// ---------- Stand (procedural fallback — hidden when GLB stand loads) ----------
+const proceduralStand = new THREE.Group();
+proceduralStand.name = 'ProceduralStand';
+scene.add(proceduralStand);
+const standMat = new THREE.MeshStandardMaterial({ color: 0x2a2a32, metalness: 0.75, roughness: 0.32 });
+const base = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.65, 0.12, 16), standMat);
+base.position.set(0, 0.06, WORLD.bagZ - 0.35);
+base.castShadow = true; base.receiveShadow = true;
+proceduralStand.add(base);
+const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.05, 2.55, 10), standMat);
+pole.position.set(0, 1.35, WORLD.bagZ - 0.35);
+pole.castShadow = true;
+proceduralStand.add(pole);
+const arm = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.06, 0.55), standMat);
+arm.position.set(0, 2.55, WORLD.bagZ - 0.18);
+arm.castShadow = true;
+proceduralStand.add(arm);
+const hook = new THREE.Mesh(new THREE.TorusGeometry(0.05, 0.012, 8, 16), standMat);
+hook.position.set(0, 2.48, WORLD.bagZ);
+hook.rotation.x = Math.PI / 2;
+proceduralStand.add(hook);
+
+// ---------- Bag proxy + detailed visual ----------
+const bagProxy = new THREE.Group();
+scene.add(bagProxy);
+
+let proxyRadius = 0.30;
+let proxyHalfHeight = 0.70;
+
+const proxyMaterial = new THREE.MeshBasicMaterial({
+  // Invisible collision volume — still raycastable (visible=true, opacity 0)
+  color: 0x245dff, wireframe: false, transparent: true, opacity: 0.0, depthWrite: false
+});
+let proxyCylinder = null;
+const bagProxyGeometryGroup = new THREE.Group();
+bagProxy.add(bagProxyGeometryGroup);
+
+function rebuildProxyGeometry(radius, halfHeight) {
+  proxyRadius = Math.max(0.12, radius);
+  proxyHalfHeight = Math.max(0.25, halfHeight);
+  if (proxyCylinder) bagProxyGeometryGroup.remove(proxyCylinder);
+  proxyCylinder = new THREE.Mesh(
+    new THREE.CylinderGeometry(proxyRadius, proxyRadius, proxyHalfHeight * 2, 10),
+    proxyMaterial
+  );
+  bagProxyGeometryGroup.add(proxyCylinder);
+}
+rebuildProxyGeometry(proxyRadius, proxyHalfHeight);
+
+const bagVisual = new THREE.Group();
+bagProxy.add(bagVisual);
+
+function buildDetailedBag() {
+  while (bagVisual.children.length) bagVisual.remove(bagVisual.children[0]);
+
+  const leather = new THREE.MeshStandardMaterial({ color: 0x1a1210, roughness: 0.72, metalness: 0.08 });
+  const leatherHi = new THREE.MeshStandardMaterial({ color: 0x2a1c18, roughness: 0.65, metalness: 0.1 });
+  const strapMat = new THREE.MeshStandardMaterial({ color: 0x0e0e10, roughness: 0.55, metalness: 0.2 });
+
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.30, 1.15, 20), leather);
+  body.castShadow = true; body.receiveShadow = true;
+  bagVisual.add(body);
+
+  const upper = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.28, 0.22, 18), leatherHi);
+  upper.position.y = 0.62; upper.castShadow = true;
+  bagVisual.add(upper);
+
+  const lower = new THREE.Mesh(new THREE.CylinderGeometry(0.30, 0.27, 0.18, 18), leatherHi);
+  lower.position.y = -0.62; lower.castShadow = true;
+  bagVisual.add(lower);
+
+  for (const y of [-0.35, 0, 0.35]) {
+    const band = new THREE.Mesh(new THREE.TorusGeometry(0.305, 0.018, 8, 24), strapMat);
+    band.rotation.x = Math.PI / 2;
+    band.position.y = y;
+    bagVisual.add(band);
+  }
+
+  const strapL = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.28, 0.03), strapMat);
+  strapL.position.set(-0.1, 0.82, 0);
+  bagVisual.add(strapL);
+  const strapR = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.28, 0.03), strapMat);
+  strapR.position.set(0.1, 0.82, 0);
+  bagVisual.add(strapR);
+
+  const topRing = new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.01, 6, 12), standMat);
+  topRing.position.y = 0.98;
+  topRing.rotation.x = Math.PI / 2;
+  bagVisual.add(topRing);
+
+  const logo = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.22, 0.12),
+    new THREE.MeshStandardMaterial({ color: 0xf2f1ed, roughness: 0.5, metalness: 0.1, side: THREE.DoubleSide })
+  );
+  logo.position.set(0, 0.15, 0.301);
+  bagVisual.add(logo);
+
+  rebuildProxyGeometry(0.30, 0.70);
+}
+
+buildDetailedBag();
+
+// ---------- HDRI environment lighting ----------
+const HDRI_PATHS = [
+  '../../../assets/hdri/ferndale_studio_12_4k.hdr',
+  '../../../assets/hdri/ferndale_studio_12_4k.hdr',
+  '../../../assets/environments/ferndale_studio_12_4k.hdr'
+];
+async function loadHDRI() {
+  const rgbe = new RGBELoader();
+  for (const url of HDRI_PATHS) {
+    try {
+      const tex = await new Promise((res, rej) => rgbe.load(url, res, undefined, rej));
+      tex.mapping = THREE.EquirectangularReflectionMapping;
+      scene.environment = tex;
+      // Subtle background so split walls still read; HDRI drives reflections/lighting
+      scene.background = tex;
+      renderer.toneMappingExposure = 0.92;
+      console.log('[HeavyBag] HDRI loaded', url);
+      return true;
+    } catch (e) {
+      console.warn('[HeavyBag] HDRI miss', url);
+    }
+  }
+  return false;
+}
+loadHDRI();
+
+// ---------- punching_bag_with_stand.glb ----------
+// Stand = static. Bag = physics visual fitted to collision cylinder.
+const BAG_STAND_PATHS = [
+  '../../../assets/models/environments/punching_bag_with_stand.glb',
+  '../../../assets/models/environments/punching_bag_with_stand.glb',
+  '../../../assets/models/props/punching_bag_with_stand.glb'
+];
+let glbStandRoot = null;
+
+function meshVolume(mesh) {
+  const b = new THREE.Box3().setFromObject(mesh);
+  const s = b.getSize(new THREE.Vector3());
+  return Math.max(s.x, 0.01) * Math.max(s.y, 0.01) * Math.max(s.z, 0.01);
+}
+
+function classifyBagAndStand(root) {
+  const meshes = [];
+  root.traverse(o => { if (o.isMesh) meshes.push(o); });
+  const standMeshes = [];
+  const bagMeshes = [];
+  for (const m of meshes) {
+    const n = `${m.name} ${m.parent?.name || ''}`.toLowerCase();
+    if (/stand|pole|base|frame|support|mount|arm|hook|chain|bracket|floor/.test(n)) {
+      standMeshes.push(m);
+    } else if (/bag|punch|leather|sack|heavy|body|cylinder/.test(n)) {
+      bagMeshes.push(m);
+    }
+  }
+  // Fallback: tallest / largest mid-air mesh ≈ bag; rest ≈ stand
+  if (!bagMeshes.length && meshes.length) {
+    const ranked = meshes.slice().sort((a, b) => meshVolume(b) - meshVolume(a));
+    bagMeshes.push(ranked[0]);
+    for (let i = 1; i < ranked.length; i++) standMeshes.push(ranked[i]);
+  }
+  if (!standMeshes.length && meshes.length > 1) {
+    for (const m of meshes) if (!bagMeshes.includes(m)) standMeshes.push(m);
+  }
+  return { standMeshes, bagMeshes };
+}
+
+function reparentMeshes(meshes, targetGroup) {
+  // Detach world-preserving
+  meshes.forEach(m => {
+    m.updateWorldMatrix(true, false);
+    const wPos = new THREE.Vector3();
+    const wQuat = new THREE.Quaternion();
+    const wScale = new THREE.Vector3();
+    m.matrixWorld.decompose(wPos, wQuat, wScale);
+    if (m.parent) m.parent.remove(m);
+    targetGroup.add(m);
+    m.position.copy(wPos);
+    m.quaternion.copy(wQuat);
+    m.scale.copy(wScale);
+  });
+}
+
+async function loadBagWithStand(url) {
+  const gltf = await new Promise((res, rej) => loader.load(url, res, undefined, rej));
+  const root = gltf.scene;
+  root.updateMatrixWorld(true);
+
+  // Uniform scale to human bag height band (~2.4m full assembly)
+  let box = new THREE.Box3().setFromObject(root);
+  let size = box.getSize(new THREE.Vector3());
+  const targetH = 2.45;
+  const scale = targetH / Math.max(size.y, 0.01);
+  root.scale.setScalar(scale);
+  root.updateMatrixWorld(true);
+  box = new THREE.Box3().setFromObject(root);
+  const minY = box.min.y;
+  const center = box.getCenter(new THREE.Vector3());
+  root.position.set(-center.x, -minY, WORLD.bagZ - center.z);
+  root.updateMatrixWorld(true);
+
+  const { standMeshes, bagMeshes } = classifyBagAndStand(root);
+
+  // Static stand stays in world
+  if (glbStandRoot) scene.remove(glbStandRoot);
+  glbStandRoot = new THREE.Group();
+  glbStandRoot.name = 'BagStandGLB';
+  scene.add(glbStandRoot);
+
+  if (standMeshes.length) {
+    // Keep stand under root hierarchy in place — simpler: add whole root then strip bag
+    // Prefer: clone stand path by removing bag meshes from a stand group
+    standMeshes.forEach(m => {
+      m.castShadow = true;
+      m.receiveShadow = true;
+    });
+  }
+
+  // Put full root in scene for stand, then move bag meshes onto bagVisual
+  scene.add(root);
+  proceduralStand.visible = false;
+
+  clearBagVisual();
+  const bagGroup = new THREE.Group();
+  bagGroup.name = 'BagFromGLB';
+
+  if (bagMeshes.length) {
+    // Capture bag bounds before reparent
+    const bagBox = new THREE.Box3();
+    bagMeshes.forEach(m => bagBox.expandByObject(m));
+    const bagCenter = bagBox.getCenter(new THREE.Vector3());
+    const bagSize = bagBox.getSize(new THREE.Vector3());
+
+    bagMeshes.forEach(m => {
+      m.updateWorldMatrix(true, false);
+      const wPos = new THREE.Vector3();
+      const wQuat = new THREE.Quaternion();
+      const wScale = new THREE.Vector3();
+      m.matrixWorld.decompose(wPos, wQuat, wScale);
+      if (m.parent) m.parent.remove(m);
+      bagGroup.add(m);
+      // Localize relative to bag center so proxy origin matches
+      m.position.sub(bagCenter);
+      m.quaternion.copy(wQuat);
+      m.scale.copy(wScale);
+      m.castShadow = true;
+      m.receiveShadow = true;
+    });
+
+    bagVisual.add(bagGroup);
+
+    // Fit physics body + invisible cylinder to bag volume
+    const radius = Math.max(bagSize.x, bagSize.z) * 0.48;
+    const halfH = bagSize.y * 0.48;
+    rebuildProxyGeometry(radius, halfH);
+    rebuildBagCollider();
+
+    WORLD.bagY = bagCenter.y;
+    WORLD.anchorY = bagBox.max.y + 0.12;
+    bagBody.setTranslation({ x: bagCenter.x, y: WORLD.bagY, z: bagCenter.z }, true);
+    anchorBody.setTranslation({ x: bagCenter.x, y: WORLD.anchorY, z: bagCenter.z }, true);
+  } else {
+    // Entire model as bag visual fallback
+    clearBagVisual();
+    // root already scaled/positioned — move into bagVisual centered
+    scene.remove(root);
+    const b = new THREE.Box3().setFromObject(root);
+    const c = b.getCenter(new THREE.Vector3());
+    const s = b.getSize(new THREE.Vector3());
+    root.position.sub(c);
+    bagVisual.add(root);
+    rebuildProxyGeometry(Math.max(s.x, s.z) * 0.48, s.y * 0.48);
+    rebuildBagCollider();
+    WORLD.bagY = c.y;
+    bagBody.setTranslation({ x: 0, y: WORLD.bagY, z: WORLD.bagZ }, true);
+  }
+
+  proceduralStand.visible = false;
+  setStatus('HDRI · BAG + STAND LOADED', 'ok');
+  $('startBtn').disabled = false;
+}
+
+async function tryLoadBagWithStand() {
+  // loader may not exist yet at parse time — defer
+  const tryLoad = async () => {
+    const L = new GLTFLoader();
+    for (const url of BAG_STAND_PATHS) {
+      try {
+        // temporarily swap global loader usage inside loadBagWithStand
+        const gltf = await new Promise((res, rej) => L.load(url, res, undefined, rej));
+        // inline process using same logic by assigning to window path
+        await loadBagWithStandFromGltf(gltf);
+        console.log('[HeavyBag] bag+stand from', url);
+        return;
+      } catch (e) {
+        console.warn('[HeavyBag] bag+stand miss', url);
+      }
+    }
+    setStatus('PROCEDURAL BAG · ADD punching_bag_with_stand.glb', 'warn');
+    $('startBtn').disabled = false;
+  };
+  // Delay until physics bodies exist
+  setTimeout(() => tryLoad().catch(console.warn), 0);
+}
+
+async function loadBagWithStandFromGltf(gltf) {
+  const root = gltf.scene;
+  root.updateMatrixWorld(true);
+  let box = new THREE.Box3().setFromObject(root);
+  let size = box.getSize(new THREE.Vector3());
+  const scale = 2.45 / Math.max(size.y, 0.01);
+  root.scale.setScalar(scale);
+  root.updateMatrixWorld(true);
+  box = new THREE.Box3().setFromObject(root);
+  const minY = box.min.y;
+  const center = box.getCenter(new THREE.Vector3());
+  root.position.set(-center.x, -minY, WORLD.bagZ - center.z);
+  root.updateMatrixWorld(true);
+
+  const { standMeshes, bagMeshes } = classifyBagAndStand(root);
+  standMeshes.forEach(m => { m.castShadow = true; m.receiveShadow = true; });
+  scene.add(root);
+
+  clearBagVisual();
+  if (bagMeshes.length) {
+    const bagBox = new THREE.Box3();
+    bagMeshes.forEach(m => bagBox.expandByObject(m));
+    const bagCenter = bagBox.getCenter(new THREE.Vector3());
+    const bagSize = bagBox.getSize(new THREE.Vector3());
+    const bagGroup = new THREE.Group();
+    bagMeshes.forEach(m => {
+      m.updateWorldMatrix(true, false);
+      const wPos = new THREE.Vector3(), wQuat = new THREE.Quaternion(), wScale = new THREE.Vector3();
+      m.matrixWorld.decompose(wPos, wQuat, wScale);
+      if (m.parent) m.parent.remove(m);
+      bagGroup.add(m);
+      m.position.copy(wPos).sub(bagCenter);
+      m.quaternion.copy(wQuat);
+      m.scale.copy(wScale);
+      m.castShadow = true; m.receiveShadow = true;
+    });
+    bagVisual.add(bagGroup);
+    rebuildProxyGeometry(Math.max(bagSize.x, bagSize.z) * 0.48, bagSize.y * 0.48);
+    if (typeof rebuildBagCollider === 'function') rebuildBagCollider();
+    if (typeof placeBagAt === 'function') {
+      placeBagAt(bagCenter.x, bagCenter.y, bagCenter.z, proxyHalfHeight);
+    } else if (typeof bagBody !== 'undefined') {
+      WORLD.bagY = bagCenter.y;
+      WORLD.bagZ = bagCenter.z;
+      WORLD.anchorY = bagBox.max.y + 0.12;
+      bagBody.setTranslation({ x: bagCenter.x, y: WORLD.bagY, z: bagCenter.z }, true);
+      anchorBody.setTranslation({ x: bagCenter.x, y: WORLD.anchorY, z: bagCenter.z }, true);
+    }
+  }
+
+  proceduralStand.visible = false;
+  setStatus('HDRI · BAG + STAND LOADED', 'ok');
+  if ($('startBtn')) $('startBtn').disabled = false;
+}
+
+
+// ---------- Sparse gym props (from Protagonist gym assets) ----------
+// Place weights / balls / equipment at the sides only — keep the bag lane clear.
+const PROP_PATHS = [
+  '../../../assets/models/environments/Gym_props.glb',
+  '../../../assets/models/environments/Gym.glb'
+];
+
+function placePropInstance(sourceRoot, x, z, yaw, scaleMul = 1) {
+  const clone = sourceRoot.clone(true);
+  clone.traverse(o => {
+    if (o.isMesh) {
+      o.castShadow = true;
+      o.receiveShadow = true;
+      // Avoid oversized emissive blowouts in split-light room
+      if (o.material) {
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        mats.forEach(m => {
+          if (m && m.emissiveIntensity != null) m.emissiveIntensity = Math.min(m.emissiveIntensity, 0.15);
+        });
+      }
+    }
+  });
+  clone.scale.multiplyScalar(scaleMul);
+  clone.position.set(x, 0, z); // y corrected by caller for floor align
+  clone.rotation.y = yaw;
+  scene.add(clone);
+  return clone;
+}
+
+async function loadSparseGymProps() {
+  const loaderProps = new GLTFLoader();
+  const loadP = url => new Promise((res, rej) => loaderProps.load(url, res, undefined, rej));
+
+  let gltf = null;
+  for (const url of PROP_PATHS) {
+    try {
+      gltf = await loadP(url);
+      console.log('[HeavyBag] Loaded props from', url);
+      break;
+    } catch (err) {
+      console.warn('[HeavyBag] Prop path failed', url, err.message || err);
+    }
+  }
+  if (!gltf) {
+    setStatus('BAG READY · PROPS OPTIONAL', 'ok');
+    return;
+  }
+
+  const root = gltf.scene;
+  root.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(root);
+  const size = box.getSize(new THREE.Vector3());
+  const span = Math.max(size.x, size.z, 0.001);
+  // One prop set — larger (×1.4) and shifted forward toward the player
+  const fit = (5.4 * 1.4) / span;
+  root.scale.setScalar(fit);
+  root.updateMatrixWorld(true);
+  const box2 = new THREE.Box3().setFromObject(root);
+  const minY = box2.min.y;
+  const center = box2.getCenter(new THREE.Vector3());
+
+  // Sit on floor, off the bag lane, moved forward (less negative Z)
+  root.position.set(-4.8 - center.x, -minY, -0.7 - center.z);
+  root.rotation.y = 0.35;
+  root.traverse(o => {
+    if (o.isMesh) {
+      o.castShadow = true;
+      o.receiveShadow = true;
+    }
+  });
+  scene.add(root);
+
+  setStatus('BAG READY · GYM PROPS SET', 'ok');
+}
+
+loadSparseGymProps().catch(err => {
+  console.warn(err);
+  setStatus('BAG READY', 'ok');
+});
+
+// ---------- Coach / Trainer (from Protagonist Fight Bridge) ----------
+// assets/models/characters/Coach.glb — watches the player near the bag.
+const COACH_MODEL = '../../../assets/models/characters/Coach.glb';
+let coachRoot = null;
+let coachMixer = null;
+let coachActions = {};
+let coachActive = null;
+let coachIdleTimer = 0;
+let coachClips = [];
+
+function findCoachClip(names) {
+  const lower = names.map(n => String(n).toLowerCase());
+  return coachClips.find(c => lower.some(n => (c.name || '').toLowerCase().includes(n)))
+    || coachClips.find(c => lower.some(n => (c.name || '').toLowerCase() === n))
+    || null;
+}
+
+function playCoach(k, speed = 1, onComplete = null) {
+  const a = coachActions[k];
+  if (!a) { if (onComplete) onComplete(); return false; }
+  clearTimeout(playCoach._returnTimer);
+  const prev = coachActive && coachActions[coachActive] !== a ? coachActions[coachActive] : null;
+  if (prev) prev.fadeOut(0.16);
+  a.reset();
+  a.enabled = true;
+  a.setEffectiveWeight(1);
+  a.setEffectiveTimeScale(speed);
+  const loop = (k === 'idle' || k === 'idle2' || k === 'idleAlt' || k === 'crouch')
+    ? THREE.LoopRepeat : THREE.LoopOnce;
+  a.setLoop(loop, loop === THREE.LoopOnce ? 1 : Infinity);
+  a.clampWhenFinished = loop === THREE.LoopOnce;
+  a.fadeIn(0.18).play();
+  coachActive = k;
+  if (k === 'idleAlt') coachIdleTimer = 0;
+  if (loop === THREE.LoopOnce) {
+    const duration = Math.max(0.35, (a.getClip().duration || 0.8) / speed);
+    playCoach._returnTimer = setTimeout(() => {
+      if (coachActions[k] === a) a.fadeOut(0.14);
+      if (onComplete) onComplete();
+      else if (coachActions.idleAlt) playCoach('idleAlt', 1);
+    }, duration * 1000 + 40);
+  }
+  return true;
+}
+
+function bindCoachAnimations(gltf) {
+  coachClips = gltf.animations || [];
+  coachMixer = new THREE.AnimationMixer(coachRoot);
+  const map = {
+    idle: findCoachClip(['Idle']),
+    idle2: findCoachClip(['Idle 2']),
+    idleAlt: findCoachClip(['Idle.001']),
+    crouch: findCoachClip(['crouch idle']),
+    standToIdle: findCoachClip(['stand to crouch']),
+    goodJob: findCoachClip(['Good job']),
+    celebrate: findCoachClip(['celebrate']),
+    getUp: findCoachClip(['get up'])
+  };
+  coachActions = {};
+  for (const [k, c] of Object.entries(map)) {
+    if (c) coachActions[k] = coachMixer.clipAction(c);
+  }
+  // Default standing / watch stance
+  if (coachActions.idleAlt) playCoach('idleAlt', 1);
+  else if (coachActions.idle) playCoach('idle', 1);
+  else if (coachClips[0]) {
+    const a = coachMixer.clipAction(coachClips[0]);
+    a.setLoop(THREE.LoopRepeat, Infinity);
+    a.play();
+    coachActions.idleAlt = a;
+    coachActive = 'idleAlt';
+  }
+}
+
+function updateCoachIdleCycle(dt) {
+  if (!coachRoot || !coachActions.idleAlt) return;
+  if (coachActive !== 'idleAlt') return;
+  coachIdleTimer += dt;
+  if (coachIdleTimer < 14) return;
+  coachIdleTimer = 0;
+  const variants = ['idle', 'idle2', 'idleAlt'].filter(k => coachActions[k]);
+  if (variants.length < 2) return;
+  const key = variants[Math.floor(Math.random() * variants.length)];
+  if (key === 'idleAlt') { playCoach('idleAlt', 1); return; }
+  playCoach(key, 0.95, () => playCoach('idleAlt', 1));
+}
+
+function coachReactToPunch(type) {
+  if (!coachRoot) return;
+  // Occasional encouragement so he feels present without constant spam
+  if (Math.random() > 0.22) return;
+  if (type === 'uppercut' || type === 'hook') {
+    if (coachActions.goodJob) playCoach('goodJob', 1, () => playCoach('idleAlt', 1));
+  } else if (stats.combo >= 5 && coachActions.celebrate) {
+    playCoach('celebrate', 1, () => playCoach('idleAlt', 1));
+  } else if (coachActions.idle2) {
+    playCoach('idle2', 1, () => playCoach('idleAlt', 1));
+  }
+}
+
+async function loadCoach() {
+  try {
+    const coachLoader = new GLTFLoader();
+    const gltf = await new Promise((res, rej) =>
+      coachLoader.load(COACH_MODEL, res, undefined, rej)
+    );
+    coachRoot = gltf.scene;
+
+    // Fit to human scale in this room (Protagonist uses 180 for authored units)
+    coachRoot.updateMatrixWorld(true);
+    let box = new THREE.Box3().setFromObject(coachRoot);
+    let size = box.getSize(new THREE.Vector3());
+    const targetH = 1.78;
+    const h = size.y || 1;
+    coachRoot.scale.setScalar(targetH / h);
+    coachRoot.updateMatrixWorld(true);
+    box = new THREE.Box3().setFromObject(coachRoot);
+    const minY = box.min.y;
+    const center = box.getCenter(new THREE.Vector3());
+
+    // Stand near the bag, off the punch lane, facing the player
+    const cx = 1.55;
+    const cz = WORLD.bagZ + 0.55;
+    coachRoot.position.set(cx - center.x, -minY, cz - center.z);
+
+    // Face the player start position
+    const lookX = 0 - cx;
+    const lookZ = WORLD.playerZ - cz;
+    coachRoot.rotation.y = Math.atan2(lookX, lookZ);
+
+    coachRoot.traverse(o => {
+      if (o.isMesh) {
+        o.castShadow = true;
+        o.receiveShadow = true;
+        if (o.material) {
+          const ms = Array.isArray(o.material) ? o.material : [o.material];
+          ms.forEach(m => {
+            if (m && 'roughness' in m) m.roughness = Math.max(0.42, m.roughness);
+          });
+        }
+      }
+    });
+
+    scene.add(coachRoot);
+    bindCoachAnimations(gltf);
+
+    // Soft key on the trainer so he reads in the split light
+    const coachSpot = new THREE.SpotLight(0x6ea8ff, 1.6, 6, Math.PI / 6, 0.55, 1.4);
+    coachSpot.position.set(cx + 0.2, 3.1, cz + 0.8);
+    coachSpot.target.position.set(cx, 1.2, cz);
+    scene.add(coachSpot);
+    scene.add(coachSpot.target);
+
+    console.log('[HeavyBag] Coach loaded near bag');
+    setStatus('BAG READY · TRAINER ON DECK', 'ok');
+  } catch (err) {
+    console.warn('[HeavyBag] Coach.glb missing', err);
+  }
+}
+
+loadCoach();
+
+
+
+// ---------- Rapier (heavy bag) — original responsive settings ----------
+// Stand is visual-only (no colliders). Bag collides with floor only.
+const world = new RAPIER.World({ x: 0, y: -9.81, z: 0 });
+
+// Interaction groups: floor=1, bag=2 — bag never hits stand (stand has no collider)
+const GROUP_FLOOR = 0x0001;
+const GROUP_BAG = 0x0002;
+function packs(membership, filter) {
+  return (membership << 16) | filter;
+}
+
+const floorBody = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
+world.createCollider(
+  RAPIER.ColliderDesc.cuboid(20, 0.05, 20)
+    .setCollisionGroups(packs(GROUP_FLOOR, GROUP_BAG)),
+  floorBody
+);
+
+const anchorBody = world.createRigidBody(
+  RAPIER.RigidBodyDesc.fixed().setTranslation(0, WORLD.anchorY, WORLD.bagZ)
+);
+
+const bagBody = world.createRigidBody(
+  RAPIER.RigidBodyDesc.dynamic()
+    .setTranslation(0, WORLD.bagY, WORLD.bagZ)
+    .setLinearDamping(0.55)
+    .setAngularDamping(0.65)
+    .setCanSleep(true)
+    .setCcdEnabled(true)
+);
+
+let bagColliderRef = world.createCollider(
+  RAPIER.ColliderDesc.cylinder(proxyHalfHeight, proxyRadius)
+    .setDensity(12)
+    .setFriction(0.65)
+    .setRestitution(0.04)
+    .setCollisionGroups(packs(GROUP_BAG, GROUP_FLOOR)),
+  bagBody
+);
+
+let bagJoint = world.createImpulseJoint(
+  RAPIER.JointData.spherical(
+    { x: 0, y: 0, z: 0 },                 // anchor local
+    { x: 0, y: proxyHalfHeight * 0.92, z: 0 } // bag top local
+  ),
+  anchorBody,
+  bagBody,
+  true
+);
+
+const bagRest = { x: 0, y: WORLD.bagY, z: WORLD.bagZ };
+
+function zeroBagMotion() {
+  bagBody.setLinvel({ x: 0, y: 0, z: 0 }, true);
+  bagBody.setAngvel({ x: 0, y: 0, z: 0 }, true);
+}
+
+function placeBagAt(x, y, z, halfH) {
+  const hh = halfH != null ? halfH : proxyHalfHeight;
+  WORLD.bagY = y;
+  WORLD.bagZ = z;
+  WORLD.anchorY = y + hh + 0.08;
+  bagRest.x = x; bagRest.y = y; bagRest.z = z;
+  if (bagJoint) {
+    try { world.removeImpulseJoint(bagJoint, true); } catch (_) {}
+    bagJoint = null;
+  }
+  anchorBody.setTranslation({ x, y: WORLD.anchorY, z }, true);
+  bagBody.setTranslation({ x, y, z }, true);
+  bagBody.setRotation({ x: 0, y: 0, z: 0, w: 1 }, true);
+  bagJoint = world.createImpulseJoint(
+    RAPIER.JointData.spherical({ x: 0, y: 0, z: 0 }, { x: 0, y: hh * 0.92, z: 0 }),
+    anchorBody, bagBody, true
+  );
+  zeroBagMotion();
+  bagBody.sleep();
+}
+
+function rebuildBagCollider() {
+  if (bagColliderRef) { try { world.removeCollider(bagColliderRef, true); } catch (_) {} }
+  bagColliderRef = world.createCollider(
+    RAPIER.ColliderDesc.cylinder(proxyHalfHeight, proxyRadius)
+      .setDensity(12).setFriction(0.65).setRestitution(0.04)
+      .setCollisionGroups(packs(GROUP_BAG, GROUP_FLOOR)),
+    bagBody
+  );
+  zeroBagMotion();
+}
+
+function syncBag() {
+  const t = bagBody.translation();
+  const r = bagBody.rotation();
+  bagProxy.position.set(t.x, t.y, t.z);
+  bagProxy.quaternion.set(r.x, r.y, r.z, r.w);
+}
+
+// Optional external bag GLB
+const loader = new GLTFLoader();
+function clearBagVisual() {
+  while (bagVisual.children.length) bagVisual.remove(bagVisual.children[0]);
+}
+function normalizeBag(root) {
+  root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+  const box = new THREE.Box3().setFromObject(root);
+  const size = box.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z) || 1;
+  root.scale.setScalar(1.48 / maxDim);
+  root.updateMatrixWorld(true);
+  const fitted = new THREE.Box3().setFromObject(root);
+  const c = fitted.getCenter(new THREE.Vector3());
+  root.position.sub(c);
+  root.updateMatrixWorld(true);
+  const finalSize = new THREE.Box3().setFromObject(root).getSize(new THREE.Vector3());
+  rebuildProxyGeometry(Math.max(finalSize.x, finalSize.z) * 0.5, finalSize.y * 0.5);
+  rebuildBagCollider();
+}
+async function loadBagFile(url) {
+  const gltf = await new Promise((res, rej) => loader.load(url, res, undefined, rej));
+  clearBagVisual();
+  normalizeBag(gltf.scene);
+  bagVisual.add(gltf.scene);
+  bagBody.setTranslation({ x: 0, y: WORLD.bagY, z: WORLD.bagZ }, true);
+  setStatus('CUSTOM BAG LOADED', 'ok');
+}
+
+function setStatus(msg, kind = '') {
+  const el = $('loadStatus');
+  el.textContent = msg;
+  el.className = kind;
+  $('ready').textContent = msg;
+  $('ready').classList.toggle('live', kind === 'ok');
+}
+
+// ---------- Session / XP / ROM progression ----------
+let started = false;
+let guard = false;
+let yaw = 0, pitch = 0;
+let lookLocked = false;
+let attackCooldown = 0;
+const keys = {};
+const velocity = new THREE.Vector3();
+
+const XP_PER = { jab: 8, cross: 12, hook: 14, uppercut: 16 };
+const REWARD_MILESTONES = [
+  { at: 10,  label: 'WARM-UP COMPLETE' },
+  { at: 25,  label: 'BAG RHYTHM' },
+  { at: 50,  label: 'VOLUME WORKER' },
+  { at: 100, label: 'HEAVY HANDS' },
+  { at: 150, label: 'IRON SESSION' }
+];
+
+const STORE_KEY = 'boxars_edge_heavybag_progress_v1';
+
+function loadProgressStore() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; }
+  catch (_) { return {}; }
+}
+function saveProgressStore(data) {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch (_) {}
+}
+
+const lastSession = (() => {
+  const s = loadProgressStore();
+  return s.lastSession || { punches: 0, xp: 0, rom: 0, peakCombo: 0, at: 0 };
+})();
+
+const stats = {
+  punches: 0,
+  combo: 0,
+  comboT: 0,
+  peak: 0,
+  peakCombo: 0,
+  xp: 0,
+  landedByType: { jab: 0, cross: 0, hook: 0, uppercut: 0 },
+  rewardsUnlocked: []
+};
+
+// Range of motion — normalized image-space extents of hand travel this session
+const rom = {
+  minX: 1, maxX: 0, minY: 1, maxY: 0,
+  samples: 0,
+  score: 0 // 0–100 composite
+};
+
+function romScore() {
+  if (rom.samples < 8) return 0;
+  const spanX = Math.max(0, rom.maxX - rom.minX);
+  const spanY = Math.max(0, rom.maxY - rom.minY);
+  // Full-frame diagonal ~1.41; practical training envelope ~0.35–0.85
+  const raw = (spanX * 0.55 + spanY * 0.45) / 0.75;
+  return Math.round(THREE.MathUtils.clamp(raw * 100, 0, 100));
+}
+
+function sampleRom(hands) {
+  for (const h of hands) {
+    rom.minX = Math.min(rom.minX, h.x);
+    rom.maxX = Math.max(rom.maxX, h.x);
+    rom.minY = Math.min(rom.minY, h.y);
+    rom.maxY = Math.max(rom.maxY, h.y);
+    rom.samples++;
+  }
+  rom.score = romScore();
+}
+
+function deltaEl(id, now, prev, unit = '') {
+  const el = $(id);
+  if (!el) return;
+  if (!prev && prev !== 0) { el.textContent = ''; el.className = 'delta'; return; }
+  const d = now - prev;
+  if (d > 0) { el.textContent = `+${d}${unit}`; el.className = 'delta up'; }
+  else if (d < 0) { el.textContent = `${d}${unit}`; el.className = 'delta down'; }
+  else { el.textContent = '±0'; el.className = 'delta'; }
+}
+
+function updateStatsUI() {
+  $('statPunches').textContent = stats.punches;
+  $('statCombo').textContent = stats.combo;
+  if ($('statXp')) $('statXp').textContent = stats.xp;
+  if ($('statRom')) $('statRom').textContent = rom.samples < 8 ? '—' : rom.score;
+
+  if ($('ppPunches')) $('ppPunches').textContent = stats.punches;
+  if ($('ppXp')) $('ppXp').textContent = stats.xp;
+  if ($('ppRom')) $('ppRom').textContent = rom.samples < 8 ? '—' : rom.score + '%';
+  if ($('ppLast')) {
+    const lp = lastSession.punches || 0;
+    const lr = lastSession.rom || 0;
+    $('ppLast').textContent = lp ? `${lp} hits · ROM ${lr}%` : 'NO PRIOR';
+  }
+  deltaEl('ppPunchesDelta', stats.punches, lastSession.punches || 0);
+  deltaEl('ppRomDelta', rom.score, lastSession.rom || 0, '%');
+
+  const punchGoal = Math.max(50, (lastSession.punches || 0) + 10);
+  const romGoal = 100;
+  if ($('ppPunchBar')) $('ppPunchBar').style.width = Math.min(100, (stats.punches / punchGoal) * 100) + '%';
+  if ($('ppRomBar')) $('ppRomBar').style.width = Math.min(100, rom.score) + '%';
+}
+
+function grantReward(label) {
+  if (stats.rewardsUnlocked.includes(label)) return;
+  stats.rewardsUnlocked.push(label);
+  if ($('ppReward')) $('ppReward').textContent = 'REWARD · ' + label;
+  toast(label);
+  stats.xp += 25;
+  updateStatsUI();
+}
+
+function registerLandedPunch(type, power) {
+  stats.punches++;
+  stats.comboT = 1.15;
+  stats.combo++;
+  stats.peakCombo = Math.max(stats.peakCombo, stats.combo);
+  stats.peak = Math.max(stats.peak, power * 10);
+  if (stats.landedByType[type] != null) stats.landedByType[type]++;
+
+  let gain = XP_PER[type] || 10;
+  if (stats.combo >= 5) gain = Math.round(gain * 1.25);
+  if (stats.combo >= 10) gain = Math.round(gain * 1.15);
+  stats.xp += gain;
+
+  for (const m of REWARD_MILESTONES) {
+    if (stats.punches >= m.at) grantReward(m.label);
+  }
+  updateStatsUI();
+}
+
+function persistSession() {
+  if (!stats.punches && rom.samples < 8) return;
+  const store = loadProgressStore();
+  store.lastSession = {
+    punches: stats.punches,
+    xp: stats.xp,
+    rom: rom.score,
+    peakCombo: stats.peakCombo,
+    byType: { ...stats.landedByType },
+    at: Date.now()
+  };
+  store.lifetime = store.lifetime || { punches: 0, xp: 0, sessions: 0 };
+  store.lifetime.punches += stats.punches;
+  store.lifetime.xp += stats.xp;
+  store.lifetime.sessions += 1;
+  store.best = store.best || { punches: 0, rom: 0, xp: 0 };
+  store.best.punches = Math.max(store.best.punches, stats.punches);
+  store.best.rom = Math.max(store.best.rom, rom.score);
+  store.best.xp = Math.max(store.best.xp, stats.xp);
+  saveProgressStore(store);
+}
+
+function startSessionTracking() {
+  stats.punches = 0;
+  stats.combo = 0;
+  stats.comboT = 0;
+  stats.peak = 0;
+  stats.peakCombo = 0;
+  stats.xp = 0;
+  stats.landedByType = { jab: 0, cross: 0, hook: 0, uppercut: 0 };
+  stats.rewardsUnlocked = [];
+  rom.minX = 1; rom.maxX = 0; rom.minY = 1; rom.maxY = 0;
+  rom.samples = 0; rom.score = 0;
+  if ($('ppReward')) $('ppReward').textContent = '';
+  updateStatsUI();
+}
+
+// ---------- Webcam ML performance tuner ----------
+const webcamOpt = {
+  targetFps: 18,
+  lastProcess: 0,
+  frameSkip: 0,
+  smooth: 0.42,          // EMA blend on landmarks
+  confGate: 0.52,
+  speedFloor: 0.024,
+  palmFloor: 1.055,
+  adaptiveScale: 1.0,    // rises if player is small in frame / low ROM
+  smoothed: new Map()    // label -> {x,y,z,palm}
+};
+
+function smoothHand(h) {
+  const prev = webcamOpt.smoothed.get(h.label);
+  const a = webcamOpt.smooth;
+  if (!prev) {
+    webcamOpt.smoothed.set(h.label, { ...h });
+    return h;
+  }
+  const out = {
+    label: h.label,
+    x: prev.x + (h.x - prev.x) * (1 - a),
+    y: prev.y + (h.y - prev.y) * (1 - a),
+    z: prev.z + (h.z - prev.z) * (1 - a),
+    palm: prev.palm + (h.palm - prev.palm) * (1 - a)
+  };
+  webcamOpt.smoothed.set(h.label, out);
+  return out;
+}
+
+function adaptThresholds() {
+  // If player ROM is tight, lower motion gates slightly for accessibility enjoyment
+  const s = rom.score || 0;
+  if (s > 0 && s < 35) webcamOpt.adaptiveScale = 0.82;
+  else if (s < 55) webcamOpt.adaptiveScale = 0.92;
+  else webcamOpt.adaptiveScale = 1.0;
+}
+
+function toast(msg) {
+  const el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 900);
+}
+function flashHit() {
+  $('hitFlash').classList.add('on');
+  setTimeout(() => $('hitFlash').classList.remove('on'), 70);
+}
+
+function begin() {
+  unlockSfx();
+  startSessionTracking();
+  started = true;
+  $('start').classList.add('hidden');
+  yaw = 0; pitch = 0;
+  camera.position.set(0, 1.62, WORLD.playerZ);
+  camera.rotation.set(0, 0, 0);
+  renderer.domElement.requestPointerLock?.();
+  $('modeLabel').textContent = 'FIRST PERSON TRAINING';
+  setStatus('TRAINING', 'ok');
+  toast('TRAIN');
+  if (coachActions.crouch) playCoach('crouch', 1);
+  else if (coachActions.idleAlt) playCoach('idleAlt', 1);
+  updateStatsUI();
+  const pb = $('pauseBtn');
+  if (pb) pb.classList.add('show');
+  showBagApproachPrompt();
+  if (typeof PunchDetector !== 'undefined') PunchDetector.reset();
+}
+
+function showBagApproachPrompt() {
+  const el = $('bagPrompt');
+  if (!el) return;
+  clearTimeout(showBagApproachPrompt._t1);
+  clearTimeout(showBagApproachPrompt._t2);
+  el.classList.remove('fade');
+  el.classList.add('show');
+  // Hold ~2s visible, then fade out
+  showBagApproachPrompt._t1 = setTimeout(() => {
+    el.classList.add('fade');
+    el.classList.remove('show');
+    showBagApproachPrompt._t2 = setTimeout(() => {
+      el.classList.remove('fade');
+    }, 750);
+  }, 2000);
+}
+$('startBtn').onclick = () => { unlockSfx(); begin(); };
+renderer.domElement.addEventListener('click', () => {
+  if (started) renderer.domElement.requestPointerLock?.();
+});
+document.addEventListener('mousemove', e => {
+  if (!lookLocked) return;
+  yaw -= e.movementX * 0.0025;
+  pitch -= e.movementY * 0.002;
+  pitch = Math.max(-0.72, Math.min(0.62, pitch));
+  camera.rotation.set(pitch, yaw, 0);
+});
+
+function cameraForward() {
+  return new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion).normalize();
+}
+function getPunchPower(type) {
+  return { jab: 5.8, hook: 8.4, cross: 7.2, uppercut: 9.0 }[type] || 6;
+}
+
+
+// ---------- Simple MediaPipe punch detection ----------
+const PunchDetector = {
+  cooldownUntil: 0,
+  armed: { Left: true, Right: true },
+
+  reset() {
+    this.cooldownUntil = 0;
+    this.armed = { Left: true, Right: true };
+  },
+
+  evaluate(hand, prev, scale = 1) {
+    const now = performance.now();
+    if (now < this.cooldownUntil) return null;
+    if (!hand || !prev) return null;
+
+    const label = hand.label === 'Right' ? 'Right' : 'Left';
+    const dx = hand.x - prev.x;
+    const dy = hand.y - prev.y;
+    const speed = Math.hypot(dx, dy);
+    const palmRatio = hand.palm / Math.max(0.035, prev.palm);
+    const rising = -dy;
+    const outward = Math.abs(dx);
+
+    const rest = 0.012 * scale;
+    if (speed < rest && palmRatio < 1.03) {
+      this.armed[label] = true;
+      return null;
+    }
+    if (!this.armed[label]) return null;
+
+    const speedFloor = 0.028 * scale;
+    const palmFloor = 1.06;
+    if (speed < speedFloor && palmRatio < palmFloor && rising < 0.03 && outward < 0.03) {
+      return null;
+    }
+
+    let type = null;
+    if (rising > 0.032 * scale && rising > outward * 1.15) type = 'uppercut';
+    else if (outward > 0.030 * scale && outward > rising * 1.1) type = 'hook';
+    else if (palmRatio > palmFloor || speed > 0.036 * scale) {
+      type = label === 'Right' ? 'cross' : 'jab';
+    }
+    if (!type) return null;
+
+    this.armed[label] = false;
+    this.cooldownUntil = now + (type === 'jab' ? 160 : 220);
+
+    const el = $('detectFlash');
+    if (el) {
+      el.textContent = type.toUpperCase();
+      el.classList.remove('show');
+      void el.offsetWidth;
+      el.classList.add('show');
+      clearTimeout(this._ft);
+      this._ft = setTimeout(() => el.classList.remove('show'), 280);
+    }
+    return type;
+  }
+};
+
+function punch(type) {
+  if (!started || guard || attackCooldown > 0) return;
+  attackCooldown = 0.13;
+  const origin = camera.position.clone();
+  const direction = cameraForward();
+  const ray = new THREE.Raycaster(origin, direction, 0, 4.2);
+  const hit = proxyCylinder ? ray.intersectObject(proxyCylinder, false)[0] : null;
+  if (!hit) { toast('MISS'); return; }
+  const power = getPunchPower(type);
+  playPunchSfx(type);
+  if (typeof coachReactToPunch === 'function') coachReactToPunch(type);
+  bagBody.wakeUp();
+  bagBody.applyImpulse(
+    { x: direction.x * power, y: Math.max(-0.15, direction.y * power * 0.35), z: direction.z * power },
+    true
+  );
+  if (type === 'hook') {
+    const side = new THREE.Vector3(-direction.z, 0, direction.x).normalize();
+    bagBody.applyImpulse({ x: side.x * 2.8, y: 0, z: side.z * 2.8 }, true);
+    bagBody.applyTorqueImpulse({ x: 0, y: 2.2, z: 0 }, true);
+  }
+  if (type === 'uppercut') bagBody.applyImpulse({ x: 0, y: 2.0, z: 0 }, true);
+  registerLandedPunch(type, power);
+  flashHit();
+  toast(type.toUpperCase() + ' · +' + (XP_PER[type] || 10) + ' XP');
+}
+
+function dodge(side) {
+  if (!started) return;
+  const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
+  right.y = 0; right.normalize();
+  camera.position.addScaledVector(right, side === 'right' ? 0.38 : -0.38);
+  camera.position.x = THREE.MathUtils.clamp(camera.position.x, -3, 3);
+}
+
+document.addEventListener('keydown', e => {
+  keys[e.code] = true;
+  if (e.repeat) return;
+  if (e.code === 'KeyZ') { guard = true; return; }
+  const map = { KeyX: 'jab', KeyS: 'hook', KeyV: 'cross', KeyC: 'uppercut' };
+  if (map[e.code]) punch(map[e.code]);
+  if (e.code === 'KeyQ') dodge('left');
+  if (e.code === 'KeyE') dodge('right');
+});
+document.addEventListener('keyup', e => {
+  keys[e.code] = false;
+  if (e.code === 'KeyZ') guard = false;
+});
+document.addEventListener('mousedown', e => {
+  if (!started) return;
+  if (e.button === 0) punch('jab');
+  if (e.button === 2) { e.preventDefault(); guard = true; }
+});
+document.addEventListener('mouseup', e => { if (e.button === 2) guard = false; });
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+let prevButtons = [];
+function pollGamepad() {
+  const gp = navigator.getGamepads?.()[0];
+  if (!gp) { prevButtons = []; return; }
+  const b = gp.buttons.map(x => x.pressed);
+  const edge = i => b[i] && !prevButtons[i];
+  if (edge(0)) punch('jab');
+  if (edge(1)) punch('hook');
+  if (edge(2)) punch('cross');
+  if (edge(3)) punch('uppercut');
+  if (edge(4)) dodge('left');
+  if (edge(5)) dodge('right');
+  guard = !!(b[6] || b[7]);
+  prevButtons = b;
+}
+
+function updatePlayer(dt) {
+  const f = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+  f.y = 0; f.normalize();
+  const r = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
+  r.y = 0; r.normalize();
+  const dir = new THREE.Vector3();
+  if (keys.KeyW || keys.ArrowUp) dir.add(f);
+  if (keys.ArrowDown) dir.sub(f);
+  if (keys.KeyD || keys.ArrowRight) dir.add(r);
+  if (keys.KeyA || keys.ArrowLeft) dir.sub(r);
+  if (dir.lengthSq()) dir.normalize();
+  velocity.lerp(dir.multiplyScalar(2.0), Math.min(1, dt * 10));
+  camera.position.addScaledVector(velocity, dt);
+  camera.position.y = 1.62;
+  camera.position.x = THREE.MathUtils.clamp(camera.position.x, -3.2, 3.2);
+  camera.position.z = THREE.MathUtils.clamp(camera.position.z, 0.9, 4.8);
+}
+
+// Webcam
+let webcamRunning = false, handsModel = null, webcamStream = null, webcamBusy = false;
+let prevHands = [], webcamLock = 0, calibrating = false, calibFrames = 0;
+const CALIB_NEED = 20;
+
+$('cameraBtn').onclick = async () => {
+  if (webcamRunning) stopWebcam();
+  else {
+    try { await startWebcam(); }
+    catch (e) { console.error(e); alert(e.message || 'Camera unavailable.'); }
+  }
+};
+$('calBtn').onclick = () => {
+  if (!webcamRunning) return;
+  calibrating = true; calibFrames = 0;
+  setStatus('HOLD GUARD — CALIBRATING…', 'warn');
+  toast('HOLD GUARD');
+};
+
+async function startWebcam() {
+  if (!navigator.mediaDevices?.getUserMedia)
+    throw new Error('Webcam requires HTTPS or localhost.');
+  if (!window.Hands) {
+    await new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js';
+      s.onload = resolve;
+      s.onerror = () => reject(new Error('MediaPipe Hands failed to load.'));
+      document.head.appendChild(s);
+    });
+  }
+  webcamStream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: { ideal: 'user' }, width: { ideal: 640 }, height: { ideal: 480 } },
+    audio: false
+  });
+  const video = $('cameraVideo');
+  video.srcObject = webcamStream;
+  video.classList.add('active');
+  $('wcTag').classList.add('show');
+  await video.play();
+  handsModel = new window.Hands({
+    locateFile: f => 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/' + f
+  });
+  handsModel.setOptions({
+    maxNumHands: 2,
+    modelComplexity: 0,           // lite model — latency first
+    minDetectionConfidence: 0.50,
+    minTrackingConfidence: 0.50
+  });
+  handsModel.onResults(onHands);
+  if (typeof handsModel.initialize === 'function') await handsModel.initialize();
+  webcamRunning = true;
+  $('calBtn').disabled = false;
+  $('cameraBtn').querySelector('span').textContent = 'DISABLE WEBCAM';
+  setStatus('WEBCAM ON · CALIBRATE GUARD', 'warn');
+  prevHands = [];
+  webcamLoop();
+}
+
+function stopWebcam() {
+  webcamRunning = false; calibrating = false;
+  if (webcamStream) { webcamStream.getTracks().forEach(t => t.stop()); webcamStream = null; }
+  if (handsModel) { try { handsModel.close(); } catch (_) {} handsModel = null; }
+  $('cameraVideo').classList.remove('active');
+  $('wcTag').classList.remove('show', 'tracking');
+  $('calBtn').disabled = true;
+  $('cameraBtn').querySelector('span').textContent = 'ENABLE WEBCAM';
+  prevHands = [];
+}
+
+async function webcamLoop() {
+  if (!webcamRunning) return;
+  requestAnimationFrame(webcamLoop);
+  const video = $('cameraVideo');
+  if (webcamBusy || video.readyState < 2) return;
+
+  // Cap inference rate — frees main thread for physics / render
+  const now = performance.now();
+  const minDelta = 1000 / webcamOpt.targetFps;
+  if (now - webcamOpt.lastProcess < minDelta) return;
+  webcamOpt.lastProcess = now;
+
+  webcamBusy = true;
+  try { await handsModel.send({ image: video }); }
+  catch (e) { /* drop frame silently for stability */ }
+  finally { webcamBusy = false; }
+}
+
+function handInfo(lm, label) {
+  const palm = Math.max(0.035, Math.hypot(lm[5].x - lm[17].x, lm[5].y - lm[17].y));
+  return { x: lm[9].x, y: lm[9].y, z: lm[9].z, palm, label };
+}
+
+function onHands(results) {
+  if (!webcamRunning) return;
+  const raw = results.multiHandLandmarks || [];
+  const labels = (results.multiHandedness || []).map(x => x.label);
+  const hands = raw.map((lm, i) => handInfo(lm, labels[i]));
+  if (!hands.length) { prevHands = []; $('wcTag').classList.remove('tracking'); return; }
+  $('wcTag').classList.add('tracking');
+
+  if (calibrating) {
+    if (hands.length >= 2 && hands.every(h => h.y < 0.62)) {
+      calibFrames++;
+      setStatus(`HOLD GUARD… ${Math.min(100, Math.round(calibFrames / CALIB_NEED * 100))}%`, 'warn');
+      if (calibFrames >= CALIB_NEED) {
+        calibrating = false;
+        setStatus('CALIBRATED · ENTER TRAINING', 'ok');
+        toast('CALIBRATED');
+      }
+    } else calibFrames = Math.max(0, calibFrames - 2);
+    prevHands = hands.map(h => ({ ...h }));
+    return;
+  }
+
+  // Smooth landmarks then track ROM every confident frame
+  const smoothHands = hands.map(smoothHand);
+  if (started) {
+    sampleRom(smoothHands);
+    adaptThresholds();
+  }
+
+  if (!started) { prevHands = smoothHands.map(h => ({ ...h })); return; }
+  if (webcamLock > 0) webcamLock -= 0.045;
+  guard = smoothHands.filter(h => h.y < 0.40).length >= 2;
+
+  const scale = webcamOpt.adaptiveScale;
+  const speedFloor = webcamOpt.speedFloor * scale;
+  const palmFloor = 1 + (webcamOpt.palmFloor - 1) * scale;
+
+  if (!guard && webcamLock <= 0) {
+    for (const h of smoothHands) {
+      const prev = prevHands.find(p => p.label === h.label);
+      if (!prev) continue;
+      const type = PunchDetector.evaluate(h, prev, scale);
+      if (type) {
+        punch(type);
+        webcamLock = type === 'jab' ? 0.16 : 0.24;
+        break;
+      }
+    }
+  }
+  prevHands = smoothHands.map(h => ({ ...h }));
+}
+
+// ---------- Main menu / pause ----------
+const MAIN_MENU_URL = 'https://boxarsedge.com';
+
+function openMainMenu() {
+  persistSession();
+  window.location.href = MAIN_MENU_URL;
+}
+
+function showPauseMenu() {
+  if (!started) return;
+  persistSession();
+  try { document.exitPointerLock?.(); } catch (_) {}
+  const pm = $('pauseMenu');
+  if (pm) {
+    pm.classList.add('show');
+    pm.setAttribute('aria-hidden', 'false');
+  }
+  toast('PAUSED');
+}
+
+function hidePauseMenu() {
+  const pm = $('pauseMenu');
+  if (pm) {
+    pm.classList.remove('show');
+    pm.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function returnToHeavyBagMenu() {
+  hidePauseMenu();
+  persistSession();
+  started = false;
+  const bp = $('bagPrompt');
+  if (bp) { bp.classList.remove('show', 'fade'); }
+
+  try { document.exitPointerLock?.(); } catch (_) {}
+  const pb = $('pauseBtn');
+  if (pb) pb.classList.remove('show');
+  $('start').classList.remove('hidden');
+  setStatus('HEAVY BAG MENU', 'ok');
+  $('modeLabel').textContent = 'FIRST PERSON TRAINING';
+  toast('MENU');
+  // Keep session stats visible as last run until next ENTER TRAINING
+}
+
+function resumeTraining() {
+  hidePauseMenu();
+  if (!started) return;
+  renderer.domElement.requestPointerLock?.();
+  toast('RESUME');
+}
+
+const menuBtn = $('menuBtn');
+if (menuBtn) menuBtn.onclick = openMainMenu;
+
+const pauseBtn = $('pauseBtn');
+if (pauseBtn) pauseBtn.onclick = showPauseMenu;
+
+const resumeBtn = $('resumeBtn');
+if (resumeBtn) resumeBtn.onclick = resumeTraining;
+
+const toBagMenuBtn = $('toBagMenuBtn');
+if (toBagMenuBtn) toBagMenuBtn.onclick = returnToHeavyBagMenu;
+
+const toMainSiteBtn = $('toMainSiteBtn');
+if (toMainSiteBtn) toMainSiteBtn.onclick = openMainMenu;
+
+// Esc always opens the pause menu while training
+document.addEventListener('keydown', e => {
+  if (e.code !== 'Escape' && e.key !== 'Escape') return;
+  if (typeof demoOpen !== 'undefined' && demoOpen) return; // demo handler closes first
+  if (!started) return;
+  e.preventDefault();
+  e.stopPropagation();
+  showPauseMenu();
+}, true);
+
+// Pointer lock loss (Esc in many browsers) also surfaces the pause menu
+document.addEventListener('pointerlockchange', () => {
+  lookLocked = document.pointerLockElement === renderer.domElement;
+  if (started && !lookLocked) {
+    const pm = $('pauseMenu');
+    if (pm && !pm.classList.contains('show')) showPauseMenu();
+  }
+});
+
+
+updateStatsUI();
+
+// ---------- Gameplay demo modal (YouTube) ----------
+const DEMO_VIDEOS = [
+  { id: 'J8jBPHGX3Zk', title: 'GAMEPLAY DEMO', start: 0 },
+  { id: 'gZ8vxiDumLI', title: 'BOXAR\'S EDGE · TRAILER', start: 0 },
+  { id: '-gFloXU7Rdc', title: 'BOXAR\'S EDGE · FEATURE', start: 0 },
+  { id: '-GNWQCJY0S4', title: 'BOXAR\'S EDGE · EXTENDED', start: 358 }
+];
+
+let demoOpen = false;
+let demoWasStarted = false;
+
+function demoEmbedUrl(v) {
+  const start = v.start ? `&start=${v.start}` : '';
+  return `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1&color=white${start}`;
+}
+
+function demoThumb(id) {
+  return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+}
+
+function buildDemoList() {
+  const list = $('demoList');
+  if (!list || list.childElementCount) return;
+  DEMO_VIDEOS.forEach((v, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'demo-item' + (i === 0 ? ' active' : '');
+    btn.dataset.id = v.id;
+    btn.innerHTML = `<img src="${demoThumb(v.id)}" alt=""><span>${v.title}</span>`;
+    btn.onclick = () => playDemoVideo(v, btn);
+    list.appendChild(btn);
+  });
+}
+
+function playDemoVideo(v, activeBtn) {
+  const frame = $('demoFrame');
+  const label = $('demoNowPlaying');
+  if (frame) frame.src = demoEmbedUrl(v);
+  if (label) label.textContent = v.title;
+  document.querySelectorAll('.demo-item').forEach(el => el.classList.toggle('active', el === activeBtn));
+}
+
+function openDemoModal() {
+  buildDemoList();
+  demoWasStarted = started;
+  demoOpen = true;
+
+  // Pause training feel without fully exiting session
+  try { document.exitPointerLock?.(); } catch (_) {}
+  hidePauseMenu?.();
+
+  const modal = $('demoModal');
+  if (modal) {
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+  playDemoVideo(DEMO_VIDEOS[0], document.querySelector('.demo-item'));
+  toast('DEMO');
+}
+
+function closeDemoModal() {
+  demoOpen = false;
+  const modal = $('demoModal');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+  const frame = $('demoFrame');
+  if (frame) frame.src = ''; // stop playback
+
+  // Resume gameplay if they were in a session
+  if (demoWasStarted && started) {
+    renderer.domElement.requestPointerLock?.();
+    toast('RESUME');
+  }
+}
+
+const demoBtn = $('demoBtn');
+if (demoBtn) demoBtn.onclick = openDemoModal;
+const demoClose = $('demoClose');
+if (demoClose) demoClose.onclick = closeDemoModal;
+
+$('demoModal')?.addEventListener('click', e => {
+  if (e.target === $('demoModal')) closeDemoModal();
+});
+
+document.addEventListener('keydown', e => {
+  if (!demoOpen) return;
+  if (e.code === 'Escape' || e.key === 'Escape') {
+    e.preventDefault();
+    e.stopPropagation();
+    closeDemoModal();
+  }
+}, true);
+
+if (typeof placeBagAt === 'function') placeBagAt(0, WORLD.bagY, WORLD.bagZ, proxyHalfHeight);
+tryLoadBagWithStand();
+
+const clock = new THREE.Clock();
+// ---------- 60fps render loop ----------
+let _animVisible = true;
+document.addEventListener('visibilitychange', () => {
+  _animVisible = !document.hidden;
+});
+
+let _rimT = 0;
+function animate(now) {
+  requestAnimationFrame(animate);
+  if (!_animVisible) return;
+
+  const dt = Math.min(0.033, clock.getDelta());
+
+  // Rim lights: update ~10Hz instead of every frame
+  _rimT += dt;
+  if (_rimT > 0.1) {
+    _rimT = 0;
+    const t = (now || performance.now()) * 0.001;
+    coolRim.intensity = 0.5 + Math.sin(t * 0.7) * 0.08;
+    warmRim.intensity = 0.45 + Math.sin(t * 0.7 + Math.PI) * 0.08;
+  }
+
+  if (started) {
+    attackCooldown = Math.max(0, attackCooldown - dt);
+    if (stats.comboT > 0) {
+      stats.comboT -= dt;
+      if (stats.comboT <= 0) { stats.combo = 0; updateStatsUI(); }
+    }
+    updatePlayer(dt);
+    pollGamepad();
+  }
+
+  if (coachMixer) coachMixer.update(dt);
+  // Idle coach cycle only when not training (saves work)
+  if (!started) updateCoachIdleCycle(dt);
+
+  world.timestep = 1 / 60;
+  world.step();
+  syncBag();
+  renderer.render(scene, camera);
+}
+requestAnimationFrame(animate);
+
+// MotionKit: stagger UI in on first paint
+requestAnimationFrame(() => {
+  document.body.classList.add('mk-ready');
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) persistSession();
+});
+window.addEventListener('beforeunload', () => persistSession());
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

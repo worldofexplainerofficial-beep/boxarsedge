@@ -1,0 +1,65 @@
+{
+  "version": 3,
+  "savedAt": "2026-08-27T17:33:31.264Z",
+  "state": {
+    "name": "PROTAGONIST",
+    "stats": {
+      "strength": 43,
+      "speed": 30,
+      "endurance": 30,
+      "accuracy": 28,
+      "footwork": 30,
+      "defense": 25,
+      "headMovement": 28
+    },
+    "points": 0,
+    "upgradePoints": 0,
+    "cash": 2900,
+    "xp": 11600,
+    "sessions": 0,
+    "wins": 2,
+    "losses": 0,
+    "ladderStage": 0,
+    "arcadeWins": [
+      "bobby",
+      "yassine"
+    ],
+    "arcadeLosses": 0,
+    "faceMap": null,
+    "outfitMap": null,
+    "outfitTint": "#17191d",
+    "camera": "Locked",
+    "inputMode": "Keyboard",
+    "trainingDrills": {
+      "jab": 0,
+      "cross": 0,
+      "movement": 0,
+      "guard": 0
+    },
+    "xpMilestonesClaimed": 5,
+    "champion": true,
+    "defenseWins": 0,
+    "defenseLosses": 0,
+    "defenseCount": 0,
+    "defenseOptions": [],
+    "sparringChallenge": {
+      "id": "fauzia",
+      "file": "Fauzia.glb",
+      "name": "FAUZIA",
+      "sub": "OBSIDIAN FURY",
+      "style": "ORTHODOX",
+      "rank": 5,
+      "gender": "female",
+      "createdAt": 1787851516297,
+      "expiresAt": 1787851816297
+    },
+    "sparringSessions": 0,
+    "outfitCycleIndex": 0,
+    "_saveVersion": 3,
+    "_savedAt": 1787852007141,
+    "faceMapData": null,
+    "faceMapName": null,
+    "outfitMapData": null,
+    "outfitMapName": null
+  }
+}

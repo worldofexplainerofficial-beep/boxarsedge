@@ -1,0 +1,26 @@
+BOXAR'S EDGE V5 — FIXED CAMERA / FIGHTER FACING / REFEREE
+
+Gameplay camera is locked to the selected classic view.
+Fighters retain their initial facing and no longer auto-rotate toward each other.
+AI autonomous locomotion remains disabled.
+Referee remains at its authored ring position/orientation.
+Existing gameplay, skins, Boxer's Edge+, referee animations, and no-video count remain preserved.
+
+Syntax checks:
+  boxar-game-level.html: PASS
+  Boxars_edge_level.html: PASS
+  Boxars_edge_UI.html: PASS
+  boxars-edge-ui-preview-controller.html: PASS
+
+Feature checks:
+  Fixed classic camera: PASS
+  No camera following: PASS
+  No automatic fighter rotation: PASS
+  Fixed fighter facing: PASS
+  Fixed referee position: PASS
+  Fixed referee orientation: PASS
+  AI autonomous locomotion disabled: PASS
+  Classic cameras preserved: PASS
+  Tomiwa pink preserved: PASS
+  Edge+ preserved: PASS
+  Referee video remains removed: PASS

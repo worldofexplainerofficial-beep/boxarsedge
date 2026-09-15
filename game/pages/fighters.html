@@ -1,0 +1,486 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BOXAR'S EDGE — Meet the Fighters</title><meta name="description" content="Meet the fighters of BOXAR'S EDGE. Discover their stories, fighting styles and abilities."><style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap');
+:root{--bg:#050505;--ink:#f2f1ed;--muted:#858581;--line:#252525;--blue:#245dff;--blue2:#7e9eff;--ease:cubic-bezier(.2,.75,.2,1)}*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",Arial,sans-serif;line-height:1.5;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:screen}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;cursor:pointer}img{max-width:100%;display:block}.nav{position:fixed;z-index:50;top:0;left:0;right:0;height:74px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 28px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(5,5,5,.76);backdrop-filter:blur(18px)}.brand-logo{width:112px;height:44px;object-fit:contain;object-position:left center}.nav-links{display:flex;gap:34px;font:700 11px Rajdhani;letter-spacing:.16em}.nav-links a{opacity:.68;transition:.2s}.nav-links a:hover,.nav-links a.active{opacity:1}.nav-cta{justify-self:end;border:1px solid #fff;padding:11px 16px;font:700 11px Rajdhani;letter-spacing:.14em;transition:.25s}.nav-cta:hover{background:#fff;color:#050505}.hero{min-height:76svh;position:relative;overflow:hidden;border-bottom:1px solid var(--line);padding:140px 7vw 90px;display:flex;align-items:end;background:radial-gradient(circle at 78% 38%,rgba(36,93,255,.27),transparent 28%),radial-gradient(circle at 14% 72%,rgba(229,50,45,.12),transparent 25%),#050505}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.86) 37%,rgba(5,5,5,.24) 70%,rgba(5,5,5,.76) 100%),linear-gradient(0deg,#050505 0%,transparent 35%);pointer-events:none}.hero-art{position:absolute;right:0;top:0;width:min(62vw,980px);height:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 100%)}.hero-art img{width:100%;height:100%;object-fit:cover;object-position:center 18%;filter:saturate(.82) contrast(1.1) brightness(.68)}.hero-inner{position:relative;z-index:2;width:min(850px)}.kicker{font:700 11px Rajdhani;letter-spacing:.22em;color:#a8a8a4}.hero h1{font:700 clamp(5rem,11vw,10.5rem)/.78 Rajdhani,Impact,sans-serif;letter-spacing:-.06em;text-transform:uppercase;margin:18px 0 25px}.hero h1 em{font-style:normal;color:var(--blue2)}.hero p{max-width:650px;color:#a9a9a5;font-size:clamp(1rem,1.2vw,1.2rem);margin:0}.hero-meta{position:absolute;z-index:3;bottom:24px;left:7vw;right:7vw;display:flex;justify-content:space-between;color:#676763;font:700 9px Rajdhani;letter-spacing:.16em}.roster-wrap{padding:72px 7vw 110px;background:linear-gradient(180deg,#050505,#080808)}.section-head{display:grid;grid-template-columns:1.1fr .9fr;gap:6vw;align-items:end;margin-bottom:34px}.section-head h2{font:700 clamp(3.6rem,7vw,7rem)/.78 Rajdhani;text-transform:uppercase;letter-spacing:-.055em;margin:14px 0 0}.section-head h2 em{font-style:normal;color:var(--blue2)}.section-head p{max-width:470px;justify-self:end;color:#858581;margin:0}.roster-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.roster-card{position:relative;min-width:0;border:1px solid #202020;background:#090909;padding:0;text-align:left;overflow:hidden;transition:.3s var(--ease);appearance:none}.roster-card:hover,.roster-card.active{transform:translateY(-5px);border-color:#4a4a4a}.protagonist-card .card-image img{object-position:center top;filter:saturate(.9) contrast(1.08) brightness(.82)}.protagonist-card .card-copy b{letter-spacing:.01em}.protagonist-card.active{border-color:var(--blue2)}.roster-card.active:before{content:"";position:absolute;z-index:3;left:0;top:0;bottom:0;width:3px;background:var(--blue2)}.card-index{position:absolute;z-index:4;top:11px;left:12px;font:700 10px Rajdhani;letter-spacing:.12em;color:#bbb}.card-image{display:block;height:270px;background:#101010;overflow:hidden}.card-image img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.84) contrast(1.06) brightness(.78);transition:.55s var(--ease)}.roster-card:hover .card-image img,.roster-card.active .card-image img{transform:scale(1.04);filter:saturate(1) contrast(1.08) brightness(.9)}.card-copy{display:flex;align-items:end;justify-content:space-between;gap:10px;padding:13px}.card-copy b{font:700 18px Rajdhani;text-transform:uppercase}.card-copy small{font:700 8px Rajdhani;letter-spacing:.12em;color:#777;text-transform:uppercase;text-align:right}.profile{margin-top:38px;display:grid;grid-template-columns:minmax(330px,.72fr) minmax(0,1.28fr);min-height:670px;border:1px solid #242424;background:#080808;overflow:hidden}.profile-art{position:relative;min-height:670px;background:#0d0d0d;overflow:hidden}.profile-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 40%,#080808 100%),linear-gradient(0deg,#080808 0%,transparent 30%);pointer-events:none}.profile-art img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.9) contrast(1.08)}.profile-copy{padding:clamp(30px,5vw,70px);display:flex;flex-direction:column;justify-content:center}.profile-number{font:700 12px Rajdhani;letter-spacing:.2em;color:var(--blue2)}.profile h3{font:700 clamp(4rem,7vw,7rem)/.78 Rajdhani;text-transform:uppercase;letter-spacing:-.055em;margin:12px 0 3px}.origin{display:inline-flex;width:max-content;margin:24px 0 20px;padding:8px 11px;border:1px solid #292929;background:#0d0d0d;font:700 10px Rajdhani;letter-spacing:.13em;text-transform:uppercase}.bio{max-width:690px;color:#999995;font-size:14px;line-height:1.75;margin:0 0 24px}.quote{border-left:2px solid var(--blue);padding:4px 0 4px 16px;font:700 20px/1.25 Rajdhani;color:#eee;text-transform:uppercase;max-width:640px;margin-bottom:30px}.ability-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:680px}.ability{border:1px solid #202020;background:#0c0c0c;padding:12px 13px}.ability-top{display:flex;justify-content:space-between;gap:12px;font:700 10px Rajdhani;letter-spacing:.12em;text-transform:uppercase}.ability-top span:last-child{color:#aaa}.bar{height:4px;background:#1c1c1c;margin-top:10px;overflow:hidden}.bar i{display:block;height:100%;width:var(--value);background:linear-gradient(90deg,#245dff,#7e9eff)}.back{display:inline-flex;align-items:center;gap:12px;margin-top:35px;width:max-content;border:1px solid #333;padding:12px 15px;font:700 10px Rajdhani;letter-spacing:.15em;transition:.25s}.back:hover{background:#fff;color:#050505;border-color:#fff}.footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px 7vw;color:#666;font:700 9px Rajdhani;letter-spacing:.13em;border-top:1px solid var(--line)}.footer img{width:140px;height:48px;object-fit:contain}.fade{animation:fade .32s ease}@keyframes fade{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* FIGHTER BIO DIALOG */
+body.bio-open{overflow:hidden}
+.bio-dialog{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:32px;background:rgba(0,0,0,.78);backdrop-filter:blur(14px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease}
+.bio-dialog.open{opacity:1;visibility:visible;pointer-events:auto}
+.bio-dialog-panel{position:relative;width:min(1120px,94vw);max-height:min(780px,90vh);display:grid;grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);overflow:hidden;border:1px solid #303030;background:#080808;box-shadow:0 30px 90px rgba(0,0,0,.65);transform:translateY(18px) scale(.985);transition:transform .38s var(--ease)}
+.bio-dialog.open .bio-dialog-panel{transform:none}
+.bio-dialog-art{position:relative;min-height:620px;background:#0d0d0d;overflow:hidden}
+.bio-dialog-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 42%,#080808 100%),linear-gradient(0deg,#080808 0%,transparent 34%);pointer-events:none}
+.bio-dialog-art img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.92) contrast(1.08)}
+.bio-dialog-copy{position:relative;overflow:auto;padding:clamp(30px,4vw,58px);display:flex;flex-direction:column;justify-content:center}
+.bio-dialog-close{position:absolute;z-index:4;right:16px;top:16px;width:42px;height:42px;border:1px solid #454545;background:rgba(5,5,5,.78);display:grid;place-items:center;font:700 20px Rajdhani;transition:.2s}
+.bio-dialog-close:hover{background:#fff;color:#050505;border-color:#fff}
+.bio-dialog-number{font:700 11px Rajdhani;letter-spacing:.2em;color:var(--blue2)}
+.bio-dialog h3{font:700 clamp(3.8rem,6.5vw,7rem)/.78 Rajdhani;text-transform:uppercase;letter-spacing:-.055em;margin:12px 0 4px}
+.bio-dialog-origin{display:inline-flex;width:max-content;margin:22px 0 18px;padding:8px 11px;border:1px solid #292929;background:#0d0d0d;font:700 10px Rajdhani;letter-spacing:.13em;text-transform:uppercase}
+.bio-dialog-story-label{font:700 10px Rajdhani;letter-spacing:.18em;color:#777;text-transform:uppercase;margin:0 0 7px}
+.bio-dialog-story{max-width:680px;color:#aaa9a5;font-size:14px;line-height:1.8;margin:0 0 22px}
+.bio-dialog-quote{border-left:2px solid var(--blue);padding:4px 0 4px 16px;font:700 20px/1.25 Rajdhani;color:#eee;text-transform:uppercase;max-width:680px;margin:0 0 24px}
+.bio-dialog-abilities{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:680px}
+.bio-dialog-ability{border:1px solid #202020;background:#0c0c0c;padding:10px 12px}
+.bio-dialog-ability-top{display:flex;justify-content:space-between;gap:12px;font:700 10px Rajdhani;letter-spacing:.12em;text-transform:uppercase}
+.bio-dialog-ability-top span:last-child{color:#aaa}
+.bio-dialog-bar{height:4px;background:#1c1c1c;margin-top:8px;overflow:hidden}
+.bio-dialog-bar i{display:block;height:100%;width:var(--value);background:linear-gradient(90deg,#245dff,#7e9eff)}
+@media(max-width:700px){
+  .bio-dialog{padding:14px}
+  .bio-dialog-panel{grid-template-columns:1fr;max-height:94vh}
+  .bio-dialog-art{height:34vh;min-height:230px}
+  .bio-dialog-copy{padding:26px 22px 30px}
+  .bio-dialog h3{font-size:clamp(3.5rem,16vw,5.4rem)}
+  .bio-dialog-abilities{grid-template-columns:1fr}
+}
+
+
+/* =========================================================
+   BOXAR'S EDGE — MOTIONKIT CINEMATIC MOTION SYSTEM
+   ========================================================= */
+:root{
+  --mk-ease:cubic-bezier(.16,1,.3,1);
+  --mk-spring:cubic-bezier(.22,1.2,.32,1);
+}
+
+/* Global reveal states */
+.mk-reveal,
+.nav,
+.hero-art,
+.hero-inner,
+.hero-meta,
+.section-head,
+.roster-card,
+.profile,
+.profile-art,
+.profile-copy,
+.bio-dialog-panel{
+  will-change:transform,opacity,clip-path;
+}
+
+.mk-reveal{
+  opacity:0;
+  transform:translate3d(0,46px,0);
+  clip-path:inset(14% 0 0 0);
+  transition:
+    opacity .8s var(--mk-ease),
+    transform 1s var(--mk-ease),
+    clip-path 1s var(--mk-ease);
+}
+.mk-reveal.mk-in{
+  opacity:1;
+  transform:none;
+  clip-path:inset(0);
+}
+
+/* Navigation drops in */
+.nav{
+  opacity:0;
+  transform:translateY(-100%);
+  animation:mkNavIn 1s var(--mk-ease) .05s forwards;
+}
+@keyframes mkNavIn{
+  to{opacity:1;transform:none}
+}
+.nav-links a{
+  display:inline-block;
+  transform:translateY(-12px);
+  opacity:0;
+  animation:mkNavLink .65s var(--mk-ease) forwards;
+}
+.nav-links a:nth-child(1){animation-delay:.32s}
+.nav-links a:nth-child(2){animation-delay:.42s}
+.nav-links a:nth-child(3){animation-delay:.52s}
+@keyframes mkNavLink{
+  to{opacity:.68;transform:none}
+}
+.nav-cta{
+  position:relative;
+  overflow:hidden;
+}
+.nav-cta:after,
+.back:after,
+.tab:after,
+.btn:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.24) 50%,transparent 80%);
+  transform:translateX(-130%);
+  transition:transform .7s var(--mk-ease);
+  pointer-events:none;
+}
+.nav-cta:hover:after,
+.back:hover:after,
+.tab:hover:after,
+.btn:hover:after{transform:translateX(130%)}
+
+/* Hero cinematic entrance */
+.hero-art{
+  opacity:0;
+  transform:scale(1.08) translateX(35px);
+  animation:mkHeroArt 1.5s var(--mk-ease) .18s forwards;
+}
+@keyframes mkHeroArt{
+  to{opacity:1;transform:scale(1) translateX(0)}
+}
+.hero-inner > *{
+  opacity:0;
+  transform:translate3d(0,32px,0);
+  animation:mkHeroText .85s var(--mk-ease) forwards;
+}
+.hero-inner .kicker{animation-delay:.38s}
+.hero-inner h1{animation-delay:.5s}
+.hero-inner p{animation-delay:.66s}
+@keyframes mkHeroText{
+  to{opacity:1;transform:none}
+}
+.hero h1{
+  position:relative;
+  text-shadow:0 0 0 transparent;
+  animation-name:mkHeroText,mkTitleGlow;
+  animation-duration:.85s,1.8s;
+  animation-timing-function:var(--mk-ease,ease),ease;
+  animation-fill-mode:forwards,forwards;
+}
+@keyframes mkTitleGlow{
+  0%{text-shadow:0 0 0 rgba(126,158,255,0)}
+  45%{text-shadow:0 0 35px rgba(126,158,255,.16)}
+  100%{text-shadow:0 0 0 rgba(126,158,255,0)}
+}
+.hero-meta{
+  opacity:0;
+  transform:translateY(12px);
+  animation:mkMetaIn .8s var(--mk-ease) 1s forwards;
+}
+@keyframes mkMetaIn{to{opacity:1;transform:none}}
+
+/* Section headings reveal with a directional wipe */
+.section-head.mk-in h2,
+.section-head.mk-in .kicker{
+  animation:mkElementUp .75s var(--mk-ease) both;
+}
+.section-head.mk-in p{
+  animation:mkElementRight .85s var(--mk-ease) .12s both;
+}
+@keyframes mkElementUp{
+  from{opacity:0;transform:translateY(28px);clip-path:inset(20% 0 0 0)}
+  to{opacity:1;transform:none;clip-path:inset(0)}
+}
+@keyframes mkElementRight{
+  from{opacity:0;transform:translateX(30px);clip-path:inset(0 0 0 12%)}
+  to{opacity:1;transform:none;clip-path:inset(0)}
+}
+
+/* Fighter cards: brilliant staggered popup */
+.roster-card{
+  opacity:0;
+  transform:translate3d(0,55px,0) scale(.965);
+  clip-path:inset(12% 0 0 0);
+}
+.roster-card.mk-in{
+  opacity:1;
+  transform:none;
+  clip-path:inset(0);
+  transition:
+    opacity .72s var(--mk-ease),
+    transform .82s var(--mk-spring),
+    clip-path .82s var(--mk-ease);
+}
+.roster-card:nth-child(1).mk-in{transition-delay:.03s}
+.roster-card:nth-child(2).mk-in{transition-delay:.08s}
+.roster-card:nth-child(3).mk-in{transition-delay:.13s}
+.roster-card:nth-child(4).mk-in{transition-delay:.18s}
+.roster-card:nth-child(5).mk-in{transition-delay:.23s}
+.roster-card:nth-child(6).mk-in{transition-delay:.28s}
+.roster-card:nth-child(7).mk-in{transition-delay:.33s}
+.roster-card:nth-child(8).mk-in{transition-delay:.38s}
+.roster-card:nth-child(9).mk-in{transition-delay:.43s}
+.roster-card:nth-child(10).mk-in{transition-delay:.48s}
+.roster-card:nth-child(11).mk-in{transition-delay:.53s}
+.roster-card:nth-child(12).mk-in{transition-delay:.58s}
+.roster-card:nth-child(13).mk-in{transition-delay:.63s}
+.roster-card:nth-child(14).mk-in{transition-delay:.68s}
+.roster-card:nth-child(15).mk-in{transition-delay:.73s}
+.roster-card:nth-child(16).mk-in{transition-delay:.78s}
+.roster-card:nth-child(17).mk-in{transition-delay:.83s}
+
+.roster-card:after{
+  content:"";
+  position:absolute;
+  z-index:5;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.08) 48%,transparent 62%);
+  transform:translateX(-120%);
+  transition:transform .9s var(--mk-ease);
+}
+.roster-card:hover:after{transform:translateX(120%)}
+.card-index{transition:transform .45s var(--mk-spring),color .3s}
+.roster-card:hover .card-index{transform:translateX(5px);color:#fff}
+.card-copy{position:relative;z-index:6}
+.card-copy b,.card-copy small{
+  transition:transform .45s var(--mk-spring),opacity .35s;
+}
+
+/* Profile panel gets a dramatic content refresh */
+.profile{
+  opacity:0;
+  transform:translateY(50px);
+  clip-path:inset(8% 0 0 0);
+}
+.profile.mk-in{
+  opacity:1;
+  transform:none;
+  clip-path:inset(0);
+  transition:opacity .9s var(--mk-ease),transform 1s var(--mk-ease),clip-path 1s var(--mk-ease);
+}
+.profile-art{
+  transform:translateX(-38px) scale(1.04);
+  opacity:0;
+}
+.profile.mk-in .profile-art{
+  animation:mkProfileArt 1s var(--mk-ease) .15s forwards;
+}
+@keyframes mkProfileArt{
+  to{opacity:1;transform:none}
+}
+.profile-copy > *{
+  opacity:0;
+  transform:translate3d(42px,0,0);
+  clip-path:inset(0 15% 0 0);
+}
+.profile.mk-in .profile-copy > *{
+  animation:mkProfileItem .72s var(--mk-ease) forwards;
+}
+.profile.mk-in .profile-copy > *:nth-child(1){animation-delay:.25s}
+.profile.mk-in .profile-copy > *:nth-child(2){animation-delay:.34s}
+.profile.mk-in .profile-copy > *:nth-child(3){animation-delay:.42s}
+.profile.mk-in .profile-copy > *:nth-child(4){animation-delay:.50s}
+.profile.mk-in .profile-copy > *:nth-child(5){animation-delay:.58s}
+.profile.mk-in .profile-copy > *:nth-child(6){animation-delay:.66s}
+.profile.mk-in .profile-copy > *:nth-child(7){animation-delay:.74s}
+@keyframes mkProfileItem{
+  to{opacity:1;transform:none;clip-path:inset(0)}
+}
+
+/* Bio dialog — premium popup / slide + scale */
+.bio-dialog{
+  transition:opacity .42s var(--mk-ease),visibility .42s;
+}
+.bio-dialog:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 75% 45%,rgba(36,93,255,.18),transparent 30%),
+    linear-gradient(90deg,rgba(0,0,0,.96),rgba(0,0,0,.62));
+  opacity:0;
+  transition:opacity .6s var(--mk-ease);
+  pointer-events:none;
+}
+.bio-dialog.open:before{opacity:1}
+.bio-dialog-panel{
+  opacity:0;
+  transform:translate3d(0,70px,0) scale(.92) rotateX(2deg);
+  transform-origin:center bottom;
+  clip-path:inset(10% 0 0 0);
+}
+.bio-dialog.open .bio-dialog-panel{
+  opacity:1;
+  transform:none;
+  clip-path:inset(0);
+  transition:
+    opacity .55s var(--mk-ease),
+    transform .85s var(--mk-spring),
+    clip-path .85s var(--mk-ease);
+}
+.bio-dialog-art{
+  transform:translateX(-35px) scale(1.06);
+  opacity:0;
+}
+.bio-dialog.open .bio-dialog-art{
+  animation:mkDialogArt .95s var(--mk-ease) .12s forwards;
+}
+@keyframes mkDialogArt{
+  to{opacity:1;transform:none}
+}
+.bio-dialog-art:before{
+  content:"";
+  position:absolute;
+  z-index:3;
+  inset:0;
+  background:linear-gradient(105deg,transparent 35%,rgba(126,158,255,.18) 50%,transparent 65%);
+  transform:translateX(-120%);
+  animation:mkLightSweep 1.15s var(--mk-ease) .22s both;
+  pointer-events:none;
+}
+@keyframes mkLightSweep{
+  to{transform:translateX(120%)}
+}
+.bio-dialog-copy > *{
+  opacity:0;
+  transform:translate3d(55px,0,0);
+  clip-path:inset(0 18% 0 0);
+}
+.bio-dialog.open .bio-dialog-copy > *{
+  animation:mkDialogItem .7s var(--mk-ease) forwards;
+}
+.bio-dialog.open .bio-dialog-copy > *:nth-child(1){animation-delay:.18s}
+.bio-dialog.open .bio-dialog-copy > *:nth-child(2){animation-delay:.27s}
+.bio-dialog.open .bio-dialog-copy > *:nth-child(3){animation-delay:.36s}
+.bio-dialog.open .bio-dialog-copy > *:nth-child(4){animation-delay:.45s}
+.bio-dialog.open .bio-dialog-copy > *:nth-child(5){animation-delay:.54s}
+.bio-dialog.open .bio-dialog-copy > *:nth-child(6){animation-delay:.63s}
+.bio-dialog.open .bio-dialog-copy > *:nth-child(7){animation-delay:.72s}
+@keyframes mkDialogItem{
+  to{opacity:1;transform:none;clip-path:inset(0)}
+}
+.bio-dialog-close{
+  opacity:0;
+  transform:scale(.7) rotate(-20deg);
+}
+.bio-dialog.open .bio-dialog-close{
+  animation:mkCloseIn .55s var(--mk-spring) .45s forwards;
+}
+@keyframes mkCloseIn{
+  to{opacity:1;transform:none}
+}
+.bio-dialog-ability{
+  transform:translateY(12px);
+  transition:transform .35s var(--mk-spring),border-color .25s,background .25s;
+}
+.bio-dialog-ability:hover{
+  transform:translateY(-4px) scale(1.015);
+  border-color:#454545;
+  background:#111;
+}
+.bio-dialog-bar i{
+  transform:scaleX(0);
+  transform-origin:left center;
+}
+.bio-dialog.open .bio-dialog-bar i{
+  animation:mkBarFill .9s var(--mk-ease) .72s forwards;
+}
+@keyframes mkBarFill{to{transform:scaleX(1)}}
+
+/* Micro-interactions everywhere */
+.btn,.back,.tab,.nav-cta,.bio-dialog-close{
+  transform-origin:center;
+}
+.btn:hover{transform:translateY(-4px) scale(1.015)}
+.back:hover{transform:translateX(4px)}
+.tab:hover{transform:translateY(-2px)}
+.bio-dialog-close:hover{transform:rotate(90deg) scale(1.08)}
+.roster-card:focus-visible,
+.btn:focus-visible,
+.back:focus-visible,
+.tab:focus-visible,
+.bio-dialog-close:focus-visible{
+  outline:2px solid var(--blue2);
+  outline-offset:4px;
+}
+
+/* Reduced motion remains accessible */
+@media(prefers-reduced-motion:reduce){
+  .nav,.nav-links a,.hero-art,.hero-inner>* ,.hero-meta,.roster-card,.profile,.profile-art,
+  .profile-copy>*,.bio-dialog-panel,.bio-dialog-art,.bio-dialog-copy>*,.bio-dialog-close{
+    animation:none!important;
+    transition:none!important;
+    opacity:1!important;
+    transform:none!important;
+    clip-path:none!important;
+  }
+}
+
+@media(max-width:1100px){.nav{grid-template-columns:1fr auto}.nav-links{display:none}.hero-art{width:70vw;opacity:.72}.section-head{grid-template-columns:1fr}.section-head p{justify-self:start}.roster-grid{grid-template-columns:repeat(3,1fr)}.profile{grid-template-columns:1fr}.profile-art{height:560px;min-height:0}.profile-copy{padding:38px}}@media(max-width:700px){.nav{height:62px;padding:0 16px}.brand-logo{width:94px}.nav-cta{padding:9px 11px;font-size:9px}.hero{padding:105px 6vw 70px;min-height:78svh}.hero-art{width:100%;opacity:.43}.hero-meta{left:6vw;right:6vw}.hero-meta span:nth-child(2){display:none}.roster-wrap{padding-left:6vw;padding-right:6vw}.section-head h2{font-size:clamp(3.4rem,17vw,5.4rem)}.roster-grid{grid-template-columns:repeat(2,1fr)}.card-image{height:230px}.profile-art{height:430px;min-height:0}.profile-copy{padding:28px 22px}.profile h3{font-size:clamp(3.8rem,18vw,5.6rem)}.ability-grid{grid-template-columns:1fr}.footer{flex-direction:column;align-items:flex-start}}</style></head><body>
+<header class="nav">
+  <a href="../../index.html" aria-label="BOXAR'S EDGE home"><img class="brand-logo" src="../../assets/boxars-edge-logo.png" alt="BOXAR'S EDGE"></a>
+  <nav class="nav-links">
+    <a href="../../game/pages/how-to-fight.html#controls">HOW TO FIGHT</a>
+    <a href="#roster" class="active">FIGHTERS</a>
+    <a href="../../index.html">GYM</a>
+  </nav>
+  <a class="nav-cta" href="../../game/pages/how-to-fight.html#gallery">BACK TO MANUAL</a>
+</header>
+<main><section class="hero"><div class="hero-art"><img id="heroImage" alt="BOXAR'S EDGE fighter"></div><div class="hero-inner"><div class="kicker">BOXAR'S EDGE · THE ROSTER</div><h1>MEET THE<br><em>FIGHTERS.</em></h1><p>Every fighter has a reason to step through the ropes. Learn who they are, what shaped them, and what makes them dangerous when the bell rings.</p></div><div class="hero-meta"><span>FIGHTERS // BIOS // ABILITIES</span><span>SELECT A FIGHTER</span><span>THE BELL IS WAITING</span></div></section>
+<section id="roster" class="roster-wrap"><div class="section-head"><div><div class="kicker">01 — THE ROSTER</div><h2>MEET<br><em>THE ROSTER.</em></h2></div><p>Seventeen fighters stand in your path. One fighter is you. What are you willing to become to win?</p></div><div class="roster-grid" id="rosterGrid"><button class="roster-card protagonist-card" data-fighter="protagonist"><span class="card-index">00</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/protag_grey.png" alt="The Protagonist"></span><span class="card-copy"><b>The Protagonist</b></span></button>
+<button class="roster-card" data-fighter="feesa"><span class="card-index">01</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Feesa.png" alt="Feesa"></span><span class="card-copy"><b>Feesa</b></span></button>
+<button class="roster-card" data-fighter="tife"><span class="card-index">02</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Tianabolu.png" alt="Tife"></span><span class="card-copy"><b>Tife</b></span></button>
+<button class="roster-card" data-fighter="tomiwa"><span class="card-index">03</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Tomiwa.png" alt="Tomiwa"></span><span class="card-copy"><b>Tomiwa</b></span></button>
+<button class="roster-card" data-fighter="yassine"><span class="card-index">04</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Yassine-select.png" alt="Yassine"></span><span class="card-copy"><b>Yassine</b></span></button>
+<button class="roster-card" data-fighter="amara"><span class="card-index">05</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Amara.png" alt="Amara"></span><span class="card-copy"><b>Amara</b></span></button>
+<button class="roster-card" data-fighter="fauzia"><span class="card-index">06</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Fauzia.png" alt="Fauzia"></span><span class="card-copy"><b>Fauzia</b></span></button>
+<button class="roster-card" data-fighter="spaz"><span class="card-index">07</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Spaz_black.png" alt="Spaz"></span><span class="card-copy"><b>Spaz</b></span></button>
+<button class="roster-card" data-fighter="adetokumbo-lopez"><span class="card-index">08</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/lopez.png" alt="Adetokumbo Lopez"></span><span class="card-copy"><b>Adetokumbo Lopez</b></span></button>
+<button class="roster-card" data-fighter="patra"><span class="card-index">09</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Patra.png" alt="Patra"></span><span class="card-copy"><b>Patra</b></span></button>
+<button class="roster-card" data-fighter="efe"><span class="card-index">10</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Efe.png" alt="Efe"></span><span class="card-copy"><b>Efe</b></span></button>
+<button class="roster-card" data-fighter="chidi"><span class="card-index">11</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Chidi.png" alt="Chidi"></span><span class="card-copy"><b>Chidi</b></span></button>
+<button class="roster-card" data-fighter="akeem"><span class="card-index">12</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/akeem.png" alt="Akeem"></span><span class="card-copy"><b>Akeem</b></span></button>
+<button class="roster-card" data-fighter="bobby"><span class="card-index">13</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/bobby.png" alt="Bobby"></span><span class="card-copy"><b>Bobby</b></span></button>
+<button class="roster-card" data-fighter="abas"><span class="card-index">14</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Abas.png" alt="Abas"></span><span class="card-copy"><b>Abas</b></span></button>
+<button class="roster-card" data-fighter="celeste"><span class="card-index">15</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/celeste.png" alt="Celeste"></span><span class="card-copy"><b>Celeste</b></span></button>
+<button class="roster-card" data-fighter="sikorsky"><span class="card-index">16</span><span class="card-image"><img data-fighter-image="../../assets/images/characters/Sikorsky.png" alt="Sikorsky"></span><span class="card-copy"><b>Sikorsky</b></span></button>
+<button class="roster-card" data-fighter="mx"><span class="card-index">17</span><span class="card-image"><img data-fighter-image="../../assets/images/ui/characterselect-mx.png" alt="MX"></span><span class="card-copy"><b>MX</b></span></button></div>
+<article class="profile" id="profile"><div class="profile-art"><img id="profileImage" alt=""></div><div class="profile-copy" id="profileCopy"><div class="profile-number" id="profileNumber"></div><h3 id="profileName"></h3><div class="origin" id="profileOrigin"></div><p class="bio" id="profileBio"></p><div class="quote" id="profileQuote"></div><div class="ability-grid" id="abilities"></div><a class="back" href="../../game/pages/how-to-fight.html#gallery">← BACK TO MEET THE EDGE</a></div></article></section></main>
+
+<div class="bio-dialog" id="bioDialog" aria-hidden="true">
+  <div class="bio-dialog-panel" role="dialog" aria-modal="true" aria-labelledby="dialogName">
+    <button class="bio-dialog-close" id="bioDialogClose" type="button" aria-label="Close fighter biography">×</button>
+    <div class="bio-dialog-art"><img id="dialogImage" alt=""></div>
+    <div class="bio-dialog-copy">
+      <div class="bio-dialog-number" id="dialogNumber"></div>
+      <h3 id="dialogName"></h3>
+      
+      <div class="bio-dialog-origin" id="dialogOrigin"></div>
+      <div class="bio-dialog-story-label">FIGHTER STORY</div>
+      <p class="bio-dialog-story" id="dialogBio"></p>
+      <div class="bio-dialog-quote" id="dialogQuote"></div>
+      <div class="bio-dialog-abilities" id="dialogAbilities"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><img src="../../assets/boxars-edge-logo.png" alt="BOXAR'S EDGE"><div>© 2026 BOXAR'S EDGE · FIGHTERS</div><a href="#roster">BACK TO ROSTER ↑</a></footer>
+<script>const fighters=[{"id":"protagonist","name":"The Protagonist","title":"This Is You","origin":"Your Journey","image":"../../assets/images/characters/protag_grey.png","number":"00","bio":"You have nothing but your fists and a message to give to the world: your hands will never be denied. This is your journey, your path forged through pugilism. You rise from nothing, step into the ring, and build your name one fight at a time. Every round is a choice. Every opponent is a test. Every victory is another piece of the fighter you are becoming.","quote":"My hands will never be denied.","abilities":[["Heart",35],["Determination",35],["Potential",35],["Will",35]]},{"id":"adetokumbo-lopez","name":"Adetokumbo Lopez","title":"The Golden Son","origin":"Portugal","image":"../../assets/images/characters/lopez.png","bio":"Born in Portugal to a Portuguese father and Nigerian mother, Adetokumbo Lopez found boxing in Europe as a teenager and never looked back. Nearly fifteen years at the highest level turned a gifted prospect into a patient, calculating veteran. He has built his career across European gyms and fight nights, carrying both sides of his heritage with him. Lopez is fiercely passionate about the sport, but his long career has left him with a hard truth: talent gets you noticed, discipline keeps you alive. Every bout is another chance to prove that longevity can be its own kind of power.","quote":"Fifteen years taught me one thing — the bell always comes back.","abilities":[["Power",79],["Technique",81],["Endurance",81],["Ring IQ",83]]},{"id":"feesa","name":"Feesa","title":"The Titan","origin":"Nigeria","image":"../../assets/images/characters/Feesa.png","bio":"Feesa learned early that size means nothing without discipline. She grew up fighting for space in rooms where nobody expected a young woman to be the strongest person there. A devastating amateur run made her a local legend, but a bitter split with the trainer who built her nearly ended her career. She came back heavier, calmer and harder to move. Now she fights like she has something personal to prove every time the bell rings.","quote":"I don't chase the knockout. I make it inevitable.","abilities":[["Power",82],["Body Damage",81],["Guard Break",76],["Speed",55]]},{"id":"tife","name":"Tife","title":"The Edge","origin":"Nigeria","image":"../../assets/images/characters/Tianabolu.png","bio":"Tife was raised around people who treated boxing as a way out rather than a career. She turned that pressure into precision. Years of disciplined roadwork and technical sparring gave her a reputation for reading opponents before they know what they are showing. She rarely wastes a movement, and the quieter the fight becomes, the more dangerous she gets.","quote":"The opening is there before you see it.","abilities":[["Timing",81],["Countering",81],["Footwork",77],["Power",64]]},{"id":"tomiwa","name":"Tomiwa","title":"The Striker","origin":"Nigeria","image":"../../assets/images/characters/Tomiwa.png","bio":"Tomiwa came up in hard gyms where hesitation was punished. She built her style around one rule: touch first, touch last. Her combinations are fast, direct and brutally economical. A long unbeaten stretch made her famous, but a late-career defeat exposed the one thing she hated admitting—she could be hurt. Since then, she has rebuilt herself around pressure.","quote":"If you blink, you're already behind.","abilities":[["Hand Speed",82],["Combo Rate",80],["Pressure",79],["Defense",61]]},{"id":"yassine","name":"Yassine","title":"The Maghrebi Storm","origin":"Morocco","image":"../../assets/images/characters/Yassine-select.png","bio":"Yassine spent his youth moving between football pitches and boxing halls before the ring finally claimed him. His style carries the patience of a fighter who has learned not to spend energy unnecessarily. He became known for punishing mistakes with sharp counters and heavy body work. Outside the ropes he is quiet; inside them, he is methodical and merciless.","quote":"Calm is not kindness. Calm is control.","abilities":[["Countering",79],["Body Work",76],["Stamina",78],["Power",74]]},{"id":"amara","name":"Amara","title":"The Black Comet","origin":"Nigeria","image":"../../assets/images/characters/Amara.png","bio":"Amara never wanted to be the poster girl for anything. She wanted to be undeniable. After years of fighting through overlooked amateur cards and empty local venues, she built a style based on movement, feints and sudden violence. Promoters once called her inconsistent. She answered by becoming impossible to predict.","quote":"You don't have to see me coming. You just have to survive it.","abilities":[["Mobility",81],["Evasion",79],["Accuracy",77],["Power",69]]},{"id":"fauzia","name":"Fauzia","title":"The Golden Guard","origin":"Nigeria","image":"../../assets/images/characters/Fauzia.png","bio":"Fauzia's career was nearly over before it began. A string of personal losses kept her away from the ring for years, and by the time she returned, younger fighters had already written her off. She rebuilt through defensive drills until her guard became almost instinctive. Every round against her feels like trying to break through a locked door.","quote":"You can hit me. That doesn't mean you can break me.","abilities":[["Defense",82],["Guard",81],["Composure",80],["Power",60]]},{"id":"spaz","name":"Spaz","title":"The Wild Card","origin":"Saudi Arabia","image":"../../assets/images/characters/Spaz_black.png","bio":"Spaz fights like the rules arrived five minutes late. Nobody is completely sure where the nickname started, but everyone remembers the first time they saw him switch rhythm mid-combination. He spent years bouncing between underground gyms, collecting strange techniques and harder lessons. His greatest weapon is disorder—and he knows exactly when to unleash it.","quote":"You prepared for a fight. I prepared for chaos.","abilities":[["Unpredictability",83],["Speed",78],["Combos",76],["Defense",57]]},{"id":"patra","name":"Patra","title":"The Iron Orchid","origin":"Ghana","image":"../../assets/images/characters/Patra.png","bio":"Patra's polished appearance hides a career built on ugly fights. She spent her early years being underestimated because she looked too composed to be dangerous. Opponents learned otherwise. Her compact stance and relentless body attacks turned close rounds into long nights for anyone who stayed in front of her.","quote":"Pretty form. Ugly consequences.","abilities":[["Body Work",81],["Balance",79],["Stamina",77],["Defense",72]]},{"id":"efe","name":"Efe","title":"The Pressure King","origin":"Nigeria","image":"../../assets/images/characters/Efe.png","bio":"Efe came from a gym where fighters were expected to earn every round twice: once in training and once under the lights. He built a reputation as a pressure fighter who never seems to get tired. His opponents often win the first minute. Then they realise he has been studying their breathing.","quote":"The first round tells me who you are. The last round tells me what you can take.","abilities":[["Stamina",82],["Pressure",81],["Body Damage",76],["Speed",66]]},{"id":"chidi","name":"Chidi","title":"The Technician","origin":"Nigeria","image":"../../assets/images/characters/Chidi.png","bio":"Chidi was the student who stayed after everyone else went home. He obsessively studied angles, distance and defensive habits until boxing became less like a brawl and more like a puzzle. His weakness is also his obsession: when the fight becomes chaotic, he can spend too long trying to solve it instead of simply ending it.","quote":"Every fighter leaves a pattern. I just have to find it.","abilities":[["Accuracy",81],["Footwork",81],["Defense",76],["Power",60]]},{"id":"akeem","name":"Akeem","title":"The Heavy Hand","origin":"United States","image":"../../assets/images/characters/akeem.png","bio":"Akeem built his reputation one broken heavy bag at a time. He was never interested in pretty boxing; he wanted punches that changed the shape of a fight. A rough amateur career taught him that raw strength attracts attention, while patience wins titles. Now his power is backed by a dangerous sense of timing.","quote":"Power gets respect. Timing gets fear.","abilities":[["Power",83],["Knockdown",81],["Guard Break",79],["Speed",51]]},{"id":"bobby","name":"Bobby","title":"The Road Dog","origin":"USA","image":"../../assets/images/characters/bobby.png","bio":"Bobby spent years fighting wherever a promoter could find a ring and a purse. He became a classic road warrior: durable, stubborn and almost impossible to discourage. He has lost enough fights to know exactly what losing costs, and that knowledge made him dangerous. Bobby does not need the crowd. He only needs another round.","quote":"I've been counted out before. It never worked.","abilities":[["Durability",82],["Stamina",80],["Recovery",79],["Power",67]]},{"id":"abas","name":"Abas","title":"The Silent Hammer","origin":"Akwa Ibom, Nigeria","image":"../../assets/images/characters/Abas.png","bio":"Abas rarely speaks before a fight. her record does most of the talking. she developed her heavy, compact style in cramped training spaces where there was no room for flashy movement. Every punch is designed to take something away—space, confidence, balance or breath.","quote":"I don't need many words. I need one opening.","abilities":[["Power",81],["Balance",78],["Body Damage",80],["Speed",58]]},{"id":"celeste","name":"Celeste","title":"The Velvet Blade","origin":"France","image":"../../assets/images/characters/celeste.png","bio":"Celeste came to boxing through dance, and opponents initially mistook her rhythm for softness. They stopped after the first clean counter. She moves with deceptive elegance, changing tempo without warning and turning defensive slips into attacks. The more aggressive her opponent becomes, the more beautiful and dangerous her boxing gets.","quote":"Grace is just violence with better timing.","abilities":[["Evasion",82],["Countering",81],["Footwork",81],["Power",59]]},{"id":"sikorsky","name":"Sikorsky","title":"The Last Wall","origin":"Eastern Europe","image":"../../assets/images/characters/Sikorsky.png","bio":"Sikorsky was forged in cold gyms and colder competition. Years of disciplined camps gave him a reputation for frightening composure and a guard that barely moves. He is not interested in winning pretty. He wants to make opponents feel the fight getting smaller until there is nowhere left to go.","quote":"Eventually, the ring becomes too small for you.","abilities":[["Guard",83],["Composure",81],["Power",77],["Speed",54]]},{"id":"mx","name":"MX","title":"The Sussex Ghost","origin":"Nigerian-British","image":"../../assets/images/ui/characterselect-mx.png","bio":"MX grew up between Nigerian roots and British life, finding his identity in the discipline of the ring. He started boxing from a young age in Sussex, where early mornings, cold roadwork and long sessions in local gyms shaped a style built on patience and sudden acceleration. Years of training taught him to stay relaxed under pressure, read the rhythm of an opponent and explode into the opening before it closes. MX does not waste movement. He lets the fight come to him, then makes the ring feel much smaller.","quote":"I learned to wait in Sussex. I learned to strike before the moment passes.","abilities":[["Timing",81],["Footwork",79],["Speed",78],["Technique",76]]}];
+const byId=Object.fromEntries(fighters.map(f=>[f.id,f]));
+const heroImage=document.getElementById('heroImage'),profileImage=document.getElementById('profileImage'),profileCopy=document.getElementById('profileCopy'),profileNumber=document.getElementById('profileNumber'),profileName=document.getElementById('profileName'),profileOrigin=document.getElementById('profileOrigin'),profileBio=document.getElementById('profileBio'),profileQuote=document.getElementById('profileQuote'),abilities=document.getElementById('abilities'),cards=[...document.querySelectorAll('.roster-card')];
+const bioDialog=document.getElementById('bioDialog'),bioDialogClose=document.getElementById('bioDialogClose'),dialogImage=document.getElementById('dialogImage'),dialogNumber=document.getElementById('dialogNumber'),dialogName=document.getElementById('dialogName'),dialogOrigin=document.getElementById('dialogOrigin'),dialogBio=document.getElementById('dialogBio'),dialogQuote=document.getElementById('dialogQuote'),dialogAbilities=document.getElementById('dialogAbilities');
+function candidates(n){return['../../assets/howto/'+n,'../../assets/'+n,n]}
+function setImg(img,n){const c=candidates(n);let i=0;img.onerror=()=>{i++;if(i<c.length)img.src=c[i]};img.src=c[0]}
+document.querySelectorAll('[data-fighter-image]').forEach(i=>setImg(i,i.dataset.fighterImage));
+function animateIn(el){if(!el)return;requestAnimationFrame(()=>el.classList.add('mk-in'))}
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){animateIn(e.target);io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.section-head,.roster-card,.profile').forEach(el=>io.observe(el));
+function render(id,hash=true){
+  const f=byId[id]||fighters[0],num=f.number||String(fighters.indexOf(f)+1).padStart(2,'0');
+  cards.forEach(c=>c.classList.toggle('active',c.dataset.fighter===f.id));
+  profileCopy.classList.remove('fade','mk-in');profile.classList.remove('mk-in');
+  setImg(profileImage,f.image);setImg(heroImage,f.image);
+  profileImage.alt='BOXAR\'S EDGE fighter '+f.name;heroImage.alt='BOXAR\'S EDGE fighter '+f.name;
+  profileNumber.textContent='FIGHTER // '+num;profileName.textContent=f.name;
+  profileOrigin.textContent='ORIGIN · '+f.origin;profileBio.textContent=f.bio;profileQuote.textContent='“'+f.quote+'”';
+  abilities.innerHTML=f.abilities.map(([l,v])=>'<div class="ability"><div class="ability-top"><span>'+l+'</span><span>'+v+'</span></div><div class="bar"><i style="--value:'+v+'%"></i></div></div>').join('');
+  requestAnimationFrame(()=>{profile.classList.add('mk-in');profileCopy.classList.add('fade')});
+  if(hash)history.replaceState(null,'','#'+f.id);
+  return f
+}
+function openBio(id,hash=true){
+  const f=render(id,hash),num=f.number||String(fighters.indexOf(f)+1).padStart(2,'0');
+  setImg(dialogImage,f.image);dialogImage.alt='BOXAR\'S EDGE fighter '+f.name;
+  dialogNumber.textContent='FIGHTER // '+num;dialogName.textContent=f.name;
+  dialogOrigin.textContent='ORIGIN · '+f.origin;dialogBio.textContent=f.bio;dialogQuote.textContent='“'+f.quote+'”';
+  dialogAbilities.innerHTML=f.abilities.map(([l,v])=>'<div class="bio-dialog-ability"><div class="bio-dialog-ability-top"><span>'+l+'</span><span>'+v+'</span></div><div class="bio-dialog-bar"><i style="--value:'+v+'%"></i></div></div>').join('');
+  bioDialog.classList.remove('open');void bioDialog.offsetWidth;bioDialog.classList.add('open');
+  bioDialog.setAttribute('aria-hidden','false');document.body.classList.add('bio-open');
+  setTimeout(()=>bioDialogClose.focus(),520)
+}
+function closeBio(){bioDialog.classList.remove('open');bioDialog.setAttribute('aria-hidden','true');document.body.classList.remove('bio-open');if(location.hash&&byId[location.hash.slice(1)])history.replaceState(null,'','#roster')}
+cards.forEach(c=>c.addEventListener('click',()=>openBio(c.dataset.fighter)));
+bioDialogClose.addEventListener('click',closeBio);
+bioDialog.addEventListener('click',e=>{if(e.target===bioDialog)closeBio()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&bioDialog.classList.contains('open'))closeBio()});
+const initial=location.hash.slice(1);
+if(byId[initial])openBio(initial,false);else render('feesa',false);
+window.addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(byId[id])openBio(id,false)});
+</script></body></html>

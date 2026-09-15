@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOXAR'S EDGE — Fight Beyond Limits</title>
+<meta name="description" content="BOXAR'S EDGE — a cinematic boxing experience.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root{
+ --bg:#050505;--panel:#0b0b0b;--ink:#f2f1ed;--muted:#9b9b97;--line:#242424;
+ --blue:#245dff;--white:#f2f1ed;
+ --space:clamp(4rem,7vw,8rem);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",Arial,sans-serif;font-size:16px;line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+::selection{background:#fff;color:#000}
+
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+ opacity:.055;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ mix-blend-mode:screen;
+}
+
+.nav{
+ position:fixed;z-index:50;top:0;left:0;right:0;height:74px;
+ display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+ padding:0 28px;border-bottom:1px solid rgba(255,255,255,.08);
+ background:rgba(5,5,5,.78);backdrop-filter:blur(18px);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.05em;line-height:.82}
+.brand-mark{display:grid;place-items:center;width:32px;height:32px;border:2px solid #fff;font:700 15px Rajdhani;transform:skew(-9deg)}
+.brand-logo{display:block;width:112px;height:44px;object-fit:contain;object-position:left center}
+.footer-logo{display:flex;align-items:center}
+.footer-logo img{display:block;width:150px;height:52px;object-fit:contain;object-position:left center}
+.nav-links{display:flex;gap:34px;font:700 11px Rajdhani;letter-spacing:.16em}
+.nav-links a{opacity:.72;transition:.2s}.nav-links a:hover{opacity:1}
+.nav-cta{justify-self:end;border:1px solid #fff;padding:11px 16px;font:700 11px Rajdhani;letter-spacing:.14em;transition:.25s}
+.nav-cta:hover{background:#fff;color:#050505}
+
+.hero{
+ min-height:100svh;position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+ background:
+ radial-gradient(circle at 75% 35%,rgba(35,91,255,.28),transparent 28%),
+ radial-gradient(circle at 88% 72%,rgba(255,255,255,.07),transparent 22%),
+ #050505;
+}
+.hero-art{
+ position:absolute;inset:0;display:flex;justify-content:flex-end;align-items:stretch;
+ z-index:0;overflow:hidden;
+}
+.hero-art img{
+ width:min(64vw,900px);height:100%;object-fit:cover;object-position:center top;
+ filter:saturate(.88) contrast(1.08) brightness(.78);
+ mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.5) 18%,#000 48%,#000 100%);
+ -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.5) 18%,#000 48%,#000 100%);
+ animation:heroIn 1.3s cubic-bezier(.2,.75,.2,1) both;
+}
+.hero:after{
+ content:"";position:absolute;inset:0;z-index:1;
+ background:
+ linear-gradient(90deg,#050505 0%,rgba(5,5,5,.94) 20%,rgba(5,5,5,.48) 49%,rgba(5,5,5,.08) 78%,rgba(5,5,5,.72) 100%),
+ linear-gradient(0deg,#050505 0%,transparent 25%,transparent 75%,rgba(5,5,5,.55));
+ pointer-events:none;
+}
+.hero-copy{position:absolute;z-index:2;left:7vw;top:50%;transform:translateY(-42%);width:min(700px,62vw);animation:copyIn 1s .15s cubic-bezier(.2,.75,.2,1) both}
+.eyebrow,.kicker{font:700 11px Rajdhani;letter-spacing:.22em;color:#a8a8a4}
+.hero h1,.section h2{font:700 Rajdhani,Impact,sans-serif;letter-spacing:-.055em;line-height:.78;margin:18px 0;text-transform:uppercase}
+.hero h1{font-size:clamp(5rem,11.5vw,11rem)}
+.hero h1 span{display:block}
+.hero h1 span:nth-child(2){padding-left:9vw;color:#d6d5d1}
+.hero h1 span:nth-child(3){padding-left:2vw;-webkit-text-stroke:1px #fff;color:transparent}
+.hero-sub{max-width:560px;color:#b5b5b1;font-size:clamp(1rem,.9rem + .25vw,1.2rem);line-height:1.65;margin:28px 0}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;min-width:220px;padding:16px 17px;border:1px solid rgba(255,255,255,.42);font:700 12px Rajdhani;letter-spacing:.13em;transition:.22s}
+.btn b{font-size:18px;font-weight:500}
+.btn.primary{background:var(--white);color:#050505;border-color:var(--white)}
+.btn.primary:hover{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-3px)}
+.btn.secondary{background:rgba(0,0,0,.2);backdrop-filter:blur(8px)}
+.btn.secondary:hover{border-color:#fff;transform:translateY(-3px)}
+.hero-meta{position:absolute;z-index:3;bottom:27px;left:28px;right:28px;display:flex;justify-content:space-between;color:#777;font:600 10px Rajdhani;letter-spacing:.17em}
+.hero-scroll{position:absolute;z-index:3;right:5vw;bottom:5vw;font:700 27px Rajdhani;transform:skew(-15deg);animation:pulse 1.8s infinite}
+
+.section{padding:var(--space) 7vw;border-bottom:1px solid var(--line)}
+.intro{display:grid;grid-template-columns:.7fr 1.6fr .9fr;gap:7vw;align-items:end}
+.section h2{font-size:clamp(4rem,8vw,8.5rem)}
+.section h2 em{font-style:normal;color:#7e9eff}
+.lead{font-size:clamp(1.05rem,1.35vw,1.35rem);line-height:1.6;color:#b1b1ad;max-width:680px}
+.stat-grid{display:grid;grid-template-columns:1fr;gap:20px;border-left:1px solid var(--line);padding-left:30px}
+.stat-grid div{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:13px}
+.stat-grid strong{font:700 45px Rajdhani}.stat-grid span{font:700 10px Rajdhani;letter-spacing:.16em;color:#888}
+
+.section-head{display:grid;grid-template-columns:1.1fr .9fr;gap:8vw;align-items:end;margin-bottom:55px}
+.section-head p{color:#888;font-size:14px;line-height:1.7;max-width:430px;justify-self:end}
+
+.fighter-grid{
+ display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:clamp(280px,31vw,500px);gap:10px;
+}
+.fighter{
+ position:relative;overflow:hidden;background:#111;border:1px solid #1c1c1c;min-width:0;
+}
+.fighter img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.82) contrast(1.04);transition:transform .65s cubic-bezier(.2,.75,.2,1),filter .4s}
+.fighter:hover img{transform:scale(1.07);filter:saturate(1.08) contrast(1.08)}
+.fighter:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.24),transparent 38%,rgba(0,0,0,.9));pointer-events:none}
+.card-top{position:absolute;z-index:2;top:13px;left:14px;right:14px;display:flex;justify-content:space-between;color:#fff;font:700 9px Rajdhani;letter-spacing:.14em}
+.card-top span:last-child{color:var(--accent)}
+.fighter-name{position:absolute;z-index:2;left:16px;right:16px;bottom:16px}
+.fighter-name small{font:700 9px Rajdhani;letter-spacing:.15em;color:#a5a5a0}
+.fighter-name h3{font:700 clamp(28px,3vw,48px) Rajdhani;letter-spacing:-.03em;line-height:.9;margin:4px 0 0;text-transform:uppercase}
+.card-arrow{position:absolute;z-index:2;right:14px;bottom:16px;font-size:22px;opacity:.55}
+.tall{grid-row:span 2}
+
+.experience{background:#080808}
+.shots{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.shot{position:relative;margin:0;overflow:hidden;border:1px solid #202020;background:#101010}
+.shot:nth-child(1){grid-column:span 7}.shot:nth-child(2){grid-column:span 5}
+.shot:nth-child(3){grid-column:span 5}.shot:nth-child(4){grid-column:span 7}
+.shot:nth-child(5){grid-column:1/-1}
+.shot img{display:block;width:100%;aspect-ratio:16/8.4;object-fit:cover;filter:brightness(.76) saturate(.9);transition:.5s}
+.shot-video{aspect-ratio:auto}
+.shot-video .shot-bg-video{display:block;width:100%;aspect-ratio:16/8.4;object-fit:cover;object-position:center;filter:brightness(.76) saturate(.9);transition:transform .5s,filter .5s}
+.shot-video:hover .shot-bg-video{transform:scale(1.03);filter:brightness(.95) saturate(1)}
+
+.shot:hover img{transform:scale(1.03);filter:brightness(.95) saturate(1)}
+.shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px;display:grid;grid-template-columns:50px 1fr auto;align-items:end;gap:15px;background:linear-gradient(transparent,rgba(0,0,0,.92))}
+.shot figcaption span,.shot figcaption small{font:700 9px Rajdhani;letter-spacing:.15em;color:#a6a6a2}
+.shot figcaption strong{font:700 clamp(25px,3vw,45px) Rajdhani;line-height:.8}
+
+.buy{background:linear-gradient(135deg,#080808,#101010)}
+.buy-grid{display:grid;grid-template-columns:1fr 1fr;min-height:720px;gap:7vw;align-items:center}
+.buy-art{height:680px;position:relative;overflow:hidden;background:#0b0b0b;border:1px solid #222}
+.buy-art img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.92)}
+.buy-art:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,#080808)}
+.buy-label{position:absolute;z-index:2;left:25px;bottom:23px;font:700 10px Rajdhani;letter-spacing:.2em}
+.buy-copy h2{font-size:clamp(4.5rem,8vw,8.8rem)}
+.price-row{display:flex;justify-content:space-between;max-width:580px;border-top:1px solid #333;border-bottom:1px solid #333;padding:17px 0;margin:34px 0 22px;font:700 11px Rajdhani;letter-spacing:.14em}
+.price-row strong{color:#8caaff}
+.online-link{display:inline-block;margin:18px 0 30px;font:700 12px Rajdhani;letter-spacing:.12em;color:#c7c7c3}.online-link span{color:#8caaff;margin-left:10px}
+.platforms{display:flex;gap:10px;flex-wrap:wrap}.platforms span{padding:7px 10px;border:1px solid #2b2b2b;color:#777;font:700 9px Rajdhani;letter-spacing:.13em}
+
+.footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:30px 7vw;color:#6f6f6b;font:700 9px Rajdhani;letter-spacing:.13em}
+.footer-logo{font-size:22px;color:#fff}.footer-logo i{font-style:normal;color:#7f9dff}
+
+@keyframes heroIn{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
+@keyframes copyIn{from{opacity:0;transform:translateY(-35%);filter:blur(7px)}to{opacity:1;transform:translateY(-42%);filter:blur(0)}}
+@keyframes pulse{0%,100%{opacity:.45;transform:skew(-15deg) translateX(0)}50%{opacity:1;transform:skew(-15deg) translateX(7px)}}
+
+@media(max-width:1000px){
+ .nav{grid-template-columns:1fr auto}.nav-links{display:none}
+ .hero-copy{left:6vw;width:78vw}
+ .intro,.buy-grid{grid-template-columns:1fr}
+ .stat-grid{grid-template-columns:repeat(3,1fr);border-left:0;padding-left:0}
+ .fighter-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:360px}
+ .tall{grid-row:span 1}
+ .shots .shot:nth-child(n){grid-column:span 6}.shots .shot:nth-child(5){grid-column:1/-1}
+ .buy-art{height:600px}
+}
+@media(max-width:650px){
+ .nav{height:62px;padding:0 16px}.nav-cta{padding:9px 10px}
+ .brand-logo{width:96px;height:40px}
+ .hero-copy{top:48%;width:88vw}.hero h1{font-size:clamp(4.1rem,19vw,7rem)}
+ .hero h1 span:nth-child(2){padding-left:8vw}
+ .hero-sub{font-size:14px}
+ .actions{display:grid;grid-template-columns:1fr}
+ .btn{width:100%}
+ .hero-meta{left:16px;right:16px}.hero-meta span:nth-child(2){display:none}
+ .section{padding:4.5rem 6vw}
+ .section-head{grid-template-columns:1fr;gap:15px}.section-head p{justify-self:start}
+ .section h2{font-size:clamp(3.8rem,18vw,6.5rem)}
+ .fighter-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:330px}
+ .fighter:nth-child(3n){grid-column:span 2}
+ .shots .shot:nth-child(n){grid-column:1/-1}
+ .shot figcaption{grid-template-columns:30px 1fr}.shot figcaption small{display:none}
+ .buy-art{height:500px}
+ .footer{flex-direction:column;align-items:flex-start}
+ .hero-art img{width:100%;mask-image:linear-gradient(90deg,transparent,#000 60%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 60%)}
+}
+
+
+/* Strict 1.25 mathematical type scale: 12, 15, 18.75, 23.44, 29.30, 36.62, 45.78, 57.22, 71.53px */
+:root{--type--1:.75rem;--type-0:.9375rem;--type-1:1.171875rem;--type-2:1.464844rem;--type-3:1.831055rem;--type-4:2.288818rem;--type-5:2.861023rem;--type-6:3.576279rem;--type-7:4.470348rem;--rhythm:1.5rem;--section-pad:clamp(4.5rem,7vw,7rem)}
+body{line-height:1.5} p{line-height:1.5} .section{padding:var(--section-pad) 7vw}
+
+
+@keyframes howtoFloatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes howtoKeyPop{0%{transform:scale(.92)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes howtoSweep{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+ <a class="brand" href="#top"><img class="brand-logo" src="assets/boxars-edge-logo.png" alt="BOXAR'S EDGE"></a>
+ <nav class="nav-links">
+  <a href="#roster">FIGHTERS</a>
+  <a href="#experience">EXPERIENCE</a>
+   <a href="game/pages/how-to-fight.html">HOW TO FIGHT</a>
+  <a href="#buy">GET THE GAME</a>
+ </nav>
+ <a class="nav-cta" href="https://selar.com/z716273977" target="_blank" rel="noopener noreferrer">PLAY ONLINE</a>
+</header>
+
+<main id="top">
+<section class="hero">
+ <div class="hero-art"><img src="assets/images/characters/protag_full_blue.png" alt="BOXAR'S EDGE protagonist"></div>
+ <div class="hero-copy">
+  <div class="eyebrow">A NEXT-GENERATION BOXING EXPERIENCE</div>
+  <h1 aria-label="FIGHT BEYOND LIMITS.">
+       <span>FIGHT</span>
+       <span>BEYOND</span>
+       <span>LIMITS.</span>
+   </h1>
+  <p class="hero-sub">Step into the ring. Choose your fighter. Master the edge. BOXAR'S EDGE is a cinematic boxing experience where every punch, every round and every decision matters.</p>
+  <div class="actions">
+   <a class="btn primary" href="https://selar.com/z716273977" target="_blank" rel="noopener noreferrer"><span>BUY THE FULL GAME</span><b>↗</b></a>
+   <a class="btn secondary" href="game/pages/how-to-fight.html"><span>HOW TO FIGHT</span><b>↗</b></a>
+  </div>
+ </div>
+ <div class="hero-meta"><span>01 / 04</span><span>BOXING // ACTION // STORY</span><span>SCROLL TO ENTER</span></div>
+ <div class="hero-scroll">///</div>
+</section>
+
+<section class="section intro">
+ <div class="kicker">01 — THE EDGE</div>
+ <div>
+  <h2>BUILT FOR THE<br><em>FIGHTERS.</em></h2>
+  <p class="lead">A hard-hitting world of distinctive fighters, brutal rounds and a training journey that turns a contender into a champion.</p>
+ </div>
+ <div class="stat-grid">
+  <div><strong>15+</strong><span>FIGHTERS</span></div>
+  <div><strong>∞</strong><span>ROUNDS</span></div>
+  <div><strong>01</strong><span>PROTAGONIST</span></div>
+ </div>
+</section>
+
+<section id="roster" class="section">
+ <div class="section-head">
+  <div><div class="kicker">02 — THE ROSTER</div><h2>CHOOSE<br><em>YOUR EDGE.</em></h2></div>
+  <p>Every fighter brings a different silhouette, rhythm and attitude to the ring. Hover a card to reveal their identity.</p>
+ </div>
+
+ <div class="fighter-grid">
+  <article class="fighter tall" style="--accent:#e9e5dd"><img src="assets/images/characters/Tianabolu.png" alt="Tianabolu"><div class="card-top"><span>01</span><span>THE TITAN</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Tife</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter" style="--accent:#1658ff"><img src="assets/images/characters/protag_full_blue.png" alt="Protagonist"><div class="card-top"><span>02</span><span>THE EDGE</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Protagonist</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter tall" style="--accent:#c7d31a"><img src="assets/images/characters/Spaz_black.png" alt="Spaz"><div class="card-top"><span>03</span><span>THE STRIKER</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Spaz</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter" style="--accent:#e2ae1e"><img src="assets/images/characters/Patra.png" alt="Patra"><div class="card-top"><span>04</span><span>THE VANGUARD</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Patra</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter tall" style="--accent:#1854c8"><img src="assets/images/characters/bobby.png" alt="Bobby"><div class="card-top"><span>05</span><span>THE CHAMPION</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Bobby</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter" style="--accent:#ef4c35"><img src="assets/images/characters/Abas.png" alt="Abas"><div class="card-top"><span>06</span><span>THE FORCE</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Abas</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter" style="--accent:#f1b91b"><img src="assets/images/characters/Tomiwa.png" alt="Tomiwa"><div class="card-top"><span>07</span><span>THE SHADOW</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Tomiwa</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter tall" style="--accent:#8b4de8"><img src="assets/images/characters/Fauzia.png" alt="Fauzia"><div class="card-top"><span>08</span><span>THE QUEEN</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Fauzia</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter" style="--accent:#f02f38"><img src="assets/images/characters/Efe.png" alt="Efe"><div class="card-top"><span>09</span><span>THE PHANTOM</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Efe</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter tall" style="--accent:#db3134"><img src="assets/images/characters/Amara.png" alt="Amara"><div class="card-top"><span>10</span><span>THE POWERHOUSE</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Amara</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter" style="--accent:#d44a29"><img src="assets/images/characters/Yassine-select.png" alt="Yassine"><div class="card-top"><span>11</span><span>THE WARRIOR</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Yassine</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter" style="--accent:#3ba75a"><img src="assets/images/characters/Feesa.png" alt="Feesa"><div class="card-top"><span>12</span><span>THE FLASH</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Feesa</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter tall" style="--accent:#d1a328"><img src="assets/images/characters/Sikorsky.png" alt="Sikorsky"><div class="card-top"><span>13</span><span>THE GOLDEN BOY</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Sikorsky</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter" style="--accent:#1770d8"><img src="assets/images/characters/Chidi.png" alt="Chidi"><div class="card-top"><span>14</span><span>THE ORIGINAL</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>Chidi</h3></div><div class="card-arrow">↗</div></article>
+  <article class="fighter tall" style="--accent:#2d76ff"><img src="assets/images/ui/characterselect-mx.png" alt="MX"><div class="card-top"><span>15</span><span>THE ENFORCER</span></div><div class="fighter-name"><small>BOXAR'S EDGE</small><h3>MX</h3></div><div class="card-arrow">↗</div></article>
+ </div>
+</section>
+
+<section id="experience" class="section experience">
+ <div class="section-head">
+  <div><div class="kicker">03 — THE EXPERIENCE</div><h2>TRAIN.<br><em>FIGHT.</em> EVOLVE.</h2></div>
+  <p>From the gym to the arena, every environment is designed to make the fight feel physical, immediate and personal.</p>
+ </div>
+ <div class="shots">
+  <figure class="shot"><img src="assets/In-Fight-mode.png" alt="In Fight mode"><figcaption><span>01</span><strong>IN FIGHT MODE</strong><small>TRAIN / ADAPT / DOMINATE</small></figcaption></figure>
+  <figure class="shot shot-video protagonist-video">
+    <video class="shot-bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="assets/video/protagonistmode.mp4" type="video/mp4">
+    </video>
+    <figcaption><span>02</span><strong>PROTAGONIST MODE</strong><small>EVERY ROUND COUNTS</small></figcaption>
+   </figure>
+  <figure class="shot"><img src="assets/characterselect-mode.png" alt="Character Select"><figcaption><span>03</span><strong>CHARACTER SELECT</strong><small>BUILT FOR IMPACT</small></figcaption></figure>
+  <figure class="shot shot-video">
+    <video class="shot-bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="assets/video/fight_online.mp4" type="video/mp4">
+    </video>
+    <figcaption><span>04</span><strong>HIGH PACED COMBAT</strong><small>NO ROOM TO HIDE</small></figcaption>
+   </figure>
+  <figure class="shot"><img src="assets/gym3.png" alt="Protagonist Mode"><figcaption><span>05</span><strong>PROTAGONIST MODE</strong><small>YOUR JOURNEY STARTS HERE</small></figcaption></figure>
+ </div>
+</section>
+
+<section id="buy" class="section buy">
+ <div class="buy-grid">
+  <div class="buy-art"><img src="assets/images/characters/protag_full_blue.png" alt="Protagonist fighter"><div class="buy-label">THE PROTAGONIST</div></div>
+  <div class="buy-copy">
+   <div class="kicker">04 — ENTER THE RING</div>
+   <h2>THE FULL<br><em>EXPERIENCE.</em></h2>
+   <p class="lead">Own BOXAR'S EDGE and enter the complete fighter roster, training environments and full game experience.</p>
+   <div class="price-row"><span>FULL GAME</span><strong>$15</strong></div>
+   <a class="btn primary purchase" id="buyFullGame" href="https://selar.com/z716273977" target="_blank" rel="noopener noreferrer"><span>BUY THE FULL GAME</span><span class="price">$15</span><b>↗</b></a>
+   <br>
+   <a class="online-link" href="https://selar.com/z716273977" target="_blank" rel="noopener noreferrer">Or play Protagonist Mode online <span>↗</span></a>
+   <div class="platforms"><span>WEB</span><span>PC</span><span>GAMEPAD</span><span>KEYBOARD</span></div>
+  </div>
+ </div>
+</section>
+
+
+</main>
+
+<footer class="footer">
+ <div class="footer-logo"><img src="assets/boxars-edge-logo.png" alt="BOXAR'S EDGE"></div>
+ <div>© 2026 BOXAR'S EDGE. ALL RIGHTS RESERVED.</div>
+ <a href="#top">BACK TO TOP ↑</a>
+</footer>
+
+
+<script>
+(() => {
+  const combatVideos = document.querySelectorAll('.shot-video .shot-bg-video');
+
+  combatVideos.forEach((combatVideo) => {
+    combatVideo.controls = false;
+    combatVideo.muted = true;
+    combatVideo.loop = true;
+    combatVideo.setAttribute('playsinline', '');
+
+    const startCombatVideo = () => {
+      const attempt = combatVideo.play();
+      if (attempt && typeof attempt.catch === 'function') attempt.catch(() => {});
+    };
+
+    combatVideo.addEventListener('ended', () => {
+      combatVideo.currentTime = 0;
+      startCombatVideo();
+    });
+
+    startCombatVideo();
+  });
+})();
+
+(() => {
+  /*
+    BOXAR'S EDGE — Stripe Payment Link
+    Replace the value below with the LIVE $15 Stripe Payment Link.
+    In Stripe, set After payment -> Redirect to:
+      https://YOUR-DOMAIN/purchase-success.html?session_id={CHECKOUT_SESSION_ID}
+
+    The purchase-success page verifies the Checkout Session server-side
+    before exposing the protected UI/package downloads.
+  */
+  const STRIPE_PAYMENT_LINK = 'https://selar.com/z716273977';
+  const buyButton = document.getElementById('buyFullGame');
+
+  if (!buyButton) return;
+
+  buyButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    if (STRIPE_PAYMENT_LINK.includes('PASTE_YOUR_STRIPE_PAYMENT_LINK_HERE')) {
+      alert('Stripe checkout is not connected yet. Add your live $15 Stripe Payment Link.');
+      return;
+    }
+
+    window.location.href = STRIPE_PAYMENT_LINK;
+  });
+
+})();
+</script>
+
+
+</body>
+</html>
